@@ -37,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recycleView;
     Spinner spinnerTheLoai;
     TheLoaiHelper theLoaiHelper;
-    FloatingActionButton floatingActionButton;
+
+    Button buttonThem;
     ChuongTrinhAdapter chuongTrinhAdapter;
     TextView txtTongChuongTrinh;
 
@@ -55,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
                 PackageManager.PERMISSION_GRANTED);
 
         ArrayList<TheLoai> arrayTheLoai= new ArrayList<TheLoai>();
-        floatingActionButton = findViewById(R.id.floatingActionButton);
+
+        buttonThem = findViewById(R.id.buttonThem);
         spinnerTheLoai = (Spinner) findViewById(R.id.spinnerTheLoai);
         ArrayList<String> arrayTenTheLoai = new ArrayList<String>();
         txtTongChuongTrinh = findViewById(R.id.txtTongChuongTrinh);
@@ -133,13 +135,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+
+        buttonThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialogInsert();
             }
 
-            
+
         });
 
 
@@ -213,8 +216,8 @@ public class MainActivity extends AppCompatActivity {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_themchuongtrinh);
 
-        EditText editmaCT = (EditText) dialog.findViewById(R.id.editmaCT);
-        EditText editTenCT = (EditText) dialog.findViewById(R.id.editTenCT);
+        EditText editmaCT = (EditText) dialog.findViewById(R.id.addmaCT);
+        EditText editTenCT = (EditText) dialog.findViewById(R.id.addTenCT);
         Button btnThem = (Button) dialog.findViewById(R.id.btnThem);
         Button btnHuy = (Button) dialog.findViewById(R.id.btnHuy);
 
@@ -293,6 +296,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.dialog_chinhsua_chuongtrinh);
 
         EditText editmaCT = (EditText) dialog.findViewById(R.id.editmaCT);
+        editmaCT.setEnabled(false);
         EditText editTenCT = (EditText) dialog.findViewById(R.id.editTenCT);
         Button btnXacNhan = (Button) dialog.findViewById(R.id.btnXacNhan);
         Button btnXoa = (Button) dialog.findViewById(R.id.btnXoa);

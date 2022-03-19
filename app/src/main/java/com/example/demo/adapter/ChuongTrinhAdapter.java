@@ -42,22 +42,21 @@ public class ChuongTrinhAdapter extends RecyclerView.Adapter<ChuongTrinhViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ChuongTrinhViewHolder holder, int position) {
-        holder.txtName.setText("Chương trình "+ (position+1) + list.get(position).tenCT);
+        holder.txtName.setText("Chương trình " + list.get(position).tenCT);
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                context.dialogUpdate( String.valueOf(list.get(holder.getAdapterPosition()).maCT),
+                        String.valueOf(list.get(holder.getAdapterPosition()).tenCT),
+                        String.valueOf(list.get(holder.getAdapterPosition()).maTL)   );
 
             }
         });
         holder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                context.dialogUpdate( String.valueOf(list.get(holder.getAdapterPosition()).maCT),
-                                        String.valueOf(list.get(holder.getAdapterPosition()).tenCT),
-                                        String.valueOf(list.get(holder.getAdapterPosition()).maTL)   );
-
-                return false;
+                    return false;
             }
         });
     }
