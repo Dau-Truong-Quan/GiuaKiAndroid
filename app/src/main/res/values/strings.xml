@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">demo</string>
+    <string name="select_branch">Chọn thể loại:</string>
+</resources>
