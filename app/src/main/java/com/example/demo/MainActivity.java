@@ -287,4 +287,63 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    public void dialogUpdate(String maCT, String TenCT, String MaTL) {
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_chinhsua_chuongtrinh);
+
+        EditText editmaCT = (EditText) dialog.findViewById(R.id.editmaCT);
+        EditText editTenCT = (EditText) dialog.findViewById(R.id.editTenCT);
+        Button btnXacNhan = (Button) dialog.findViewById(R.id.btnXacNhan);
+        Button btnXoa = (Button) dialog.findViewById(R.id.btnXoa);
+
+        // thêm dữ liệu vào spin
+        Spinner spinnerTheLoaiTam =dialog.findViewById(R.id.spinnerMaTheLoaiChinhSua);
+        Cursor dataTheLoai = theLoaiHelper.GetData("SELECT * FROM TheLoai");
+        ArrayList<TheLoai> arrayTheLoaiTam = new ArrayList<TheLoai>();
+        ArrayList<String> arrayTenTheLoaiTam = new ArrayList<String>();
+        TheLoai theLoaiEdit;
+        while (dataTheLoai.moveToNext()) {
+            theLoaiEdit = new TheLoai(dataTheLoai.getString(0), dataTheLoai.getString(1));
+            arrayTheLoaiTam.add(theLoaiEdit);
+            arrayTenTheLoaiTam.add(theLoaiEdit.getTenTL());
+        }
+        ArrayAdapter arrayAdapterTam = new ArrayAdapter(this, android.R.layout.simple_spinner_item, arrayTenTheLoaiTam);
+        spinnerTheLoaiTam.setAdapter(arrayAdapterTam);
+
+        //set du lieu
+        editmaCT.setText(maCT);
+        editTenCT.setText(TenCT);
+        spinnerTheLoaiTam.setSelection(arrayAdapterTam.getPosition(MaTL));
+
+        //bat su kien nut bam
+        btnXacNhan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String tenCT = String.valueOf(editTenCT.getText());
+                String tenTheLoai = String.valueOf(spinnerTheLoaiTam.getSelectedItem().toString());
+                String maTheLoai = String.valueOf(arrayTheLoaiTam.get(spinnerTheLoaiTam.getSelectedItemPosition()).getMaTl());
+                if (TextUtils.isEmpty(tenCT) || TextUtils.isEmpty(tenTheLoai)) {
+                    Toast.makeText(MainActivity.this, "Nội dung cần sửa chưa được nhập", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                    return;
+                }
+                theLoaiHelper.QueryData("UPDATE ChuongTrinh SET TenCT='" + tenCT + "',MaTl='" + maTheLoai + "' WHERE MaCT='" + maCT + "'");
+                dialog.dismiss();
+                actionGetData();
+            }
+        });
+
+        btnXoa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                theLoaiHelper.QueryData("DELETE FROM ChuongTrinh WHERE MaCT='" + maCT + "'");
+                dialog.dismiss();
+                actionGetData();
+            }
+        });
+
+        dialog.show();
+    }
 }

@@ -53,7 +53,9 @@ public class ChuongTrinhAdapter extends RecyclerView.Adapter<ChuongTrinhViewHold
         holder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                context.dialogUpdate(Integer.parseInt(String.valueOf(list.get(holder.getAdapterPosition()).tenCT)));
+                context.dialogUpdate( String.valueOf(list.get(holder.getAdapterPosition()).maCT),
+                                        String.valueOf(list.get(holder.getAdapterPosition()).tenCT),
+                                        String.valueOf(list.get(holder.getAdapterPosition()).maTL)   );
 
                 return false;
             }
