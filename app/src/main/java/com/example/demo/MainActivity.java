@@ -6,15 +6,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.demo.adapter.ChuongTrinhAdapter;
 import com.example.demo.listener.ChuongTrinhListener;
@@ -203,11 +209,82 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void dialogInsert() {
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_themchuongtrinh);
+
+        EditText editmaCT = (EditText) dialog.findViewById(R.id.editmaCT);
+        EditText editTenCT = (EditText) dialog.findViewById(R.id.editTenCT);
+        Button btnThem = (Button) dialog.findViewById(R.id.btnThem);
+        Button btnHuy = (Button) dialog.findViewById(R.id.btnHuy);
+
+        // thêm dữ liệu vào spin
+        Spinner spinnerTheLoaiTam =dialog.findViewById(R.id.spinnerMaTheLoai);
+        Cursor dataTheLoai = theLoaiHelper.GetData("SELECT * FROM TheLoai");
+        ArrayList<TheLoai> arrayTheLoaiTam = new ArrayList<TheLoai>();
+        ArrayList<String> arrayTenTheLoaiTam = new ArrayList<String>();
+        TheLoai theLoaiEdit;
+        while (dataTheLoai.moveToNext()) {
+            theLoaiEdit = new TheLoai(dataTheLoai.getString(0), dataTheLoai.getString(1));
+            arrayTheLoaiTam.add(theLoaiEdit);
+            arrayTenTheLoaiTam.add(theLoaiEdit.getTenTL());
+        }
+        ArrayAdapter arrayAdapterTam = new ArrayAdapter(this, android.R.layout.simple_spinner_item, arrayTenTheLoaiTam);
+        spinnerTheLoaiTam.setAdapter(arrayAdapterTam);
+
+        // sự kiện thêm chương trình
+        btnThem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String maChuongTrinhMoi =String.valueOf(editmaCT.getText());
+                String tenChuongTrinhMoi = String.valueOf(editTenCT.getText());
+                String maTheLoai = String.valueOf(arrayTheLoaiTam.get(spinnerTheLoaiTam.getSelectedItemPosition()).getMaTl());
+                if (TextUtils.isEmpty(String.valueOf(editTenCT.getText())) || TextUtils.isEmpty(tenChuongTrinhMoi) || TextUtils.isEmpty(maTheLoai)) {
+                    Toast.makeText(MainActivity.this, "Nội dung cần thêm chưa được nhập", Toast.LENGTH_SHORT).show();
+
+                    return;
+                }
+
+                //kiem tra trung
+                Cursor dataChuongTrinh = theLoaiHelper.GetData("SELECT * FROM ChuongTrinh");
+                ArrayList<ChuongTrinh> arrayChuongTrinh = new ArrayList<ChuongTrinh>();
+                ChuongTrinh chuongTrinhTam;
+                while (dataChuongTrinh.moveToNext()) {
+                    chuongTrinhTam = new ChuongTrinh(dataChuongTrinh.getString(0), dataChuongTrinh.getString(1),dataChuongTrinh.getString(2));
+                    arrayChuongTrinh.add(chuongTrinhTam);
+                }
+
+                for (int i = 0; i < arrayChuongTrinh.size(); i++) {
+                    if(maChuongTrinhMoi==arrayChuongTrinh.get(i).getMaCT()){
+                        Toast.makeText(MainActivity.this, "Mã chương trình đã tồn tại bạn ei", Toast.LENGTH_SHORT).show();
+
+                        return;
+                    }
+                }
+
+
+                theLoaiHelper.QueryData("INSERT INTO ChuongTrinh VALUES ('" + maChuongTrinhMoi + "','" + tenChuongTrinhMoi + "', '" + maTheLoai + "')");
+                dialog.dismiss();
+                actionGetData();
+
+            }
+        });
+
+
+
+        btnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+
+        dialog.show();
+
     }
 
 
 
-    public void dialogUpdate(int parseInt) {
 
-    }
 }
