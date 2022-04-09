@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Quản Lý Truyền Hình - Nhóm 10</string>
+    <string name="title_tk">Thống kê</string>
+    <string name="title_tl">Thể loại</string>
+    <string name="title_ct">Chương trình</string>
+    <string name="title_btv">Biên tập viên</string>
+    <string name="select_branch">Chọn thể loại:</string>
+</resources>

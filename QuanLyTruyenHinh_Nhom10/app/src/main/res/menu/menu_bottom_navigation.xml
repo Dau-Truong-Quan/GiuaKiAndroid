@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:id="@+id/menu_thongke" android:title="@string/title_tk" android:icon="@drawable/graph"/>
+<item android:id="@+id/menu_chuongtrinh" android:title="@string/title_ct" android:icon="@drawable/videoplay"/>
+<item android:id="@+id/menu_theloai" android:title="@string/title_tl" android:icon="@drawable/category"/>
+<item android:id="@+id/menu_bientapvien" android:title="@string/title_btv" android:icon="@drawable/people"/>
+</menu>
