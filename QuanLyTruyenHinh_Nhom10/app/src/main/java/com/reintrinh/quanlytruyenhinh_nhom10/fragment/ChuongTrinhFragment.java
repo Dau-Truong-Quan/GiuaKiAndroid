@@ -117,7 +117,7 @@ public class ChuongTrinhFragment extends Fragment {
         spinnerTheLoai = mView.findViewById(R.id.spinnerTheLoai);
         txtTongChuongTrinh = mView.findViewById(R.id.txtTongChuongTrinh);
         recycleView = mView.findViewById(R.id.recycleView);
-        searchView = mView.findViewById(R.id.searchView);
+        searchView = mView.findViewById(R.id.svChuongTrinh);
     }
 
     private void dialogInsert() {
