@@ -12,12 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.reintrinh.quanlytruyenhinh_nhom10.ChuongTrinhActivity;
 import com.reintrinh.quanlytruyenhinh_nhom10.R;
-import com.reintrinh.quanlytruyenhinh_nhom10.ThongTinPhatSongActivity;
-import com.reintrinh.quanlytruyenhinh_nhom10.fragment.ChuongTrinhFragment;
 import com.reintrinh.quanlytruyenhinh_nhom10.fragment.TheLoaiFragment;
-import com.reintrinh.quanlytruyenhinh_nhom10.listener.ChuongTrinhListener;
 import com.reintrinh.quanlytruyenhinh_nhom10.listener.TheLoaiListener;
-import com.reintrinh.quanlytruyenhinh_nhom10.model.ChuongTrinh;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.TheLoai;
 
 import java.util.ArrayList;
@@ -75,6 +71,22 @@ public class TheLoaiAdapter extends RecyclerView.Adapter<TheLoaiViewHolder>{
         return list.size();
     }
 
+    public void filter(String text)
+    {
+        list.clear();
+        text = text.trim().toLowerCase();
+
+        if(text.length() == 0)
+            list.addAll(listSearch);
+        else {
+            for (TheLoai tl : listSearch) {
+                if (tl.getTenTL().toLowerCase().contains(text)) {
+                    list.add(tl);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
 
 }
 

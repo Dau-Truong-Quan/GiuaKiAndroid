@@ -64,6 +64,20 @@ public class TheLoaiFragment extends Fragment {
     }
 
     private void setEvent() {
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                theLoaiAdapter.filter(s);
+                return true;
+            }
+        });
+
         buttonThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         dbHelper.queryData("CREATE TABLE IF NOT EXISTS ChuongTrinh (MaCT VARCHAR(5),TenCT VARCHAR,MaTL VARCHAR(5))");
         dbHelper.queryData("CREATE TABLE IF NOT EXISTS ThongTinPhatSong(MaPS VARCHAR(5),MaCT VARCHAR(5),MaBTV VARCHAR(5),NgayPS VARCHAR, ThoiLuong INTEGER)");
-        dbHelper.queryData("CREATE TABLE IF NOT EXISTS BienTapVien(MaBTV VARCHAR(5), TenBTV VARCHAR,NgaySinh VARCHAR,SDT VARCHAR)");
+        dbHelper.queryData("CREATE TABLE IF NOT EXISTS BienTapVien(MaBTV VARCHAR(5), HoTen VARCHAR, NgaySinh VARCHAR, Sdt VARCHAR)");
 
         //Thêm dữ liệu thể loại
         dbHelper.queryData("delete from TheLoai");
