@@ -7,13 +7,13 @@ public class ThongTinPhatSong {
     private String maPhatSong;
     private ChuongTrinh chuongTrinh;
     private BienTapVien bienTapVien;
-    private Date ngayPhatSong;
+    private String ngayPhatSong;
     private int thoiLuong;
 
     public ThongTinPhatSong() {
     }
 
-    public ThongTinPhatSong(String maPhatSong, ChuongTrinh chuongTrinh, BienTapVien bienTapVien, Date ngayPhatSong, int thoiLuong) {
+    public ThongTinPhatSong(String maPhatSong, ChuongTrinh chuongTrinh, BienTapVien bienTapVien, String ngayPhatSong, int thoiLuong) {
         this.maPhatSong = maPhatSong;
         this.chuongTrinh = chuongTrinh;
         this.bienTapVien = bienTapVien;
@@ -45,11 +45,11 @@ public class ThongTinPhatSong {
         this.bienTapVien = bienTapVien;
     }
 
-    public Date getNgayPhatSong() {
+    public String getNgayPhatSong() {
         return ngayPhatSong;
     }
 
-    public void setNgayPhatSong(Date ngayPhatSong) {
+    public void setNgayPhatSong(String ngayPhatSong) {
         this.ngayPhatSong = ngayPhatSong;
     }
 

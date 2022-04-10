@@ -16,7 +16,24 @@ import java.util.List;
 
 public class ThongTinPhatSongAdapter extends RecyclerView.Adapter<ThongTinPhatSongAdapter.ThongTinPhatSongViewHolder> {
 
+    public interface IClickItemListener {
+        void onClickEditItem(ThongTinPhatSong thongTinPhatSong);
+        void onClickDeleteItem(ThongTinPhatSong thongTinPhatSong);
+    }
+
     private List<ThongTinPhatSong> thongTinPhatSongList;
+    private IClickItemListener iClickItemListener;
+
+    public ThongTinPhatSongAdapter(List<ThongTinPhatSong> thongTinPhatSongList, IClickItemListener iClickItemListener) {
+        this.thongTinPhatSongList = thongTinPhatSongList;
+        this.iClickItemListener = iClickItemListener;
+        notifyDataSetChanged();
+    }
+
+    public void setData(List<ThongTinPhatSong> thongTinPhatSongList) {
+        this.thongTinPhatSongList = thongTinPhatSongList;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
@@ -32,7 +49,20 @@ public class ThongTinPhatSongAdapter extends RecyclerView.Adapter<ThongTinPhatSo
             return;
         }
         holder.tvNgayPS.setText(thongTinPhatSong.getNgayPhatSong().toString());
-//        holder.tvTenBTV.setText(thongTinPhatSong.get);
+        holder.tvTenBTV.setText(thongTinPhatSong.getBienTapVien().getHoTen());
+        holder.tvThoiLuong.setText(thongTinPhatSong.getThoiLuong() + " phút");
+        holder.imgSua.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                iClickItemListener.onClickEditItem(thongTinPhatSong);
+            }
+        });
+        holder.imgXoa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                iClickItemListener.onClickDeleteItem(thongTinPhatSong);
+            }
+        });
     }
 
     @Override
@@ -43,7 +73,7 @@ public class ThongTinPhatSongAdapter extends RecyclerView.Adapter<ThongTinPhatSo
         return 0;
     }
 
-    public class ThongTinPhatSongViewHolder extends RecyclerView.ViewHolder {
+    public static class ThongTinPhatSongViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView imgThongTinPS;
         private TextView tvNgayPS, tvTenBTV, tvThoiLuong;
