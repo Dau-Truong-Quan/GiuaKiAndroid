@@ -81,4 +81,9 @@ public class BienTapVienAdapter extends ArrayAdapter<BienTapVien> {
         }
         notifyDataSetChanged();
     }
+
+    public void updateDataSearch() {
+        dataSearch.clear();
+        dataSearch.addAll(data);
+    }
 }

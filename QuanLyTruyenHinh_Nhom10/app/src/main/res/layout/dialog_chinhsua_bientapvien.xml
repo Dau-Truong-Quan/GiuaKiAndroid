@@ -13,7 +13,7 @@
         android:layout_gravity="center"
         android:layout_margin="8dp"
         android:padding="5dp"
-        android:text="Thêm biên tập viên"
+        android:text="Chỉnh sửa biên tập viên"
         android:background="@drawable/bottom_border"
         android:textSize="20dp"
         android:textStyle="bold" />
@@ -25,10 +25,11 @@
         android:text="Mã biên tập viên" />
 
     <EditText
-        android:id="@+id/addMaBTV"
+        android:id="@+id/editMaBTV"
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_margin="8dp"
+        android:enabled="false"
         android:background="@drawable/img"
         android:padding="5dp" />
 
@@ -39,7 +40,7 @@
         android:text="Họ tên" />
 
     <EditText
-        android:id="@+id/addHoTenBTV"
+        android:id="@+id/editHoTenBTV"
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_margin="8dp"
@@ -60,7 +61,7 @@
         android:gravity="center_vertical" >
 
         <EditText
-            android:id="@+id/addNgaySinhBTV"
+            android:id="@+id/editNgaySinhBTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/img"
@@ -87,7 +88,7 @@
         android:text="Số điện thoại" />
 
     <EditText
-        android:id="@+id/addSdtBTV"
+        android:id="@+id/editSdtBTV"
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_margin="8dp"
@@ -104,13 +105,13 @@
         android:weightSum="2">
 
         <Button
-            android:id="@+id/btnThem"
+            android:id="@+id/btnLuu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
             android:backgroundTint="@color/color_button"
-            android:text="Thêm" />
+            android:text="Lưu" />
 
         <Button
             android:id="@+id/btnHuy"

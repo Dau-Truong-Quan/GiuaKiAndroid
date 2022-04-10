@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
     private void khoiTaoDatabase() {
         //Tao bang
         dbHelper.queryData("CREATE TABLE IF NOT EXISTS TheLoai (MaTl VARCHAR(5), TenTL VARCHAR(100))");
-
         dbHelper.queryData("CREATE TABLE IF NOT EXISTS ChuongTrinh (MaCT VARCHAR(5),TenCT VARCHAR,MaTL VARCHAR(5))");
         dbHelper.queryData("CREATE TABLE IF NOT EXISTS ThongTinPhatSong(MaPS VARCHAR(5),MaCT VARCHAR(5),MaBTV VARCHAR(5),NgayPS VARCHAR, ThoiLuong INTEGER)");
         dbHelper.queryData("CREATE TABLE IF NOT EXISTS BienTapVien(MaBTV VARCHAR(5), HoTen VARCHAR, NgaySinh VARCHAR, Sdt VARCHAR)");
@@ -59,14 +58,16 @@ public class MainActivity extends AppCompatActivity {
         dbHelper.queryData("INSERT INTO TheLoai VALUES ('TL1','Âm nhạc')");
         dbHelper.queryData("INSERT INTO TheLoai VALUES ('TL2','Hài kịch')");
         dbHelper.queryData("INSERT INTO TheLoai VALUES ('TL3','Thời sự')");
+        dbHelper.queryData("INSERT INTO TheLoai VALUES ('TL4','Hoạt hình')");
+        dbHelper.queryData("INSERT INTO TheLoai VALUES ('TL5','Phim truyện')");
 
         //Them du lieu Chuong Trinh
         dbHelper.queryData("delete from ChuongTrinh");
         dbHelper.queryData("INSERT INTO ChuongTrinh VALUES ('CT1','Bí mật đêm khuya', 'TL1')");
-        dbHelper.queryData("INSERT INTO ChuongTrinh VALUES ('CT2','Thách thức danh hài', 'TL1')");
-        dbHelper.queryData("INSERT INTO ChuongTrinh VALUES ('CT3','Gặp nhau để cười', 'TL2')");
-        dbHelper.queryData("INSERT INTO ChuongTrinh VALUES ('CT4','Ai là triệu phú', 'TL2')");
-        dbHelper.queryData("INSERT INTO ChuongTrinh VALUES ('CT5','Khúc vọng xưa', 'TL3')");
+        dbHelper.queryData("INSERT INTO ChuongTrinh VALUES ('CT2','Thách thức danh hài', 'TL2')");
+        dbHelper.queryData("INSERT INTO ChuongTrinh VALUES ('CT3','Gặp nhau để cười', 'TL3')");
+        dbHelper.queryData("INSERT INTO ChuongTrinh VALUES ('CT4','Ai là triệu phú', 'TL4')");
+        dbHelper.queryData("INSERT INTO ChuongTrinh VALUES ('CT5','Khúc vọng xưa', 'TL5')");
 
         //Them du lieu chi tiet Thong Tin Phat Song
         dbHelper.queryData("delete from ThongTinPhatSong");
