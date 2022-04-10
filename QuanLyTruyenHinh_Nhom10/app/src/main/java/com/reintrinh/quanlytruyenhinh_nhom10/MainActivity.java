@@ -47,13 +47,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void khoiTaoDatabase() {
-        //Tao bang
+        //Tạo bảng
         dbHelper.queryData("CREATE TABLE IF NOT EXISTS TheLoai (MaTl VARCHAR(5), TenTL VARCHAR(100))");
         dbHelper.queryData("CREATE TABLE IF NOT EXISTS ChuongTrinh (MaCT VARCHAR(5),TenCT VARCHAR,MaTL VARCHAR(5))");
         dbHelper.queryData("CREATE TABLE IF NOT EXISTS ThongTinPhatSong(MaPS VARCHAR(5),MaCT VARCHAR(5),MaBTV VARCHAR(5),NgayPS VARCHAR, ThoiLuong INTEGER)");
         dbHelper.queryData("CREATE TABLE IF NOT EXISTS BienTapVien(MaBTV VARCHAR(5), HoTen VARCHAR, NgaySinh VARCHAR, Sdt VARCHAR)");
 
-        //Them du lieu
+        //Thêm dữ liệu thể loại
         dbHelper.queryData("delete from TheLoai");
         dbHelper.queryData("INSERT INTO TheLoai VALUES ('TL1','Âm nhạc')");
         dbHelper.queryData("INSERT INTO TheLoai VALUES ('TL2','Hài kịch')");
