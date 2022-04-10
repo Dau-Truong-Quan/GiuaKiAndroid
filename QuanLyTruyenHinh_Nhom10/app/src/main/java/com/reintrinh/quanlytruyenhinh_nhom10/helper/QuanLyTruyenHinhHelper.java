@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 
 import androidx.annotation.Nullable;
 
@@ -105,7 +106,7 @@ public class QuanLyTruyenHinhHelper extends SQLiteOpenHelper {
     }
 
     public List<ThongTinPhatSong> getListThongTinPhatSongByChuongTrinh(ChuongTrinh chuongTrinh) {
-        Cursor cursor = getData(String.format("SELECT * FROM ThongTinPhatSong WHERE MaCT = '%s'", chuongTrinh.getMaCT()));
+        Cursor cursor = getData(String.format("SELECT * FROM ThongTinPhatSong WHERE MaCT = '%s' ORDER BY MaPS", chuongTrinh.getMaCT()));
         if (cursor == null) {
             return null;
         }
@@ -114,7 +115,7 @@ public class QuanLyTruyenHinhHelper extends SQLiteOpenHelper {
         ThongTinPhatSong thongTinPhatSong;
         while (cursor.moveToNext()) {
             thongTinPhatSong = new ThongTinPhatSong(cursor.getString(0), chuongTrinh, getBienTapVienByMaBTV(cursor.getString(2)),
-                    cursor.getString(3), cursor.getInt(4));
+                    cursor.getString(3), cursor.getInt(4), cursor.getBlob(5));
             list.add(thongTinPhatSong);
         }
         return list;
@@ -124,8 +125,51 @@ public class QuanLyTruyenHinhHelper extends SQLiteOpenHelper {
         if (thongTinPhatSong == null) {
             return;
         }
-        queryData(String.format("INSERT INTO ThongTinPhatSong VALUES ('%s','%s', '%s', '%s', %d)",
-                thongTinPhatSong.getMaPhatSong(), thongTinPhatSong.getChuongTrinh().getMaCT(), thongTinPhatSong.getBienTapVien().getMaBTV(),
-                thongTinPhatSong.getNgayPhatSong(), thongTinPhatSong.getThoiLuong()));
+        SQLiteDatabase database = getWritableDatabase();
+        String sql = "INSERT INTO ThongTinPhatSong VALUES (?,?,?,?,?,?)";
+        SQLiteStatement statement = database.compileStatement(sql);
+        statement.clearBindings();
+        statement.bindString(1, thongTinPhatSong.getMaPhatSong());
+        statement.bindString(2, thongTinPhatSong.getChuongTrinh().getMaCT());
+        statement.bindString(3, thongTinPhatSong.getBienTapVien().getMaBTV());
+        statement.bindString(4, thongTinPhatSong.getNgayPhatSong());
+        statement.bindLong(5, thongTinPhatSong.getThoiLuong());
+        statement.bindBlob(6, thongTinPhatSong.getHinhAnh());
+        statement.executeInsert();
+    }
+
+    public void suaThongTinPhatSong(ThongTinPhatSong thongTinPhatSong) {
+        if (thongTinPhatSong == null) {
+            return;
+        }
+        SQLiteDatabase database = getWritableDatabase();
+        String sql = "UPDATE ThongTinPhatSong SET MaCT = ?, MaBTV = ?, NgayPS = ?, ThoiLuong = ?, HinhAnh = ? WHERE MaPS = ?";
+        SQLiteStatement statement = database.compileStatement(sql);
+        statement.clearBindings();
+        statement.bindString(1, thongTinPhatSong.getChuongTrinh().getMaCT());
+        statement.bindString(2, thongTinPhatSong.getBienTapVien().getMaBTV());
+        statement.bindString(3, thongTinPhatSong.getNgayPhatSong());
+        statement.bindLong(4, thongTinPhatSong.getThoiLuong());
+        statement.bindBlob(5, thongTinPhatSong.getHinhAnh());
+        statement.bindString(6, thongTinPhatSong.getMaPhatSong());
+        statement.execute();
+    }
+
+    public void xoaThongTinPhatSong(String maPS) {
+        queryData(String.format("DELETE FROM ThongTinPhatSong WHERE MaPS = '%s'", maPS));
+    }
+
+    // ---------------------- Khác -------------------------
+    public boolean hasData(String tableName) {
+        String sql = "SELECT * from %s";
+        Cursor cursor = getData(String.format(sql, tableName));
+        if (cursor == null) {
+            return false;
+        }
+
+        if (cursor.moveToNext()) {
+            return true;
+        }
+        return false;
     }
 }

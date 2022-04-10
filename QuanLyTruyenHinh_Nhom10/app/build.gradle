@@ -39,4 +39,10 @@ dependencies {
 
     // Palette
     implementation 'androidx.palette:palette:1.0.0'
+
+    // TedPermission
+    implementation 'io.github.ParkSangGwon:tedpermission-normal:3.3.0'
+
+    // ImagePicker
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
 }

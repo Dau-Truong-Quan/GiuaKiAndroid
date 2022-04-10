@@ -1,5 +1,7 @@
 package com.reintrinh.quanlytruyenhinh_nhom10.adapter;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +50,9 @@ public class ThongTinPhatSongAdapter extends RecyclerView.Adapter<ThongTinPhatSo
         if (thongTinPhatSong == null) {
             return;
         }
+        byte[] hinhAnh = thongTinPhatSong.getHinhAnh();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(hinhAnh, 0, hinhAnh.length);
+        holder.imgThongTinPS.setImageBitmap(bitmap);
         holder.tvNgayPS.setText(thongTinPhatSong.getNgayPhatSong().toString());
         holder.tvTenBTV.setText(thongTinPhatSong.getBienTapVien().getHoTen());
         holder.tvThoiLuong.setText(thongTinPhatSong.getThoiLuong() + " phút");

@@ -9,16 +9,18 @@ public class ThongTinPhatSong {
     private BienTapVien bienTapVien;
     private String ngayPhatSong;
     private int thoiLuong;
+    private byte[] hinhAnh;
 
     public ThongTinPhatSong() {
     }
 
-    public ThongTinPhatSong(String maPhatSong, ChuongTrinh chuongTrinh, BienTapVien bienTapVien, String ngayPhatSong, int thoiLuong) {
+    public ThongTinPhatSong(String maPhatSong, ChuongTrinh chuongTrinh, BienTapVien bienTapVien, String ngayPhatSong, int thoiLuong, byte[] hinhAnh) {
         this.maPhatSong = maPhatSong;
         this.chuongTrinh = chuongTrinh;
         this.bienTapVien = bienTapVien;
         this.ngayPhatSong = ngayPhatSong;
         this.thoiLuong = thoiLuong;
+        this.hinhAnh = hinhAnh;
     }
 
     public String getMaPhatSong() {
@@ -59,5 +61,13 @@ public class ThongTinPhatSong {
 
     public void setThoiLuong(int thoiLuong) {
         this.thoiLuong = thoiLuong;
+    }
+
+    public byte[] getHinhAnh() {
+        return hinhAnh;
+    }
+
+    public void setHinhAnh(byte[] hinhAnh) {
+        this.hinhAnh = hinhAnh;
     }
 }

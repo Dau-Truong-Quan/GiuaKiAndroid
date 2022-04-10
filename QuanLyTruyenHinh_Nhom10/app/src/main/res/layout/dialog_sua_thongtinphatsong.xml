@@ -20,7 +20,7 @@
             android:layout_gravity="center"
             android:layout_margin="8dp"
             android:padding="5dp"
-            android:text="THÊM THÔNG TIN PHÁT SÓNG"
+            android:text="SỬA THÔNG TIN PHÁT SÓNG"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -150,13 +150,13 @@
             android:weightSum="2">
 
             <Button
-                android:id="@+id/btnThem"
+                android:id="@+id/btnSua"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/color_button"
-                android:text="Thêm" />
+                android:text="Sửa" />
 
             <Button
                 android:id="@+id/btnHuy"
