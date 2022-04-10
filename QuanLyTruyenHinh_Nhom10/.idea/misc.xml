@@ -3,6 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/PhatTrienUngDungChoCacThietBiDiDong/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/activity_thong_tin_phat_song.xml" value="0.27291666666666664" />
+        <entry key="..\:/PhatTrienUngDungChoCacThietBiDiDong/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/dialog_chinhsua_chuongtrinh.xml" value="0.13247213779128672" />
+        <entry key="..\:/PhatTrienUngDungChoCacThietBiDiDong/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/dialog_chinhsua_theloai.xml" value="0.13247213779128672" />
+        <entry key="..\:/PhatTrienUngDungChoCacThietBiDiDong/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/dialog_themchuongtrinh.xml" value="0.1" />
+        <entry key="..\:/PhatTrienUngDungChoCacThietBiDiDong/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/dialog_themtheloai.xml" value="0.1" />
+        <entry key="..\:/PhatTrienUngDungChoCacThietBiDiDong/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/fragment_bien_tap_vien.xml" value="0.27291666666666664" />
+        <entry key="..\:/PhatTrienUngDungChoCacThietBiDiDong/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/fragment_chuong_trinh.xml" value="0.20984455958549222" />
+        <entry key="..\:/PhatTrienUngDungChoCacThietBiDiDong/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/fragment_tab1.xml" value="0.27291666666666664" />
+        <entry key="..\:/PhatTrienUngDungChoCacThietBiDiDong/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/fragment_the_loai.xml" value="0.27291666666666664" />
+        <entry key="..\:/PhatTrienUngDungChoCacThietBiDiDong/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/list_layout_chuongtrinh.xml" value="0.19202898550724637" />
+        <entry key="..\:/PhatTrienUngDungChoCacThietBiDiDong/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/list_layout_theloai.xml" value="0.19202898550724637" />
+        <entry key="..\:/PhatTrienUngDungChoCacThietBiDiDong/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/TRINH/AndroidStudioProjects/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/TRINH/AndroidStudioProjects/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/activity_main2.xml" value="0.17844202898550723" />
         <entry key="..\:/Users/TRINH/AndroidStudioProjects/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/activity_thong_tin_phat_song.xml" value="0.17844202898550723" />
