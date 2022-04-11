@@ -21,14 +21,9 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.reintrinh.quanlytruyenhinh_nhom10.fragment.ViewPagerAdapter;
 import com.reintrinh.quanlytruyenhinh_nhom10.helper.QuanLyTruyenHinhHelper;
-import com.reintrinh.quanlytruyenhinh_nhom10.model.BienTapVien;
-import com.reintrinh.quanlytruyenhinh_nhom10.model.ChuongTrinh;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.TheLoai;
-import com.reintrinh.quanlytruyenhinh_nhom10.model.ThongTinPhatSong;
-import com.reintrinh.quanlytruyenhinh_nhom10.util.ImageUtil;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -55,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
         //Tạo bảng
         dbHelper.queryData("CREATE TABLE IF NOT EXISTS TheLoai (MaTl VARCHAR(5), TenTL VARCHAR(100))");
         dbHelper.queryData("CREATE TABLE IF NOT EXISTS ChuongTrinh (MaCT VARCHAR(5),TenCT VARCHAR,MaTL VARCHAR(5))");
-        dbHelper.queryData("CREATE TABLE IF NOT EXISTS BienTapVien(MaBTV VARCHAR(5), TenBTV VARCHAR,NgaySinh VARCHAR,SDT VARCHAR)");
-        dbHelper.queryData("CREATE TABLE IF NOT EXISTS ThongTinPhatSong(MaPS VARCHAR(5),MaCT VARCHAR(5),MaBTV VARCHAR(5),NgayPS VARCHAR, ThoiLuong INTEGER, HinhAnh BLOB)");
+        dbHelper.queryData("CREATE TABLE IF NOT EXISTS ThongTinPhatSong(MaPS VARCHAR(5),MaCT VARCHAR(5),MaBTV VARCHAR(5),NgayPS VARCHAR, ThoiLuong INTEGER)");
+        dbHelper.queryData("CREATE TABLE IF NOT EXISTS BienTapVien(MaBTV VARCHAR(5), HoTen VARCHAR, NgaySinh VARCHAR, Sdt VARCHAR)");
 
         //Thêm dữ liệu thể loại
         dbHelper.queryData("delete from TheLoai");
@@ -74,92 +69,27 @@ public class MainActivity extends AppCompatActivity {
         dbHelper.queryData("INSERT INTO ChuongTrinh VALUES ('CT4','Ai là triệu phú', 'TL4')");
         dbHelper.queryData("INSERT INTO ChuongTrinh VALUES ('CT5','Khúc vọng xưa', 'TL5')");
 
+        //Them du lieu chi tiet Thong Tin Phat Song
+        dbHelper.queryData("delete from ThongTinPhatSong");
+        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('1','CT1', 'BTV1', '22/02/2000', '1')");
+        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('1','CT1', 'BTV1', '22/02/2000', '2')");
+        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('1','CT1', 'BTV1', '22/02/2000', '3')");
+        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('2','CT2', 'BTV2', '22/02/2000', '4')");
+        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('3','CT2', 'BTV2', '22/02/2000', '5')");
+        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('3','CT2', 'BTV2', '22/02/2000', '6')");
+        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('4','CT3', 'BTV2', '22/02/2000', '7')");
+        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('4','CT3', 'BTV2', '22/02/2000', '8')");
+        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('5','CT5', 'BTV3', '22/02/2000', '9')");
+        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('5','CT5', 'BTV3', '22/02/2000', '10')");
+
         //Them du lieu Bien Tap Vien
         dbHelper.queryData("delete from BienTapVien");
         dbHelper.queryData("INSERT INTO BienTapVien VALUES ('BTV1','Đậu Trường Quân', '22/02/2000', '0935856530')");
         dbHelper.queryData("INSERT INTO BienTapVien VALUES ('BTV2','Nguyễn Ngọc Phương Trinh', '22/02/2000', '0935856530')");
-        dbHelper.queryData("INSERT INTO BienTapVien VALUES ('BTV3','Phạm Đức Phú Phúc', '07/05/2000', '0935856530')");
-        dbHelper.queryData("INSERT INTO BienTapVien VALUES ('BTV4','Hà Thị Mơ', '22/02/2000', '0935856530')");
-        dbHelper.queryData("INSERT INTO BienTapVien VALUES ('BTV5','Trung Đỗ Nguyên', '22/02/2000', '0935856530')");
-        dbHelper.queryData("INSERT INTO BienTapVien VALUES ('BTV6','Nguyễn Hữu Nhân', '22/02/2000', '0935856530')");
-        dbHelper.queryData("INSERT INTO BienTapVien VALUES ('BTV7','Trần Ngọc Sang', '22/02/2000', '0935856530')");
-
-        //Them du lieu chi tiet Thong Tin Phat Song
-        // Thể loại
-        TheLoai theLoai1 = new TheLoai("TL1", "Âm nhạc");
-        TheLoai theLoai2 = new TheLoai("TL2", "Hài kịch");
-        TheLoai theLoai3 = new TheLoai("TL3", "Thời sự");
-
-        // Chương trình
-        ChuongTrinh chuongTrinh1 = new ChuongTrinh("CT1", "Bí mật đêm khuya", "TL1");
-        ChuongTrinh chuongTrinh2 = new ChuongTrinh("CT2", "Thách thức danh hài", "TL1");
-        ChuongTrinh chuongTrinh3 = new ChuongTrinh("CT3", "Gặp nhau để cười", "TL2");
-        ChuongTrinh chuongTrinh4 = new ChuongTrinh("CT4", "Ai là triệu phú", "TL2");
-        ChuongTrinh chuongTrinh5 = new ChuongTrinh("CT5", "Khúc vọng xưa", "TL3");
-
-        // Biên tập viên
-        BienTapVien bienTapVien1 = new BienTapVien("BTV1", "Đậu Trường Quân", "22/02/2000", "0935856530");
-        BienTapVien bienTapVien2 = new BienTapVien("BTV2", "Nguyễn Ngọc Phương Trinh", "22/02/2000", "0935856530");
-        BienTapVien bienTapVien3 = new BienTapVien("BTV3", "Phạm Đức Phú Phúc", "07/05/2000", "0935856530");
-        BienTapVien bienTapVien4 = new BienTapVien("BTV4", "Hà Thị Mơ", "22/02/2000", "0935856530");
-        BienTapVien bienTapVien5 = new BienTapVien("BTV5", "Trung Đỗ Nguyên", "22/02/2000", "0935856530");
-        BienTapVien bienTapVien6 = new BienTapVien("BTV7", "Nguyễn Hữu Nhân", "22/02/2000", "0935856530");
-        BienTapVien bienTapVien7 = new BienTapVien("BTV6", "Trần Ngọc Sang", "22/02/2000", "0935856530");
-
-        // Thông tin phát sóng
-
-//        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('01','CT1', 'BTV1', '22/02/2000', '1')");
-//        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('02','CT1', 'BTV1', '22/02/2000', '2')");
-//        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('03','CT1', 'BTV1', '22/02/2000', '3')");
-//        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('04','CT2', 'BTV2', '22/02/2000', '4')");
-//        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('05','CT2', 'BTV2', '22/02/2000', '5')");
-//        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('06','CT2', 'BTV2', '22/02/2000', '6')");
-//        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('07','CT3', 'BTV2', '22/02/2000', '7')");
-//        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('08','CT3', 'BTV2', '22/02/2000', '8')");
-//        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('09','CT5', 'BTV3', '22/02/2000', '9')");
-//        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('10','CT5', 'BTV3', '22/02/2000', '10')");
-        if (!dbHelper.hasData("ThongTinPhatSong")) {
-            ThongTinPhatSong thongTinPhatSong1 =
-                    new ThongTinPhatSong("01", chuongTrinh1, bienTapVien1, "14/02/2022", 20,
-                            ImageUtil.getByteArrayFromImageResource(this, R.drawable.avata_chuongtrinh));
-            ThongTinPhatSong thongTinPhatSong2 =
-                    new ThongTinPhatSong("02", chuongTrinh1, bienTapVien2, "15/02/2022", 20,
-                            ImageUtil.getByteArrayFromImageResource(this, R.drawable.avata_chuongtrinh));
-            ThongTinPhatSong thongTinPhatSong3 =
-                    new ThongTinPhatSong("03", chuongTrinh1, bienTapVien3, "21/02/2022", 20,
-                            ImageUtil.getByteArrayFromImageResource(this, R.drawable.avata_chuongtrinh));
-            ThongTinPhatSong thongTinPhatSong4 =
-                    new ThongTinPhatSong("04", chuongTrinh1, bienTapVien4, "22/02/2022", 20,
-                            ImageUtil.getByteArrayFromImageResource(this, R.drawable.avata_chuongtrinh));
-            ThongTinPhatSong thongTinPhatSong5 =
-                    new ThongTinPhatSong("05", chuongTrinh2, bienTapVien1, "14/02/2022", 45,
-                            ImageUtil.getByteArrayFromImageResource(this, R.drawable.avata_chuongtrinh));
-            ThongTinPhatSong thongTinPhatSong6 =
-                    new ThongTinPhatSong("06", chuongTrinh2, bienTapVien3, "21/02/2022", 45,
-                            ImageUtil.getByteArrayFromImageResource(this, R.drawable.avata_chuongtrinh));
-            ThongTinPhatSong thongTinPhatSong7 =
-                    new ThongTinPhatSong("07", chuongTrinh2, bienTapVien2, "28/02/2022", 45,
-                            ImageUtil.getByteArrayFromImageResource(this, R.drawable.avata_chuongtrinh));
-            ThongTinPhatSong thongTinPhatSong8 =
-                    new ThongTinPhatSong("08", chuongTrinh3, bienTapVien5, "01/03/2022", 30,
-                            ImageUtil.getByteArrayFromImageResource(this, R.drawable.avata_chuongtrinh));
-            ThongTinPhatSong thongTinPhatSong9 =
-                    new ThongTinPhatSong("09", chuongTrinh3, bienTapVien6, "08/03/2022", 30,
-                            ImageUtil.getByteArrayFromImageResource(this, R.drawable.avata_chuongtrinh));
-            ThongTinPhatSong thongTinPhatSong10 =
-                    new ThongTinPhatSong("10", chuongTrinh5, bienTapVien7, "10/03/2022", 25,
-                            ImageUtil.getByteArrayFromImageResource(this, R.drawable.avata_chuongtrinh));
-            dbHelper.themThongTinPhatSong(thongTinPhatSong1);
-            dbHelper.themThongTinPhatSong(thongTinPhatSong2);
-            dbHelper.themThongTinPhatSong(thongTinPhatSong3);
-            dbHelper.themThongTinPhatSong(thongTinPhatSong4);
-            dbHelper.themThongTinPhatSong(thongTinPhatSong5);
-            dbHelper.themThongTinPhatSong(thongTinPhatSong6);
-            dbHelper.themThongTinPhatSong(thongTinPhatSong7);
-            dbHelper.themThongTinPhatSong(thongTinPhatSong8);
-            dbHelper.themThongTinPhatSong(thongTinPhatSong9);
-            dbHelper.themThongTinPhatSong(thongTinPhatSong10);
-        }
+        dbHelper.queryData("INSERT INTO BienTapVien VALUES ('BTV3','Trung Đỗ Nguyên', '22/02/2000', '0935856530')");
+        dbHelper.queryData("INSERT INTO BienTapVien VALUES ('BTV4','Nguyễn Hữu Nhân', '22/02/2000', '0935856530')");
+        dbHelper.queryData("INSERT INTO BienTapVien VALUES ('BTV5','Trần Ngọc Sang', '22/02/2000', '0935856530')");
+        
     }
 
 
@@ -220,4 +150,5 @@ public class MainActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.view_pager);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
     }
+
 }

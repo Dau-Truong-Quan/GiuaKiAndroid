@@ -1,7 +1,6 @@
 package com.reintrinh.quanlytruyenhinh_nhom10.adapter;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,16 +47,12 @@ public class ChuongTrinhAdapter extends RecyclerView.Adapter<ChuongTrinhViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ChuongTrinhViewHolder holder, int position) {
-        ChuongTrinh chuongTrinh = list.get(position);
-        holder.txtName.setText("Chương trình " + chuongTrinh.tenCT);
+        holder.txtName.setText("Chương trình " + list.get(position).tenCT);
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context.getContext(), ThongTinPhatSongActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(context.getString(R.string.key_program), chuongTrinh);
-                intent.putExtras(bundle);
                 context.startActivity(intent);
             }
         });
