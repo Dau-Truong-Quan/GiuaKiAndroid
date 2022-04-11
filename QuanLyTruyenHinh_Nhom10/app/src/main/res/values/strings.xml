@@ -5,4 +5,5 @@
     <string name="title_ct">Chương trình</string>
     <string name="title_btv">Biên tập viên</string>
     <string name="select_branch">Chọn thể loại:</string>
+    <string name="key_program">chuong_trinh</string>
 </resources>
