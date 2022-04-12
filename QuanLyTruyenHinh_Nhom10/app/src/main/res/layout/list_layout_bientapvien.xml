@@ -8,8 +8,9 @@
 
     <ImageView
         android:id="@+id/ivIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"
         android:background="@drawable/border_img_color"
         android:src="@drawable/ic_baseline_person_outline_24"/>
 

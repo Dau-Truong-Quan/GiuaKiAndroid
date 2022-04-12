@@ -16,6 +16,7 @@
         android:orientation="horizontal"
         android:weightSum="10">
         <ImageView
+            android:id="@+id/ivHinhAnhCT"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="8dp"

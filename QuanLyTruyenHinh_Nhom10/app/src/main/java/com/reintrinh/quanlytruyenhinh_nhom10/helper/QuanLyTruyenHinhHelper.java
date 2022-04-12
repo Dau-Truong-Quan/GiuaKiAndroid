@@ -57,9 +57,89 @@ public class QuanLyTruyenHinhHelper extends SQLiteOpenHelper {
         }
 
         if (cursor.moveToNext()) {
-            return new TheLoai(cursor.getString(0), cursor.getString(1));
+            return new TheLoai(cursor.getString(0), cursor.getString(1), cursor.getBlob(2));
         }
         return null;
+    }
+
+    public void themTheLoai(TheLoai theLoai) {
+        if (theLoai == null) {
+            return;
+        }
+        SQLiteDatabase database = getWritableDatabase();
+        String sql = "INSERT INTO TheLoai VALUES (?,?,?)";
+        SQLiteStatement statement = database.compileStatement(sql);
+        statement.clearBindings();
+        statement.bindString(1, theLoai.getMaTL());
+        statement.bindString(2, theLoai.getTenTL());
+        statement.bindBlob(3, theLoai.getHinhAnh());
+        statement.executeInsert();
+    }
+
+    public void suaTheLoai(TheLoai theLoai) {
+        if (theLoai == null) {
+            return;
+        }
+        SQLiteDatabase database = getWritableDatabase();
+        String sql = "UPDATE TheLoai SET TenTL = ?, HinhAnh = ? WHERE MaTL = ?";
+        SQLiteStatement statement = database.compileStatement(sql);
+        statement.clearBindings();
+        statement.bindString(1, theLoai.getTenTL());
+        statement.bindBlob(2, theLoai.getHinhAnh());
+        statement.bindString(3, theLoai.getMaTL());
+        statement.execute();
+    }
+
+    public void xoaTheLoai(String maTL) {
+        queryData(String.format("DELETE FROM TheLoai WHERE MaTL = '%s'", maTL));
+    }
+
+    // ---------------------- Chương trình -------------------------
+
+    public ChuongTrinh getChuongTrinhByMaCT(String maCT) {
+        Cursor cursor = getData(String.format("SELECT * FROM ChuongTrinh WHERE MaCT = '%s'", maCT));
+        if (cursor == null) {
+            return null;
+        }
+
+        if (cursor.moveToNext()) {
+            return new ChuongTrinh(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getBlob(3));
+        }
+        return null;
+    }
+
+    public void themChuongTrinh(ChuongTrinh chuongTrinh) {
+        if (chuongTrinh == null) {
+            return;
+        }
+        SQLiteDatabase database = getWritableDatabase();
+        String sql = "INSERT INTO ChuongTrinh VALUES (?,?,?,?)";
+        SQLiteStatement statement = database.compileStatement(sql);
+        statement.clearBindings();
+        statement.bindString(1, chuongTrinh.getMaCT());
+        statement.bindString(2, chuongTrinh.getTenCT());
+        statement.bindString(3, chuongTrinh.getMaTL());
+        statement.bindBlob(4, chuongTrinh.getHinhAnh());
+        statement.executeInsert();
+    }
+
+    public void suaChuongTrinh(ChuongTrinh chuongTrinh) {
+        if (chuongTrinh == null) {
+            return;
+        }
+        SQLiteDatabase database = getWritableDatabase();
+        String sql = "UPDATE ChuongTrinh SET TenCT = ?, MaTL = ?, HinhAnh = ? WHERE MaCT = ?";
+        SQLiteStatement statement = database.compileStatement(sql);
+        statement.clearBindings();
+        statement.bindString(1, chuongTrinh.getTenCT());
+        statement.bindString(2, chuongTrinh.getMaTL());
+        statement.bindBlob(3, chuongTrinh.getHinhAnh());
+        statement.bindString(4, chuongTrinh.getMaCT());
+        statement.execute();
+    }
+
+    public void xoaChuongTrinh(String maCT) {
+        queryData(String.format("DELETE FROM ChuongTrinh WHERE MaCT = '%s'", maCT));
     }
 
     // ---------------------- Biên tập viên -------------------------
@@ -71,13 +151,13 @@ public class QuanLyTruyenHinhHelper extends SQLiteOpenHelper {
         }
 
         if (cursor.moveToNext()) {
-            return new BienTapVien(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
+            return new BienTapVien(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getBlob(4));
         }
         return null;
     }
 
     public List<BienTapVien> getAllBienTapVien() {
-        Cursor cursor = getData("SELECT * FROM BienTapVien");
+        Cursor cursor = getData("SELECT * FROM BienTapVien ORDER BY MaBTV");
         if (cursor == null) {
             return null;
         }
@@ -85,10 +165,46 @@ public class QuanLyTruyenHinhHelper extends SQLiteOpenHelper {
         List<BienTapVien> list = new ArrayList<>();
         BienTapVien bienTapVien;
         while (cursor.moveToNext()) {
-            bienTapVien = new BienTapVien(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
+            bienTapVien = new BienTapVien(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getBlob(4));
             list.add(bienTapVien);
         }
         return list;
+    }
+
+    public void themBienTapVien(BienTapVien bienTapVien) {
+        if (bienTapVien == null) {
+            return;
+        }
+        SQLiteDatabase database = getWritableDatabase();
+        String sql = "INSERT INTO BienTapVien VALUES (?,?,?,?,?)";
+        SQLiteStatement statement = database.compileStatement(sql);
+        statement.clearBindings();
+        statement.bindString(1, bienTapVien.getMaBTV());
+        statement.bindString(2, bienTapVien.getHoTen());
+        statement.bindString(3, bienTapVien.getNgaySinh());
+        statement.bindString(4, bienTapVien.getSdt());
+        statement.bindBlob(5, bienTapVien.getHinhAnh());
+        statement.executeInsert();
+    }
+
+    public void suaBienTapVien(BienTapVien bienTapVien) {
+        if (bienTapVien == null) {
+            return;
+        }
+        SQLiteDatabase database = getWritableDatabase();
+        String sql = "UPDATE BienTapVien SET HoTen = ?, NgaySinh = ?, Sdt = ?, HinhAnh = ? WHERE MaBTV = ?";
+        SQLiteStatement statement = database.compileStatement(sql);
+        statement.clearBindings();
+        statement.bindString(1, bienTapVien.getHoTen());
+        statement.bindString(2, bienTapVien.getNgaySinh());
+        statement.bindString(3, bienTapVien.getSdt());
+        statement.bindBlob(4, bienTapVien.getHinhAnh());
+        statement.bindString(5, bienTapVien.getMaBTV());
+        statement.execute();
+    }
+
+    public void xoaBienTapVien(String maBTV) {
+        queryData(String.format("DELETE FROM BienTapVien WHERE MaBTV = '%s'", maBTV));
     }
 
     // ---------------------- Thông tin phát sóng -------------------------

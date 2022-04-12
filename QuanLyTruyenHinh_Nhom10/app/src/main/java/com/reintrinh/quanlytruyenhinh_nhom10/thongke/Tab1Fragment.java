@@ -51,13 +51,20 @@ public class Tab1Fragment extends Fragment {
         ArrayList<BarEntry> barEntries = new ArrayList<>();
 
         BarEntry barEntry;
+
         for (int i = 0; i < data.size(); i++) {
+            //Chỉ lấy 5 item đầu
+            if(i >= 5)
+                break;
             barEntry = new BarEntry(i, data.get(i).getValue());
             barEntries.add(barEntry);
         }
 
         ArrayList<String> labels = new ArrayList<String>();
         for (int i = 0; i < data.size(); i++) {
+            //Chỉ lấy 5 item đầu
+            if(i >= 5)
+                break;
             labels.add(data.get(i).getLabel());
         }
 
@@ -89,7 +96,8 @@ public class Tab1Fragment extends Fragment {
         String sql = "SELECT tl.TenTL, SUM(tt.ThoiLuong) ThoiLuongPhatSong\n" +
                     "FROM ThongTinPhatSong tt INNER JOIN ChuongTrinh ct INNER JOIN TheLoai tl\n" +
                     "ON tt.MaCT = ct.MaCT and ct.MaTL = tl.MaTL\n" +
-                    "GROUP BY tl.TenTL";
+                    "GROUP BY tl.TenTL\n" +
+                    "ORDER BY ThoiLuongPhatSong DESC";
         Cursor cursor = db.getData(sql);
 
         ThongKe tk;

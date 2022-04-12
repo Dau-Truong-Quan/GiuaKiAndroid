@@ -119,12 +119,12 @@ public class TheLoaiFragment extends Fragment {
                 ArrayList<TheLoai> arrayTheLoai = new ArrayList<TheLoai>();
                 TheLoai theLoaiTam;
                 while (dataTheLoai.moveToNext()) {
-                    theLoaiTam = new TheLoai(dataTheLoai.getString(0), dataTheLoai.getString(1));
+                    theLoaiTam = new TheLoai(dataTheLoai.getString(0), dataTheLoai.getString(1), dataTheLoai.getBlob(2));
                     arrayTheLoai.add(theLoaiTam);
                 }
 
                 for (int i = 0; i < arrayTheLoai.size(); i++) {
-                    if(arrayTheLoai.get(i).getMaTl().equalsIgnoreCase(maTheLoaiMoi)){
+                    if(arrayTheLoai.get(i).getMaTL().equalsIgnoreCase(maTheLoaiMoi)){
                         Toast.makeText(getContext(), "Mã thể loại đã tồn tại", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -150,11 +150,11 @@ public class TheLoaiFragment extends Fragment {
     public void actionGetData() {
         arrayTheLoai.clear();
 
-        Cursor dataTheLoai = dbHelper.getData("SELECT * FROM TheLoai");
+        Cursor dataTheLoai = dbHelper.getData("SELECT * FROM TheLoai ORDER BY MaTL");
 
         TheLoai theLoai;
         while (dataTheLoai.moveToNext()) {
-            theLoai = new TheLoai(dataTheLoai.getString(0), dataTheLoai.getString(1));
+            theLoai = new TheLoai(dataTheLoai.getString(0), dataTheLoai.getString(1), dataTheLoai.getBlob(2));
             arrayTheLoai.add(theLoai);
         }
 

@@ -59,7 +59,7 @@ public class TheLoaiAdapter extends RecyclerView.Adapter<TheLoaiViewHolder>{
         holder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                context.dialogUpdate( String.valueOf(list.get(holder.getAdapterPosition()).getMaTl()),
+                context.dialogUpdate( String.valueOf(list.get(holder.getAdapterPosition()).getMaTL()),
                         String.valueOf(list.get(holder.getAdapterPosition()).getTenTL()));
                 return true;
             }

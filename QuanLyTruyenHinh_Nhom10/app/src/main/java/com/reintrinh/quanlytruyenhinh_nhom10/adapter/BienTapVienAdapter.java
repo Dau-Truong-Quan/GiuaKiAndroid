@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 
 import com.reintrinh.quanlytruyenhinh_nhom10.R;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.BienTapVien;
+import com.reintrinh.quanlytruyenhinh_nhom10.util.ImageUtil;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -59,7 +60,8 @@ public class BienTapVienAdapter extends ArrayAdapter<BienTapVien> {
         tvHoTen.setText(btv.getHoTen());
         tvSDT.setText(btv.getSdt());
 
-        ivIcon.setBackgroundColor(Color.rgb(random(), random(), random()));
+        byte[] hinhAnh = btv.getHinhAnh();
+        ivIcon.setImageBitmap(ImageUtil.getBitmapFromByteArray(hinhAnh));
 
         return convertView;
     }

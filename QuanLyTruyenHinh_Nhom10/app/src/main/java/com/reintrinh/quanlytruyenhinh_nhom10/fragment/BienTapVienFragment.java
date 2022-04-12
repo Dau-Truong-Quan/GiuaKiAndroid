@@ -1,8 +1,16 @@
 package com.reintrinh.quanlytruyenhinh_nhom10.fragment;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -14,24 +22,36 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.github.dhaval2404.imagepicker.ImagePicker;
+import com.google.android.material.snackbar.Snackbar;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.normal.TedPermission;
 import com.reintrinh.quanlytruyenhinh_nhom10.R;
+import com.reintrinh.quanlytruyenhinh_nhom10.ThongTinPhatSongActivity;
 import com.reintrinh.quanlytruyenhinh_nhom10.adapter.BienTapVienAdapter;
 import com.reintrinh.quanlytruyenhinh_nhom10.helper.QuanLyTruyenHinhHelper;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.BienTapVien;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.ChuongTrinh;
+import com.reintrinh.quanlytruyenhinh_nhom10.util.ImageUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class BienTapVienFragment extends Fragment {
 
+    LinearLayout mainContent;
     View view;
     QuanLyTruyenHinhHelper db;
 
@@ -42,6 +62,9 @@ public class BienTapVienFragment extends Fragment {
     SearchView svBTV;
     Button btnThemBTV;
     TextView tvSoLuongBTV;
+    ImageView ivChonHinhAnh;
+
+    public static final int REQUEST_CODE_SELECT_IMAGE = 1;
 
     public BienTapVienFragment() {
         // Required empty public constructor
@@ -59,6 +82,15 @@ public class BienTapVienFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_SELECT_IMAGE && resultCode == Activity.RESULT_OK && data != null) {
+            Uri uri = data.getData();
+            ivChonHinhAnh.setImageURI(uri);
+        }
+    }
+
     private void setEvent() {
         db = new QuanLyTruyenHinhHelper(getContext());
         hienThi();
@@ -69,14 +101,6 @@ public class BienTapVienFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 openUpdateDialog(data.get(i));
-            }
-        });
-
-        lvBienTapVien.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                openDeleteDialog(data.get(i));
-                return true;
             }
         });
 
@@ -101,33 +125,40 @@ public class BienTapVienFragment extends Fragment {
         });
     }
 
-    private void openDeleteDialog(BienTapVien btv) {
-        Dialog dialog = new Dialog(getContext());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_xacnhan_xoa);
+    private void openDeleteDialog(BienTapVien btv, Dialog dialog) {
+        new AlertDialog.Builder(getContext())
+                .setTitle("Xác nhận")
+                .setMessage("Bạn có chắc muốn xóa biên tập viên này không?")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        try {
+                            db.xoaBienTapVien(btv.getMaBTV());
 
-        Button btnXoa = dialog.findViewById(R.id.btnXacNhanXoa);
-        Button btnHuy = dialog.findViewById(R.id.btnHuyXoa);
+                            dialog.dismiss();
+                            hienThi();
+                            bienTapVienAdapter.notifyDataSetChanged();
+                            bienTapVienAdapter.updateDataSearch();
 
-        btnXoa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                db.queryData("DELETE FROM BienTapVien WHERE MaBTV='" + btv.getMaBTV() + "'");
-                dialog.dismiss();
-                hienThi();
-                bienTapVienAdapter.notifyDataSetChanged();
-                bienTapVienAdapter.updateDataSearch();
-            }
-        });
-
-        btnHuy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
+                            Snackbar snackbar = Snackbar.make(mainContent, "Đã xóa biên tập viên!", Snackbar.LENGTH_LONG);
+                            snackbar.setAction("Hoàn tác", view -> {
+                                db.themBienTapVien(btv);
+                                Toast.makeText(getContext(), "Đã hoàn tác!", Toast.LENGTH_SHORT).show();
+                                hienThi();
+                                bienTapVienAdapter.notifyDataSetChanged();
+                                bienTapVienAdapter.updateDataSearch();
+                            });
+                            snackbar.setActionTextColor(Color.CYAN);
+                            snackbar.show();
+                        }
+                        catch (Exception ex) {
+                            Toast.makeText(getContext(), "Xảy ra lỗi khi thêm biên tập viên! Vui lòng thử lại\n" +
+                                    ex.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 
     private void openUpdateDialog(BienTapVien btv) {
@@ -141,14 +172,18 @@ public class BienTapVienFragment extends Fragment {
         EditText editSdt = dialog.findViewById(R.id.editSdtBTV);
 
         ImageView ivDatePicker = dialog.findViewById(R.id.ivDatePicker);
+        Button btnChonHinhAnh = dialog.findViewById(R.id.btnChonHinhAnhEditBTV);
         Button btnLuu = dialog.findViewById(R.id.btnLuu);
-        Button btnHuy = dialog.findViewById(R.id.btnHuy);
+        Button btnXoa = dialog.findViewById(R.id.btnXoa);
+
+        ivChonHinhAnh = dialog.findViewById(R.id.editHinhAnhBTV);
 
         // set các giá trị
         editMaBTV.setText(btv.getMaBTV());
         editHoTen.setText(btv.getHoTen());
         editNgaySinh.setText(btv.getNgaySinh());
         editSdt.setText(btv.getSdt());
+        ivChonHinhAnh.setImageBitmap(ImageUtil.getBitmapFromByteArray(btv.getHinhAnh()));
 
         ivDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,6 +206,13 @@ public class BienTapVienFragment extends Fragment {
             }
         });
 
+        btnChonHinhAnh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkPermissions();
+            }
+        });
+
         btnLuu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -184,7 +226,14 @@ public class BienTapVienFragment extends Fragment {
                     return;
                 }
 
-                db.queryData(String.format("UPDATE BienTapVien SET HoTen = '%s', NgaySinh = '%s', Sdt = '%s' WHERE MaBTV = '%s'", tenBTVMoi, ngaySinhBTVMoi, sdtBTVMoi, maBTV));
+                BitmapDrawable bitmapDrawable = (BitmapDrawable) ivChonHinhAnh.getDrawable();
+                Bitmap bitmap = bitmapDrawable.getBitmap();
+                byte[] hinhAnh = ImageUtil.getByteArrayFromBitmap(bitmap);
+
+                BienTapVien editBTV = new BienTapVien(maBTV, tenBTVMoi, ngaySinhBTVMoi, sdtBTVMoi, hinhAnh);
+
+                db.suaBienTapVien(editBTV);
+                Toast.makeText(getContext(), "Cập nhật biên tập viên thành công", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
                 hienThi();
                 bienTapVienAdapter.notifyDataSetChanged();
@@ -192,10 +241,15 @@ public class BienTapVienFragment extends Fragment {
             }
         });
 
-        btnHuy.setOnClickListener(new View.OnClickListener() {
+        btnXoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.dismiss();
+                Cursor cursor = db.getData(String.format("SELECT * FROM ThongTinPhatSong WHERE MaBTV = '%s'", btv.getMaBTV()));
+                if(cursor != null && cursor.moveToNext()) {
+                    Toast.makeText(getContext(), "Biên tập viên này đã có lịch phát sóng", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                openDeleteDialog(btv, dialog);
             }
         });
 
@@ -213,8 +267,11 @@ public class BienTapVienFragment extends Fragment {
         EditText editSdt = dialog.findViewById(R.id.addSdtBTV);
 
         ImageView ivDatePicker = dialog.findViewById(R.id.ivDatePicker);
+        Button btnChonHinhAnh = dialog.findViewById(R.id.btnChonHinhAnhAddBTV);
         Button btnThem = dialog.findViewById(R.id.btnThem);
         Button btnHuy = dialog.findViewById(R.id.btnHuy);
+
+        ivChonHinhAnh = dialog.findViewById(R.id.addHinhAnhBTV);
 
         ivDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,8 +285,9 @@ public class BienTapVienFragment extends Fragment {
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                                String value = String.format("%d/%d/%d", dayOfMonth, (month + 1), year);
-                                editNgaySinh.setText(value);
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                                calendar.set(year, month, dayOfMonth);
+                                editNgaySinh.setText(simpleDateFormat.format(calendar.getTime()));
                             }
                         }, year, month, day);
 
@@ -237,10 +295,17 @@ public class BienTapVienFragment extends Fragment {
             }
         });
 
+        btnChonHinhAnh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkPermissions();
+            }
+        });
+
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String maBTVMoi = String.valueOf(editMaBTV.getText());
+                String maBTVMoi = String.valueOf(editMaBTV.getText()).toUpperCase();
                 String tenBTVMoi = String.valueOf(editHoTen.getText());
                 String ngaySinhBTVMoi = String.valueOf(editNgaySinh.getText());
                 String sdtBTVMoi = String.valueOf(editSdt.getText());
@@ -250,24 +315,20 @@ public class BienTapVienFragment extends Fragment {
                     return;
                 }
 
-                //kiem tra trung
-                Cursor dataBTV = db.getData("SELECT * FROM BienTapVien");
-
-                ArrayList<BienTapVien> arrayBTV = new ArrayList<>();
-                BienTapVien btvTam;
-                while (dataBTV.moveToNext()) {
-                    btvTam = new BienTapVien(dataBTV.getString(0), dataBTV.getString(1), dataBTV.getString(2), dataBTV.getString(3));
-                    arrayBTV.add(btvTam);
+                //kiem tra ma trung
+                if(db.getBienTapVienByMaBTV(maBTVMoi) != null) {
+                    Toast.makeText(getContext(), "Mã biên tập viên đã tồn tại", Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
-                for (int i = 0; i < arrayBTV.size(); i++) {
-                    if(arrayBTV.get(i).getMaBTV().equalsIgnoreCase(maBTVMoi)){
-                        Toast.makeText(getContext(), "Mã biên tập viên đã tồn tại", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                }
+                BitmapDrawable bitmapDrawable = (BitmapDrawable) ivChonHinhAnh.getDrawable();
+                Bitmap bitmap = bitmapDrawable.getBitmap();
+                byte[] hinhAnh = ImageUtil.getByteArrayFromBitmap(bitmap);
 
-                db.queryData("INSERT INTO BienTapVien VALUES ('" + maBTVMoi + "','" + tenBTVMoi + "','" + ngaySinhBTVMoi + "', '" + sdtBTVMoi + "')");
+                BienTapVien newBTV = new BienTapVien(maBTVMoi, tenBTVMoi, ngaySinhBTVMoi, sdtBTVMoi, hinhAnh);
+
+                db.themBienTapVien(newBTV);
+                Toast.makeText(getContext(), "Thêm biên tập viên mới thành công", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
                 hienThi();
                 bienTapVienAdapter.notifyDataSetChanged();
@@ -285,31 +346,43 @@ public class BienTapVienFragment extends Fragment {
         dialog.show();
     }
 
+    private void checkPermissions() {
+        PermissionListener permissionlistener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                ImagePicker.with(BienTapVienFragment.this)
+                        .crop()	    			//Crop image(Optional), Check Customization for more option
+                        .compress(1024)			//Final image size will be less than 1 MB(Optional)
+                        .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+                        .start(REQUEST_CODE_SELECT_IMAGE);
+            }
+
+            @Override
+            public void onPermissionDenied(List<String> deniedPermissions) {
+                Toast.makeText(getContext(), "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+            }
+        };
+        TedPermission.create()
+                .setPermissionListener(permissionlistener)
+                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                .setPermissions(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)
+                .check();
+    }
+
     private void hienThi() {
         data.clear();
-        String sql = "select * from BienTapVien";
-        Cursor cursor = db.getData(sql);
-
-        BienTapVien btv;
-        while (cursor.moveToNext()) {
-            btv = new BienTapVien();
-            btv.setMaBTV(cursor.getString(0));
-            btv.setHoTen(cursor.getString(1));
-            btv.setNgaySinh(cursor.getString(2));
-            btv.setSdt(cursor.getString(3));
-            data.add(btv);
-        }
+        data.addAll(db.getAllBienTapVien());
 
         tvSoLuongBTV.setText(String.valueOf(data.size()));
 
         //bienTapVienAdapter.notifyDataSetChanged();
     }
 
-
     private void setControl() {
         lvBienTapVien = view.findViewById(R.id.lvBienTapVien);
         btnThemBTV = view.findViewById(R.id.btnThemBTV);
         tvSoLuongBTV = view.findViewById(R.id.tvSoLuongBTV);
         svBTV = view.findViewById(R.id.svBTV);
+        mainContent = view.findViewById(R.id.main_btv);
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import com.reintrinh.quanlytruyenhinh_nhom10.ThongTinPhatSongActivity;
 import com.reintrinh.quanlytruyenhinh_nhom10.fragment.ChuongTrinhFragment;
 import com.reintrinh.quanlytruyenhinh_nhom10.listener.ChuongTrinhListener;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.ChuongTrinh;
+import com.reintrinh.quanlytruyenhinh_nhom10.util.ImageUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +51,9 @@ public class ChuongTrinhAdapter extends RecyclerView.Adapter<ChuongTrinhViewHold
     @Override
     public void onBindViewHolder(@NonNull ChuongTrinhViewHolder holder, int position) {
         ChuongTrinh chuongTrinh = list.get(position);
-        holder.txtName.setText("Chương trình " + chuongTrinh.tenCT);
+        holder.txtName.setText(chuongTrinh.getTenCT());
+        byte[] hinhAnh = chuongTrinh.getHinhAnh();
+        holder.ivHinhAnh.setImageBitmap(ImageUtil.getBitmapFromByteArray(hinhAnh));
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,9 +68,7 @@ public class ChuongTrinhAdapter extends RecyclerView.Adapter<ChuongTrinhViewHold
         holder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                context.dialogUpdate( String.valueOf(list.get(holder.getAdapterPosition()).maCT),
-                        String.valueOf(list.get(holder.getAdapterPosition()).tenCT),
-                        String.valueOf(list.get(holder.getAdapterPosition()).maTL)   );
+                context.dialogUpdate(chuongTrinh);
                 return true;
             }
         });
@@ -82,11 +84,14 @@ public class ChuongTrinhAdapter extends RecyclerView.Adapter<ChuongTrinhViewHold
 
 class ChuongTrinhViewHolder extends RecyclerView.ViewHolder {
 
-    TextView txtName, txtMa;
+    ImageView ivHinhAnh;
+    TextView txtName;
     CardView cardView;
 
     public ChuongTrinhViewHolder(@NonNull View itemView) {
         super(itemView);
+
+        ivHinhAnh = itemView.findViewById(R.id.ivHinhAnhCT);
 
         txtName = itemView.findViewById(R.id.txtName);
 

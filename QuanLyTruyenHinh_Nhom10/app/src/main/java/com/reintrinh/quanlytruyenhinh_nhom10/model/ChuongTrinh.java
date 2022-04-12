@@ -3,17 +3,19 @@ package com.reintrinh.quanlytruyenhinh_nhom10.model;
 import java.io.Serializable;
 
 public class ChuongTrinh implements Serializable {
-    public String maCT;
-    public String tenCT;
-    public String maTL;
+    private String maCT;
+    private String tenCT;
+    private String maTL;
+    private byte[] hinhAnh;
 
     public ChuongTrinh() {
     }
 
-    public ChuongTrinh(String maCT, String tenCT, String maTL) {
+    public ChuongTrinh(String maCT, String tenCT, String maTL, byte[] hinhAnh) {
         this.maCT = maCT;
         this.tenCT = tenCT;
         this.maTL = maTL;
+        this.hinhAnh = hinhAnh;
     }
 
     public String getMaCT() {
@@ -38,5 +40,13 @@ public class ChuongTrinh implements Serializable {
 
     public void setMaTL(String maTL) {
         this.maTL = maTL;
+    }
+
+    public byte[] getHinhAnh() {
+        return hinhAnh;
+    }
+
+    public void setHinhAnh(byte[] hinhAnh) {
+        this.hinhAnh = hinhAnh;
     }
 }

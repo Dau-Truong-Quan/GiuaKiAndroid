@@ -51,12 +51,18 @@ public class Tab2Fragment extends Fragment {
 
         BarEntry barEntry;
         for (int i = 0; i < data.size(); i++) {
+            //Chỉ lấy 5 item đầu
+            if(i >= 5)
+                break;
             barEntry = new BarEntry(i, data.get(i).getValue());
             barEntries.add(barEntry);
         }
 
         ArrayList<String> labels = new ArrayList<String>();
         for (int i = 0; i < data.size(); i++) {
+            //Chỉ lấy 5 item đầu
+            if(i >= 5)
+                break;
             labels.add(data.get(i).getLabel());
         }
 
@@ -67,7 +73,7 @@ public class Tab2Fragment extends Fragment {
         xAxis.setLabelCount(labels.size());
         xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
 
-        BarDataSet barDataSet = new BarDataSet(barEntries, "Thể loại");
+        BarDataSet barDataSet = new BarDataSet(barEntries, "Chương trình");
 
         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         BarData barData = new BarData(barDataSet);
@@ -88,7 +94,8 @@ public class Tab2Fragment extends Fragment {
         String sql = "SELECT ct.TenCT, SUM(tt.ThoiLuong) ThoiLuongPhatSong\n" +
                     "FROM ThongTinPhatSong tt INNER JOIN ChuongTrinh ct\n" +
                     "ON tt.MaCT = ct.MaCT\n" +
-                    "GROUP BY ct.TenCT";
+                    "GROUP BY ct.TenCT\n" +
+                    "ORDER BY ThoiLuongPhatSong DESC";
         Cursor cursor = db.getData(sql);
 
         ThongKe tk;

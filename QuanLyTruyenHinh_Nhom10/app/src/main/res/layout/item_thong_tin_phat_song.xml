@@ -8,11 +8,11 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
         android:id="@+id/img_thong_tin_phat_song"
         android:layout_width="@dimen/img_size"
         android:layout_height="@dimen/img_size"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher" />
 

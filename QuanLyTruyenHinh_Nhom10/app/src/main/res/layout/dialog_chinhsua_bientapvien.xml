@@ -22,6 +22,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:text="Ảnh CMND/CCCD" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/editHinhAnhBTV"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/btv" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnChonHinhAnhEditBTV"
+            android:text="Chọn hình"
+            android:backgroundTint="@color/color_button"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:text="Mã biên tập viên" />
 
     <EditText
@@ -114,12 +142,12 @@
             android:text="Lưu" />
 
         <Button
-            android:id="@+id/btnHuy"
+            android:id="@+id/btnXoa"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
             android:backgroundTint="@color/color_button"
-            android:text="Hủy" />
+            android:text="Xóa" />
     </LinearLayout>
 </LinearLayout>
