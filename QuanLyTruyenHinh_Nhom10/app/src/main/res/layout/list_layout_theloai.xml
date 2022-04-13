@@ -1,45 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/cardView"
+    android:orientation="horizontal"
+    android:paddingStart="10dp"
+    android:paddingTop="10dp"
+    android:paddingEnd="10dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardBackgroundColor="#EAEAEA"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="8dp"
-    android:layout_margin="8dp" >
+    android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="horizontal"
-        android:weightSum="10">
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:layout_weight="2"
-            android:background="@drawable/avata_chuongtrinh"
-            android:scaleType="centerCrop" />
+    <ImageView
+        android:id="@+id/img_the_loai"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/theloai" />
 
-        <LinearLayout
-            android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/layout_the_loai"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/img_the_loai"
+        android:orientation="vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtName"
+            android:textColor="@color/black"
+            android:text="Thể loại"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="7"
-            android:orientation="vertical">
+            android:textSize="18dp"
+            android:textStyle="bold"/>
 
-            <TextView
-                android:layout_marginTop="20dp"
-                android:id="@+id/txtName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Thể loại"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+    </LinearLayout>
 
-        </LinearLayout>
+    <ImageView
+        android:id="@+id/img_sua"
+        android:layout_marginEnd="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/img_xoa"
+        android:src="@drawable/ic_edit" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    <ImageView
+        android:id="@+id/img_xoa"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_delete" />
 
-</androidx.cardview.widget.CardView>
+</RelativeLayout>

@@ -92,6 +92,7 @@ public class ChuongTrinhFragment extends Fragment {
 
         //Load data
         dbHelper = new QuanLyTruyenHinhHelper(getContext());
+
         Cursor dataTheLoai = dbHelper.getData("SELECT * FROM TheLoai");
 
         TheLoai theLoai;
@@ -103,6 +104,18 @@ public class ChuongTrinhFragment extends Fragment {
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, arrayTenTheLoai);
         spinnerTheLoai.setAdapter(arrayAdapter);
+
+        /*Bundle bundle = getActivity().getIntent().getExtras();
+        if (bundle.getSerializable(getString(R.string.key_category)) == null) {
+            theLoai = null;
+        } else {
+            theLoai = (TheLoai) bundle.getSerializable(getString(R.string.key_category));
+        }
+        if (theLoai == null) {
+            spinnerTheLoai.setSelection(0);
+        } else {
+            spinnerTheLoai.setSelection(arrayTenTheLoai.indexOf(theLoai.getTenTL()));
+        }*/
 
         actionGetData();
 
