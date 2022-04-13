@@ -118,6 +118,14 @@
                     android:textStyle="italic" />
             </LinearLayout>
 
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search_view"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_search_view"
+                app:queryHint="@string/search_ttps" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv_thong_tin_phat_song"
                 android:layout_width="match_parent"

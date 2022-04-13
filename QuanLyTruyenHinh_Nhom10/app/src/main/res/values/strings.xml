@@ -6,4 +6,6 @@
     <string name="title_btv">Biên tập viên</string>
     <string name="select_branch">Chọn thể loại:</string>
     <string name="key_program">chuong_trinh</string>
+    <string name="action_setting">Settings</string>
+    <string name="search_ttps">Tìm theo họ tên BTV, ngày phát sóng...</string>
 </resources>

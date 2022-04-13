@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -27,6 +28,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.palette.graphics.Palette;
@@ -64,12 +66,14 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
     private ImageView imgHinhAnhChuongTrinh;
     private TextView tvTenTheLoai;
     private TextView tvSoLuongPhatSong;
+    private SearchView searchView;
     private RecyclerView rcvThongTinPhatSong;
     private ThongTinPhatSongAdapter thongTinPhatSongAdapter;
     private ChuongTrinh chuongTrinh;
     private List<ThongTinPhatSong> thongTinPhatSongList;
     private QuanLyTruyenHinhHelper quanLyTruyenHinhHelper;
 
+    private Menu mMenu;
     private boolean isExpanded = false;
     public static final int REQUEST_CODE_SELECT_IMAGE = 1;
     private ImageView imgChonHinhAnhPS;
@@ -101,11 +105,35 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_thong_tin_phat_song, menu);
+        mMenu = menu;
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (mMenu != null && (!isExpanded || mMenu.size() != 1)) {
+            // collapsed
+            mMenu.add("Add").setIcon(R.drawable.ic_add).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        }
+        else {
+            // expanded
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-                break;
+                return true;
+            case R.id.action_settings:
+                return true;
+        }
+        if (item.getTitle().equals("Add")) {
+            showDialogThem();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -119,12 +147,11 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
         imgHinhAnhChuongTrinh = findViewById(R.id.img_hinh_anh_chuong_trinh);
         tvTenTheLoai = findViewById(R.id.tv_ten_the_loai);
         tvSoLuongPhatSong = findViewById(R.id.tv_so_luong_phat_song);
+        searchView = findViewById(R.id.search_view);
         rcvThongTinPhatSong = findViewById(R.id.rcv_thong_tin_phat_song);
 
         TheLoai theLoai = quanLyTruyenHinhHelper.getTheLoaiByMaTheLoai(chuongTrinh.getMaTL());
         tvTenTheLoai.setText(theLoai.getTenTL());
-//        byte[] hinhAnhChuongTrinh = chuongTrinh.getHinhAnh();
-//        imgHinhAnhChuongTrinh.setIma
     }
 
     private void initToolbar() {
@@ -137,7 +164,9 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
 
     private void initToolbarAnimation() {
         collapsingToolbarLayout.setTitle(chuongTrinh.getTenCT());
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.avata_chuongtrinh);
+        byte[] hinhAnhChuongTrinh = chuongTrinh.getHinhAnh();
+        Bitmap bitmap = ImageUtil.getBitmapFromByteArray(hinhAnhChuongTrinh);
+        imgHinhAnhChuongTrinh.setImageBitmap(ImageUtil.getBitmapFromByteArray(hinhAnhChuongTrinh));
         Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
             @Override
             public void onGenerated(@Nullable Palette palette) {
@@ -191,16 +220,28 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
         else {
             tvSoLuongPhatSong.setText("0");
         }
-
         thongTinPhatSongAdapter.setData(thongTinPhatSongList);
+        searchView.setQuery("", true);
     }
-
 
     private void setEvent() {
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDialogThem();
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                thongTinPhatSongAdapter.filter(newText);
+                return true;
             }
         });
     }
@@ -478,7 +519,7 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
                     snackbar.show();
                 }
                 catch (Exception ex) {
-                    Toast.makeText(ThongTinPhatSongActivity.this, "Xảy ra lỗi khi thêm cập nhật tin phát sóng! Vui lòng thử lại\n" +
+                    Toast.makeText(ThongTinPhatSongActivity.this, "Xảy ra lỗi khi cập nhật thông tin phát sóng! Vui lòng thử lại\n" +
                             ex.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
