@@ -28,6 +28,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:text="Hình ảnh" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/img_chon_hinh_anh_the_loai"
+                android:scaleType="centerCrop"
+                android:src="@drawable/theloai"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+            <Button
+                android:id="@+id/btnChonHinhAnh"
+                android:text="Chọn hình"
+                android:backgroundTint="@color/color_button"
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:text="Mã thể loại" />
 
         <EditText
