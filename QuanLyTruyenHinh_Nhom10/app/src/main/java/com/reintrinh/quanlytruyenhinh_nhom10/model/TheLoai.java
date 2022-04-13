@@ -3,14 +3,15 @@ package com.reintrinh.quanlytruyenhinh_nhom10.model;
 import java.io.Serializable;
 
 public class TheLoai implements Serializable {
-    private String maTl,tenTL;
+    private String maTL,tenTL;
+    private byte[] hinhAnh;
 
-    public String getMaTl() {
-        return maTl;
+    public String getMaTL() {
+        return maTL;
     }
 
-    public void setMaTl(String maTl) {
-        this.maTl = maTl;
+    public void setMaTL(String maTL) {
+        this.maTL = maTL;
     }
 
     public String getTenTL() {
@@ -21,11 +22,20 @@ public class TheLoai implements Serializable {
         this.tenTL = tenTL;
     }
 
+    public byte[] getHinhAnh() {
+        return hinhAnh;
+    }
+
+    public void setHinhAnh(byte[] hinhAnh) {
+        this.hinhAnh = hinhAnh;
+    }
+
     public TheLoai() {
     }
 
-    public TheLoai(String maTl, String tenTL) {
-        this.maTl = maTl;
+    public TheLoai(String maTL, String tenTL, byte[] hinhAnh) {
+        this.maTL = maTL;
         this.tenTL = tenTL;
+        this.hinhAnh = hinhAnh;
     }
 }
