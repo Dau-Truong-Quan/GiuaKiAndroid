@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="8dp"
+    android:id="@+id/report1"
     tools:context=".thongke.Tab1Fragment">
 
     <com.github.mikephil.charting.charts.BarChart
@@ -47,4 +48,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/btnInReport1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="In report"
+        android:backgroundTint="@color/color_button"/>
 </LinearLayout>
