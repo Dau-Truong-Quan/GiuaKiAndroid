@@ -37,7 +37,7 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnChonHinhAnh"
                 android:text="Chọn hình"
-                android:background="@drawable/bg_button"
+                android:background="@drawable/bg_green_yellow"
                 android:layout_marginStart="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

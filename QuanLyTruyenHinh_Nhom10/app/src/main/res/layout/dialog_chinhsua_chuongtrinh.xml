@@ -33,7 +33,7 @@
             android:id="@+id/btnChonHinhAnhEditCT"
             android:text="Chọn hình"
             android:textAllCaps="false"
-            android:background="@drawable/bg_button"/>
+            android:background="@drawable/bg_green_yellow"/>
     </LinearLayout>
 
     <TextView
