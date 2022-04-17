@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +52,7 @@ import com.reintrinh.quanlytruyenhinh_nhom10.model.ChuongTrinh;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.TheLoai;
 import com.reintrinh.quanlytruyenhinh_nhom10.util.ImageUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -132,7 +134,14 @@ public class ChuongTrinhFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_SELECT_IMAGE && resultCode == Activity.RESULT_OK && data != null) {
             Uri uri = data.getData();
-            ivChonHinhAnh.setImageURI(uri);
+            Bitmap bitmap;
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), uri);
+                ivChonHinhAnh.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
     }
 
