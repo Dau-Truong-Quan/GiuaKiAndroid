@@ -8,10 +8,13 @@ import android.database.sqlite.SQLiteStatement;
 
 import androidx.annotation.Nullable;
 
+import com.reintrinh.quanlytruyenhinh_nhom10.ChuongTrinhActivity;
+import com.reintrinh.quanlytruyenhinh_nhom10.LoginActivity;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.BienTapVien;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.ChuongTrinh;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.TheLoai;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.ThongTinPhatSong;
+import com.reintrinh.quanlytruyenhinh_nhom10.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +23,24 @@ public class QuanLyTruyenHinhHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "QuanLyTruyenHinh.sqlite";
 
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
+
+    private static QuanLyTruyenHinhHelper sInstance;
 
     public QuanLyTruyenHinhHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
+
+
+        public static synchronized QuanLyTruyenHinhHelper getInstance(Context context) {
+            // Use the application context, which will ensure that you
+            // don't accidentally leak an Activity's context.
+            // See this article for more information: http://bit.ly/6LRzfx
+            if (sInstance == null) {
+                sInstance = new QuanLyTruyenHinhHelper(context.getApplicationContext());
+            }
+            return sInstance;
+        }
 
     //Truy van khong tra ket qua
     public void queryData(String sql){
@@ -288,4 +304,56 @@ public class QuanLyTruyenHinhHelper extends SQLiteOpenHelper {
         }
         return false;
     }
+    public User checkUserExist(String username, String password) {
+        User user = null;
+        SQLiteDatabase db = getReadableDatabase();
+
+        String selection = "WHERE EMAIL='" + username + "' and PASSWORD = '" + password + "'";
+
+        Cursor cursor = db.rawQuery("SELECT * FROM User " + selection, null);
+        int count = cursor.getCount();
+        System.out.println(count + "");
+        while (cursor.moveToNext()) {
+            user = new User(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getBlob(5)
+            );
+        }
+
+        cursor.close();
+        close();
+
+        if (count > 0) {
+            return user;
+        } else {
+            return null;
+        }
+    }
+
+    // user
+    public void capNhatMatKhauUser(String editTextNewPassword,String gmail) {
+        queryData(String.format("UPDATE User SET PASSWORD='" + editTextNewPassword + "' WHERE EMAIL='" + gmail + "'"));
+    }
+
+    public void themUser(User user) {
+        if (user == null) {
+            return;
+        }
+        SQLiteDatabase database = getWritableDatabase();
+        String sql = "INSERT INTO User VALUES (?,?,?,?)";
+        SQLiteStatement statement = database.compileStatement(sql);
+        statement.clearBindings();
+        statement.bindString(1, user.getFirstname());
+        statement.bindString(2, user.getLastname());
+        statement.bindString(3, user.getEmail());
+        statement.bindString(4, user.getPassword());
+        statement.executeInsert();
+    }
+
+
+
 }
