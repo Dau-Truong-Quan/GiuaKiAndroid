@@ -28,24 +28,18 @@
 
         <TextView
             android:id="@+id/tv_ngay_phat_song"
-            android:textColor="@color/black"
             android:text="Cười xuyên Việt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            style="@style/item_ttps_text" />
 
         <TextView
             android:id="@+id/tv_bien_tap_vien"
-            android:textColor="@color/black"
             android:text="Phạm Đức Phú Phúc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            style="@style/item_ttps_text"/>
 
         <TextView
             android:id="@+id/tv_thoi_luong"
-            android:textColor="@color/black"
             android:text="90 phút"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            style="@style/item_ttps_text"/>
 
     </LinearLayout>
 

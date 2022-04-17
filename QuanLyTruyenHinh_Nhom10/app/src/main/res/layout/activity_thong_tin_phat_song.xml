@@ -62,25 +62,13 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
                 android:text="Thể loại"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                style="@style/ttps_the_loai" />
 
             <TextView
                 android:id="@+id/tv_ten_the_loai"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="10dp"
                 android:text="Âm nhạc"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="italic" />
+                style="@style/ttps_ten_the_loai" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -100,22 +88,12 @@
 
                 <TextView
                     android:id="@+id/tv_so_luong_phat_song"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
                     android:text="5"
-                    android:textColor="@color/red"
-                    android:textSize="25sp"
-                    android:textStyle="bold" />
+                    style="@style/ttps_so_luong_ttps" />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:text="Thông tin phát sóng"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="italic" />
+                    style="@style/ttps_ttps" />
             </LinearLayout>
 
             <androidx.appcompat.widget.SearchView
