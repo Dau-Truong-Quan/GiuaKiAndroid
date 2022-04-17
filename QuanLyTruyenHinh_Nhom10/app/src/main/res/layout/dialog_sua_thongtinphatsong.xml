@@ -129,13 +129,15 @@
                 android:id="@+id/img_chon_hinh_anh_phat_song"
                 android:scaleType="centerCrop"
                 android:src="@drawable/avata_chuongtrinh"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center"
                 android:layout_width="50dp"
                 android:layout_height="50dp"/>
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnChonHinhAnh"
                 android:text="Chọn hình"
-                android:backgroundTint="@color/color_button"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_button"
+                android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

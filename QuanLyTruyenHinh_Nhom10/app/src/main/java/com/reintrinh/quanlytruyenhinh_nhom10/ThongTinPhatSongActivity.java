@@ -28,6 +28,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -259,7 +260,7 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
         ImageView imgCalendar = dialog.findViewById(R.id.img_ngay_phat_song);
         EditText edtThoiLuong = dialog.findViewById(R.id.edt_thoi_luong);
         imgChonHinhAnhPS = dialog.findViewById(R.id.img_chon_hinh_anh_phat_song);
-        Button btnChonHinhAnh = dialog.findViewById(R.id.btnChonHinhAnh);
+        AppCompatButton btnChonHinhAnh = dialog.findViewById(R.id.btnChonHinhAnh);
         Button btnThem = dialog.findViewById(R.id.btnThem);
         Button btnHuy = dialog.findViewById(R.id.btnHuy);
 
@@ -398,7 +399,7 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
         ImageView imgCalendar = dialog.findViewById(R.id.img_ngay_phat_song);
         EditText edtThoiLuong = dialog.findViewById(R.id.edt_thoi_luong);
         imgChonHinhAnhPS = dialog.findViewById(R.id.img_chon_hinh_anh_phat_song);
-        Button btnChonHinhAnh = dialog.findViewById(R.id.btnChonHinhAnh);
+        AppCompatButton btnChonHinhAnh = dialog.findViewById(R.id.btnChonHinhAnh);
         Button btnSua = dialog.findViewById(R.id.btnSua);
         Button btnHuy = dialog.findViewById(R.id.btnHuy);
 
