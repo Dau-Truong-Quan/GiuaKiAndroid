@@ -28,7 +28,7 @@ import java.util.Random;
 
 public class OTPActivity extends AppCompatActivity {
     EditText editTextConfirmOTP;
-    Button buttonConfirm;
+    Button buttonConfirm,btnThoat;
     public String randomOTP="";
     String gmail="";
     @Override
@@ -36,7 +36,7 @@ public class OTPActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
         gmail=getIntent().getStringExtra("gmail");
-        Log.d("gmail","khong co gi");
+
         randomOTP=createOTP();
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy =
@@ -90,6 +90,14 @@ public class OTPActivity extends AppCompatActivity {
                 }
             }
         });
+        btnThoat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(OTPActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void setControl() {
@@ -99,14 +107,14 @@ public class OTPActivity extends AppCompatActivity {
 
     public String createOTP(){
         ArrayList<String> around = new ArrayList<>();
-        String[] arrCode = new String[5];
+        String[] arrCode = new String[4];
         for(int i= 0; i<=9; i++){
             Integer tam = new Integer(i);
             around.add(tam.toString());
         }
         Random rand = new Random();
         randomOTP = "";
-        for(int i =0; i< 5; i++){
+        for(int i =0; i< 4; i++){
             int randomInt = rand.nextInt(9);
             arrCode[i] = around.get(randomInt);
             System.out.println(arrCode[i]);

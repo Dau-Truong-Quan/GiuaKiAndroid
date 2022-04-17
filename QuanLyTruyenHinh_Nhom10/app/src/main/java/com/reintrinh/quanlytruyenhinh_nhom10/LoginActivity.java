@@ -31,7 +31,7 @@ import com.reintrinh.quanlytruyenhinh_nhom10.util.ImageUtil;
 
 public class LoginActivity extends AppCompatActivity {
     TextView txtForgotPass;
-    QuanLyTruyenHinhHelper helper;
+
     MaterialButton buttonSignIn;
     EditText inputEmail, inputPassword;
     private PreferenceManager preferenceManager;
@@ -62,45 +62,36 @@ public class LoginActivity extends AppCompatActivity {
         buttonSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-//                if (check()) {
-//                    User user = helper.checkUserExist(inputEmail.getText().toString().trim(), inputPassword.getText().toString().trim());
-//                    if (user != null) {
-//                        preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
-//                        preferenceManager.putString(Constants.KEY_USER_ID, user.getId() + "");
-//                        preferenceManager.putString(Constants.KEY_NAME, user.getFirstname() + " " + user.getLastname());
-//                        preferenceManager.putString(Constants.KEY_EMAIL, user.getEmail());
-//
-//
-//                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                        startActivity(intent);
-//                        finish();
-//                    } else {
-//                        Toast.makeText(LoginActivity.this, "Đăng nhập thất bại!", Toast.LENGTH_LONG).show();
-//
-//                    }
-//                }
+                if (check()) {
+                    User user = dbHelper.checkUserExist(inputEmail.getText().toString().trim(), inputPassword.getText().toString().trim());
+                    if (user != null) {
+                        preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
+                        preferenceManager.putString(Constants.KEY_USER_ID, user.getId() + "");
+                        preferenceManager.putString(Constants.KEY_NAME, user.getFirstname() + " " + user.getLastname());
+                        preferenceManager.putString(Constants.KEY_EMAIL, user.getEmail());
+
+
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Đăng nhập thất bại!", Toast.LENGTH_LONG).show();
+
+                    }
+                }
             }
         });
         txtForgotPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(inputEmail.getText().toString().isEmpty()){
-                    Toast.makeText(LoginActivity.this, "Enter email", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                Intent intent = new Intent(LoginActivity.this, OTPActivity.class);
-                intent.putExtra("gmail",inputEmail.getText().toString());
-                Log.d("gmail",inputEmail.getText().toString());
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
                 startActivity(intent);
             }
         });
     }
 
     private void setControl() {
-        helper = QuanLyTruyenHinhHelper.getInstance(this);
+        dbHelper = QuanLyTruyenHinhHelper.getInstance(this);
         preferenceManager = new PreferenceManager(getApplicationContext());
         buttonSignIn = findViewById(R.id.buttonSignIn);
         inputEmail = findViewById(R.id.inputEmail);

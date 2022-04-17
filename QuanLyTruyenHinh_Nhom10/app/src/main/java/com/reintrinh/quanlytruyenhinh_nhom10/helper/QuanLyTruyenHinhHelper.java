@@ -315,12 +315,10 @@ public class QuanLyTruyenHinhHelper extends SQLiteOpenHelper {
         System.out.println(count + "");
         while (cursor.moveToNext()) {
             user = new User(
-                    cursor.getInt(0),
+                    cursor.getString(0),
                     cursor.getString(1),
                     cursor.getString(2),
-                    cursor.getString(3),
-                    cursor.getString(4),
-                    cursor.getBlob(5)
+                    cursor.getString(3)
             );
         }
 
@@ -339,9 +337,19 @@ public class QuanLyTruyenHinhHelper extends SQLiteOpenHelper {
         queryData(String.format("UPDATE User SET PASSWORD='" + editTextNewPassword + "' WHERE EMAIL='" + gmail + "'"));
     }
 
-    public void themUser(User user) {
+    public int themUser(User user) {
+
+        SQLiteDatabase db = getWritableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM User " + "WHERE EMAIL='" + user.getEmail() + "'", null);
+        int count = cursor.getCount();
+
+        if (count>1) {
+            return 1;
+        }
+
         if (user == null) {
-            return;
+            return -1;
         }
         SQLiteDatabase database = getWritableDatabase();
         String sql = "INSERT INTO User VALUES (?,?,?,?)";
@@ -352,6 +360,8 @@ public class QuanLyTruyenHinhHelper extends SQLiteOpenHelper {
         statement.bindString(3, user.getEmail());
         statement.bindString(4, user.getPassword());
         statement.executeInsert();
+
+        return 0;
     }
 
 

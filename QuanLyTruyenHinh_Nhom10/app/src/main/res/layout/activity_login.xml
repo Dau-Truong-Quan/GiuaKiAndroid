@@ -26,17 +26,18 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:padding="8dp"
-            android:text="Welcome back"
+            android:text="Welcome Truyền Hình nhóm 10"
             android:textColor="@color/black"
-            android:textSize="24dp"
+            android:textSize="23dp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView2"
+            android:textAlignment="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Đăng nhập để tiếp tục"
+            android:text="Vui lòng đăng nhập để sử dụng những chức năng toẹt vời của chúng tôi"
             android:textColor="@color/black"
             android:textSize="16dp"
             android:textStyle="bold" />

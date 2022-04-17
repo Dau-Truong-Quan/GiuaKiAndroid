@@ -13,7 +13,7 @@ import com.reintrinh.quanlytruyenhinh_nhom10.helper.QuanLyTruyenHinhHelper;
 
 public class NewPasswordActivity extends Activity {
     EditText editTextNewPassword;
-    Button buttonConfirmNewPassword;
+    Button buttonConfirmNewPassword,btnThoat;
     String gmail="";
     QuanLyTruyenHinhHelper quanLyTruyenHinhHelper;
     @Override
@@ -41,6 +41,14 @@ public class NewPasswordActivity extends Activity {
 
                 Intent intent = new Intent(NewPasswordActivity.this, LoginActivity.class);
                 startActivity(intent);
+            }
+        });
+        btnThoat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(NewPasswordActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
