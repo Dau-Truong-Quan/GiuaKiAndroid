@@ -18,9 +18,6 @@
             android:name=".ThongTinPhatSongActivity"
             android:exported="false" />
         <activity
-            android:name=".ChuongTrinhActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="false" >
 

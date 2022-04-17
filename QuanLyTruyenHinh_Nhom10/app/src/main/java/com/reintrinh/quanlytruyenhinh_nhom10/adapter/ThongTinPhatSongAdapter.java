@@ -1,7 +1,5 @@
 package com.reintrinh.quanlytruyenhinh_nhom10.adapter;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +13,7 @@ import com.reintrinh.quanlytruyenhinh_nhom10.R;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.ThongTinPhatSong;
 import com.reintrinh.quanlytruyenhinh_nhom10.util.ImageUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ThongTinPhatSongAdapter extends RecyclerView.Adapter<ThongTinPhatSongAdapter.ThongTinPhatSongViewHolder> {
@@ -25,16 +24,19 @@ public class ThongTinPhatSongAdapter extends RecyclerView.Adapter<ThongTinPhatSo
     }
 
     private List<ThongTinPhatSong> thongTinPhatSongList;
+    private List<ThongTinPhatSong> dataSearch;
     private IClickItemListener iClickItemListener;
 
     public ThongTinPhatSongAdapter(List<ThongTinPhatSong> thongTinPhatSongList, IClickItemListener iClickItemListener) {
         this.thongTinPhatSongList = thongTinPhatSongList;
+        dataSearch = new ArrayList<>(thongTinPhatSongList);
         this.iClickItemListener = iClickItemListener;
         notifyDataSetChanged();
     }
 
     public void setData(List<ThongTinPhatSong> thongTinPhatSongList) {
         this.thongTinPhatSongList = thongTinPhatSongList;
+        dataSearch = new ArrayList<>(thongTinPhatSongList);
         notifyDataSetChanged();
     }
 
@@ -94,5 +96,23 @@ public class ThongTinPhatSongAdapter extends RecyclerView.Adapter<ThongTinPhatSo
             imgSua = itemView.findViewById(R.id.img_sua);
             imgXoa = itemView.findViewById(R.id.img_xoa);
         }
+    }
+
+    public void filter(String text)
+    {
+        thongTinPhatSongList.clear();
+        text = text.trim().toLowerCase();
+
+        if(text.length() == 0)
+            thongTinPhatSongList.addAll(dataSearch);
+        else {
+            for (ThongTinPhatSong thongTinPhatSong : dataSearch) {
+                if (thongTinPhatSong.getBienTapVien().getHoTen().toLowerCase().contains(text)
+                    || thongTinPhatSong.getNgayPhatSong().contains(text)) {
+                    thongTinPhatSongList.add(thongTinPhatSong);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }

@@ -95,6 +95,7 @@ public class ChuongTrinhFragment extends Fragment {
 
         //Load data
         dbHelper = new QuanLyTruyenHinhHelper(getContext());
+
         Cursor dataTheLoai = dbHelper.getData("SELECT * FROM TheLoai");
 
         TheLoai theLoai;
@@ -106,6 +107,18 @@ public class ChuongTrinhFragment extends Fragment {
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, arrayTenTheLoai);
         spinnerTheLoai.setAdapter(arrayAdapter);
+
+        /*Bundle bundle = getActivity().getIntent().getExtras();
+        if (bundle.getSerializable(getString(R.string.key_category)) == null) {
+            theLoai = null;
+        } else {
+            theLoai = (TheLoai) bundle.getSerializable(getString(R.string.key_category));
+        }
+        if (theLoai == null) {
+            spinnerTheLoai.setSelection(0);
+        } else {
+            spinnerTheLoai.setSelection(arrayTenTheLoai.indexOf(theLoai.getTenTL()));
+        }*/
 
         actionGetData();
 
@@ -128,11 +141,25 @@ public class ChuongTrinhFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 actionGetData();
+                chuongTrinhAdapter.updateListSearch();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                chuongTrinhAdapter.filter(s);
+                return true;
             }
         });
 
@@ -219,6 +246,7 @@ public class ChuongTrinhFragment extends Fragment {
                 Toast.makeText(getContext(), "Thêm chương trình mới thành công", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
                 actionGetData();
+                chuongTrinhAdapter.updateListSearch();
             }
         });
 
@@ -346,6 +374,7 @@ public class ChuongTrinhFragment extends Fragment {
                 Toast.makeText(getContext(), "Cập nhật chương trình thành công", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
                 actionGetData();
+                chuongTrinhAdapter.updateListSearch();
             }
         });
 
@@ -375,11 +404,13 @@ public class ChuongTrinhFragment extends Fragment {
                             dbHelper.xoaChuongTrinh(ct.getMaCT());
                             dialog.dismiss();
                             actionGetData();
+                            chuongTrinhAdapter.updateListSearch();
                             Snackbar snackbar = Snackbar.make(mainContent, "Đã xóa chương trình!", Snackbar.LENGTH_LONG);
                             snackbar.setAction("Hoàn tác", view -> {
                                 dbHelper.themChuongTrinh(ct);
                                 Toast.makeText(getContext(), "Đã hoàn tác!", Toast.LENGTH_SHORT).show();
                                 actionGetData();
+                                chuongTrinhAdapter.updateListSearch();
                             });
                             snackbar.setActionTextColor(Color.CYAN);
                             snackbar.show();

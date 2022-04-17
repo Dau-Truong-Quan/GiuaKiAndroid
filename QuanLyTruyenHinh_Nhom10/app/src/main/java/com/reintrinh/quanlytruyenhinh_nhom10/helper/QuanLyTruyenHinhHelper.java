@@ -49,7 +49,7 @@ public class QuanLyTruyenHinhHelper extends SQLiteOpenHelper {
     }
 
     //Truy van tra ket qua
-    public Cursor getData(String sql){
+    public Cursor getData(String sql) {
         SQLiteDatabase database = getReadableDatabase();
         return database.rawQuery(sql,null);
     }
@@ -108,6 +108,21 @@ public class QuanLyTruyenHinhHelper extends SQLiteOpenHelper {
 
     public void xoaTheLoai(String maTL) {
         queryData(String.format("DELETE FROM TheLoai WHERE MaTL = '%s'", maTL));
+    }
+
+    public List<TheLoai> getAllTheLoai() {
+        Cursor cursor = getData("SELECT * FROM TheLoai ORDER BY MaTL");
+        if (cursor == null) {
+            return null;
+        }
+
+        List<TheLoai> list = new ArrayList<>();
+        TheLoai theLoai;
+        while (cursor.moveToNext()) {
+            theLoai = new TheLoai(cursor.getString(0), cursor.getString(1), cursor.getBlob(2));
+            list.add(theLoai);
+        }
+        return list;
     }
 
     // ---------------------- Chương trình -------------------------

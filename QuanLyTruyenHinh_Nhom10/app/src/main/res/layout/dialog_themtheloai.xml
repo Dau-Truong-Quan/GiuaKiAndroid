@@ -15,19 +15,36 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="8dp"
-            android:padding="5dp"
-            android:text="   THÊM THỂ LOẠI   "
-            android:textSize="25dp"
-            android:textStyle="bold" />
+            style="@style/large_title"
+            android:text="THÊM THỂ LOẠI" />
 
         <TextView
+            style="@style/small_title"
+            android:text="Hình ảnh" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/img_chon_hinh_anh_the_loai"
+                android:scaleType="centerCrop"
+                android:src="@drawable/theloai"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnChonHinhAnh"
+                android:text="Chọn hình"
+                android:background="@drawable/bg_green_yellow"
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <TextView
+            style="@style/small_title"
             android:text="Mã thể loại" />
 
         <EditText
@@ -39,9 +56,7 @@
             android:padding="5dp" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            style="@style/small_title"
             android:text="Tên thể loại" />
 
         <EditText
