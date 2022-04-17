@@ -28,7 +28,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -44,6 +43,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
+import com.reintrinh.quanlytruyenhinh_nhom10.adapter.BienTapVienAdapter;
 import com.reintrinh.quanlytruyenhinh_nhom10.adapter.ThongTinPhatSongAdapter;
 import com.reintrinh.quanlytruyenhinh_nhom10.helper.QuanLyTruyenHinhHelper;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.BienTapVien;
@@ -128,9 +128,8 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+            case R.id.action_go_back:
                 finish();
-                return true;
-            case R.id.action_settings:
                 return true;
         }
         if (item.getTitle().equals("Add")) {
@@ -233,6 +232,13 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
             }
         });
 
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchView.setIconified(false);
+            }
+        });
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -260,21 +266,23 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
         ImageView imgCalendar = dialog.findViewById(R.id.img_ngay_phat_song);
         EditText edtThoiLuong = dialog.findViewById(R.id.edt_thoi_luong);
         imgChonHinhAnhPS = dialog.findViewById(R.id.img_chon_hinh_anh_phat_song);
-        AppCompatButton btnChonHinhAnh = dialog.findViewById(R.id.btnChonHinhAnh);
+        Button btnChonHinhAnh = dialog.findViewById(R.id.btnChonHinhAnh);
         Button btnThem = dialog.findViewById(R.id.btnThem);
         Button btnHuy = dialog.findViewById(R.id.btnHuy);
 
         tvTenChuongTrinh.setText(chuongTrinh.getTenCT());
         List<BienTapVien> bienTapVienList = quanLyTruyenHinhHelper.getAllBienTapVien();
-        ArrayAdapter<BienTapVien> bienTapVienArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, bienTapVienList)
-        {
-            @Nullable
-            @Override
-            public Object getItem(int position) {
-                return bienTapVienList.get(position).getHoTen();
-            }
-        };
-        spinnerBienTapVien.setAdapter(bienTapVienArrayAdapter);
+//        ArrayAdapter<BienTapVien> bienTapVienArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, bienTapVienList)
+//        {
+//            @Nullable
+//            @Override
+//            public Object getItem(int position) {
+//                return bienTapVienList.get(position).getHoTen();
+//            }
+//        };
+        BienTapVienAdapter bienTapVienAdapter =
+                new BienTapVienAdapter(getApplicationContext(), R.layout.list_layout_bientapvien, bienTapVienList);
+        spinnerBienTapVien.setAdapter(bienTapVienAdapter);
         imgCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -399,7 +407,7 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
         ImageView imgCalendar = dialog.findViewById(R.id.img_ngay_phat_song);
         EditText edtThoiLuong = dialog.findViewById(R.id.edt_thoi_luong);
         imgChonHinhAnhPS = dialog.findViewById(R.id.img_chon_hinh_anh_phat_song);
-        AppCompatButton btnChonHinhAnh = dialog.findViewById(R.id.btnChonHinhAnh);
+        Button btnChonHinhAnh = dialog.findViewById(R.id.btnChonHinhAnh);
         Button btnSua = dialog.findViewById(R.id.btnSua);
         Button btnHuy = dialog.findViewById(R.id.btnHuy);
 
@@ -407,15 +415,9 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
         edtMaPhatSong.setEnabled(false);
         edtMaPhatSong.setText(thongTinPhatSong.getMaPhatSong());
         List<BienTapVien> bienTapVienList = quanLyTruyenHinhHelper.getAllBienTapVien();
-        ArrayAdapter<BienTapVien> bienTapVienArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, bienTapVienList)
-        {
-            @Nullable
-            @Override
-            public Object getItem(int position) {
-                return bienTapVienList.get(position).getHoTen();
-            }
-        };
-        spinnerBienTapVien.setAdapter(bienTapVienArrayAdapter);
+        BienTapVienAdapter bienTapVienAdapter =
+                new BienTapVienAdapter(getApplicationContext(), R.layout.list_layout_bientapvien, bienTapVienList);
+        spinnerBienTapVien.setAdapter(bienTapVienAdapter);
         int btvPosition = 0;
         for (int i = 0; i < bienTapVienList.size(); i++) {
             BienTapVien bienTapVien = bienTapVienList.get(i);
