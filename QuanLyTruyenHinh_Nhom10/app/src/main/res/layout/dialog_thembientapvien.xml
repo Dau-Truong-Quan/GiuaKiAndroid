@@ -8,8 +8,7 @@
 
     <TextView
         style="@style/large_title"
-        android:text="Thêm biên tập viên"
-        android:background="@drawable/bottom_border" />
+        android:text="Thêm biên tập viên" />
 
     <TextView
         style="@style/small_title"
