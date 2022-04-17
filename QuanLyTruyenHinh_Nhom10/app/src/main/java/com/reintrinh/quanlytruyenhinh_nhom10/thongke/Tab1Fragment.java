@@ -64,7 +64,7 @@ public class Tab1Fragment extends Fragment {
     Button btnInReport1;
 
     ListView lvThongKeTL;
-    ArrayList<ThongKe> dataList = new ArrayList<>();;
+    ArrayList<ThongKe> dataList = new ArrayList<>();
     ThongKeAdapter thongKeAdapter;
 
     public static final int CREATE_FILE = 100;
@@ -129,6 +129,13 @@ public class Tab1Fragment extends Fragment {
                 checkPermission(report);
             }
         });
+    }
+
+    public BarChart getChartTheLoai() {
+        if (chartTheLoai == null) {
+            return mView.findViewById(R.id.chartTheLoai);
+        }
+        return chartTheLoai;
     }
 
     public void getData() {

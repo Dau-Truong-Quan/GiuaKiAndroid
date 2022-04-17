@@ -194,17 +194,7 @@ public class LoginActivity extends AppCompatActivity {
             dbHelper.themBienTapVien(bienTapVien7);
             dbHelper.themBienTapVien(bienTapVien8);
         }
-        // Thông tin phát sóng
-//        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('01','CT1', 'BTV1', '22/02/2000', '1')");
-//        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('02','CT1', 'BTV1', '22/02/2000', '2')");
-//        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('03','CT1', 'BTV1', '22/02/2000', '3')");
-//        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('04','CT2', 'BTV2', '22/02/2000', '4')");
-//        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('05','CT2', 'BTV2', '22/02/2000', '5')");
-//        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('06','CT2', 'BTV2', '22/02/2000', '6')");
-//        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('07','CT3', 'BTV2', '22/02/2000', '7')");
-//        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('08','CT3', 'BTV2', '22/02/2000', '8')");
-//        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('09','CT5', 'BTV3', '22/02/2000', '9')");
-//        dbHelper.queryData("INSERT INTO ThongTinPhatSong VALUES ('10','CT5', 'BTV3', '22/02/2000', '10')");
+
         if (!dbHelper.hasData("ThongTinPhatSong")) {
             ThongTinPhatSong thongTinPhatSong1 =
                     new ThongTinPhatSong("01", chuongTrinh1, bienTapVien1, "14/02/2022", 20,

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_thong_ke"
+            android:title="@string/nav_thong_ke"
+            android:icon="@drawable/graph"/>
+        <item android:id="@+id/nav_chuong_trinh"
+            android:title="@string/nav_chuong_trinh"
+            android:icon="@drawable/videoplay"/>
+        <item android:id="@+id/nav_the_loai"
+            android:title="@string/nav_the_loai"
+            android:icon="@drawable/category"/>
+        <item android:id="@+id/nav_bien_tap_vien"
+            android:title="@string/nav_bien_tap_vien"
+            android:icon="@drawable/people"/>
+    </group>
+
+    <item android:title="@string/nav_tai_khoan">
+        <menu>
+            <item android:id="@+id/nav_dang_xuat"
+                android:title="@string/nav_dang_xuat"
+                android:icon="@drawable/ic_logout"/>
+        </menu>
+    </item>
+</menu>
