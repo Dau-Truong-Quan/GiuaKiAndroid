@@ -101,7 +101,7 @@
                 android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/custom_search_view"
+                android:background="@drawable/bg_blue_aqua"
                 app:queryHint="@string/search_ttps" />
 
             <androidx.recyclerview.widget.RecyclerView
