@@ -8,8 +8,8 @@ import android.database.sqlite.SQLiteStatement;
 
 import androidx.annotation.Nullable;
 
-import com.reintrinh.quanlytruyenhinh_nhom10.ChuongTrinhActivity;
-import com.reintrinh.quanlytruyenhinh_nhom10.LoginActivity;
+
+
 import com.reintrinh.quanlytruyenhinh_nhom10.model.BienTapVien;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.ChuongTrinh;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.TheLoai;
