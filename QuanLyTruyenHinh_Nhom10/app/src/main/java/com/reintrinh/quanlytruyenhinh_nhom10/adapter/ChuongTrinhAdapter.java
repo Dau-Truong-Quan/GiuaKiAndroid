@@ -60,7 +60,7 @@ public class ChuongTrinhAdapter extends RecyclerView.Adapter<ChuongTrinhViewHold
             public void onClick(View v) {
                 Intent intent = new Intent(context.getContext(), ThongTinPhatSongActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(context.getString(R.string.key_program), chuongTrinh);
+                bundle.putString(context.getString(R.string.key_program), chuongTrinh.getMaCT());
                 intent.putExtras(bundle);
                 context.startActivity(intent);
             }
