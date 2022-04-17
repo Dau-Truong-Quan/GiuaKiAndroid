@@ -40,7 +40,9 @@ import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.snackbar.Snackbar;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
+import com.reintrinh.quanlytruyenhinh_nhom10.LoginActivity;
 import com.reintrinh.quanlytruyenhinh_nhom10.MainActivity;
+import com.reintrinh.quanlytruyenhinh_nhom10.PreferenceManager;
 import com.reintrinh.quanlytruyenhinh_nhom10.R;
 import com.reintrinh.quanlytruyenhinh_nhom10.adapter.ChuongTrinhAdapter;
 import com.reintrinh.quanlytruyenhinh_nhom10.helper.QuanLyTruyenHinhHelper;
@@ -53,13 +55,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChuongTrinhFragment extends Fragment {
-
+    private PreferenceManager preferenceManager;
     LinearLayout mainContent;
     RecyclerView recycleView;
     Spinner spinnerTheLoai;
     QuanLyTruyenHinhHelper dbHelper;
 
-    Button buttonThem;
+
+    Button buttonThem,buttonExit;
     ChuongTrinhAdapter chuongTrinhAdapter;
     TextView txtTongChuongTrinh;
 
@@ -82,7 +85,7 @@ public class ChuongTrinhFragment extends Fragment {
 
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_chuong_trinh, container, false);
-
+        preferenceManager = new PreferenceManager(getContext());
         setControl();
 
         ArrayList<TheLoai> arrayTheLoai= new ArrayList<TheLoai>();
@@ -140,6 +143,7 @@ public class ChuongTrinhFragment extends Fragment {
             }
 
         });
+        buttonExit.setOnClickListener(v -> signOut());
     }
 
     private void setControl() {
@@ -149,6 +153,7 @@ public class ChuongTrinhFragment extends Fragment {
         recycleView = view.findViewById(R.id.recycleView);
         searchView = view.findViewById(R.id.svChuongTrinh);
         mainContent = view.findViewById(R.id.main_chuongtrinh);
+        buttonExit = view.findViewById(R.id.buttonExit);
     }
 
     private void dialogInsert() {
@@ -410,5 +415,13 @@ public class ChuongTrinhFragment extends Fragment {
                 .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
                 .setPermissions(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)
                 .check();
+    }
+
+    private void signOut() {
+        Toast.makeText(getContext(), "Đăng xuất...", Toast.LENGTH_LONG).show();
+        preferenceManager.clear();
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 }
