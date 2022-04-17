@@ -103,6 +103,7 @@ public class OTPActivity extends AppCompatActivity {
     private void setControl() {
         editTextConfirmOTP=findViewById(R.id.editTextConfirmOTP);
         buttonConfirm=findViewById(R.id.buttonConfirm);
+        btnThoat = findViewById(R.id.buttonThoatHiem);
     }
 
     public String createOTP(){

@@ -56,5 +56,6 @@ public class NewPasswordActivity extends Activity {
     private void setControl() {
         editTextNewPassword=findViewById(R.id.editTextNewPassword);
         buttonConfirmNewPassword=findViewById(R.id.buttonConfirmNewPassword);
+        btnThoat = findViewById(R.id.buttonThoatOTP);
     }
 }
