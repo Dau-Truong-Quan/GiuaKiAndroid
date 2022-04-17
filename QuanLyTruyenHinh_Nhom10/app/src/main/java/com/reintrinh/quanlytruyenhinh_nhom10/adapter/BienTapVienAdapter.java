@@ -19,16 +19,17 @@ import com.reintrinh.quanlytruyenhinh_nhom10.model.BienTapVien;
 import com.reintrinh.quanlytruyenhinh_nhom10.util.ImageUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class BienTapVienAdapter extends ArrayAdapter<BienTapVien> {
 
     Context context;
     int resource;
-    ArrayList<BienTapVien> data;
-    ArrayList<BienTapVien> dataSearch = new ArrayList<>();
+    List<BienTapVien> data;
+    List<BienTapVien> dataSearch = new ArrayList<>();
 
-    public BienTapVienAdapter(@NonNull Context context, int resource, @NonNull ArrayList<BienTapVien> data) {
+    public BienTapVienAdapter(@NonNull Context context, int resource, @NonNull List<BienTapVien> data) {
         super(context, resource, data);
         this.context = context;
         this.resource = resource;
@@ -51,6 +52,23 @@ public class BienTapVienAdapter extends ArrayAdapter<BienTapVien> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        convertView = LayoutInflater.from(context).inflate(resource, null);
+        TextView tvHoTen = convertView.findViewById(R.id.tvHoTen);
+        TextView tvSDT = convertView.findViewById(R.id.tvSDT);
+        ImageView ivIcon = convertView.findViewById(R.id.ivIcon);
+
+        BienTapVien btv = data.get(position);
+        tvHoTen.setText(btv.getHoTen());
+        tvSDT.setText(btv.getSdt());
+
+        byte[] hinhAnh = btv.getHinhAnh();
+        ivIcon.setImageBitmap(ImageUtil.getBitmapFromByteArray(hinhAnh));
+
+        return convertView;
+    }
+
+    @Override
+    public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         convertView = LayoutInflater.from(context).inflate(resource, null);
         TextView tvHoTen = convertView.findViewById(R.id.tvHoTen);
         TextView tvSDT = convertView.findViewById(R.id.tvSDT);
