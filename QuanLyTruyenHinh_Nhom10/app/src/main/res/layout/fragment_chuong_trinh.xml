@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:queryHint="Tìm theo tên chương trình"
+        android:background="@drawable/bg_blue_aqua"
         android:id="@+id/svChuongTrinh" />
 
     <LinearLayout
