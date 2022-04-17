@@ -15,19 +15,11 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="8dp"
-            android:padding="5dp"
-            android:text="THÊM CHƯƠNG TRÌNH"
-            android:textSize="25dp"
-            android:textStyle="bold" />
+            style="@style/large_title"
+            android:text="THÊM CHƯƠNG TRÌNH" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            style="@style/small_title"
             android:text="Hình ảnh" />
 
         <LinearLayout
@@ -44,18 +36,17 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/avata_chuongtrinh" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btnChonHinhAnhAddCT"
                 android:text="Chọn hình"
-                android:backgroundTint="@color/color_button"/>
+                android:textAllCaps="false"
+                android:background="@drawable/bg_button"/>
         </LinearLayout>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            style="@style/small_title"
             android:text="Mã chương trình" />
 
         <EditText
@@ -67,9 +58,7 @@
             android:padding="5dp" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            style="@style/small_title"
             android:text="Tên chương trình" />
 
         <EditText
@@ -81,9 +70,7 @@
             android:padding="5dp" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            style="@style/small_title"
             android:text="Thể loại" />
 
         <Spinner

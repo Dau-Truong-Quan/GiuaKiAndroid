@@ -84,13 +84,11 @@ public class Tab2Fragment extends Fragment {
 
         ArrayList<BarEntry> barEntries = new ArrayList<>();
 
-        BarEntry barEntry;
         for (int i = 0; i < dataList.size(); i++) {
             //Chỉ lấy 5 item đầu
             if(i >= 5)
                 break;
-            barEntry = new BarEntry(i, dataList.get(i).getValue());
-            barEntries.add(barEntry);
+            barEntries.add(new BarEntry(i, dataList.get(i).getValue()));
         }
 
         ArrayList<String> labels = new ArrayList<String>();
@@ -103,15 +101,12 @@ public class Tab2Fragment extends Fragment {
 
         XAxis xAxis = chartChuongTrinh.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        //xAxis.setAxisMinimum(0f);
-        //xAxis.setGranularity(1f);
         xAxis.setLabelCount(labels.size());
         xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
 
         BarDataSet barDataSet = new BarDataSet(barEntries, "Chương trình");
 
         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        BarData barData = new BarData(barDataSet);
         chartChuongTrinh.setData(new BarData(barDataSet));
         chartChuongTrinh.animateY(1000);
         chartChuongTrinh.getDescription().setText("Top 5 thời lượng phát sóng theo chương trình");

@@ -17,6 +17,7 @@ import com.reintrinh.quanlytruyenhinh_nhom10.ThongTinPhatSongActivity;
 import com.reintrinh.quanlytruyenhinh_nhom10.fragment.ChuongTrinhFragment;
 import com.reintrinh.quanlytruyenhinh_nhom10.listener.ChuongTrinhListener;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.ChuongTrinh;
+import com.reintrinh.quanlytruyenhinh_nhom10.model.TheLoai;
 import com.reintrinh.quanlytruyenhinh_nhom10.util.ImageUtil;
 
 import java.util.ArrayList;
@@ -31,7 +32,6 @@ public class ChuongTrinhAdapter extends RecyclerView.Adapter<ChuongTrinhViewHold
     public ChuongTrinhAdapter(ChuongTrinhFragment context, List<ChuongTrinh> list) {
         this.context = context;
         this.list = list;
-        this.listener = listener;
         listSearch.addAll(list);
     }
 
@@ -79,6 +79,27 @@ public class ChuongTrinhAdapter extends RecyclerView.Adapter<ChuongTrinhViewHold
         return list.size();
     }
 
+    public void filter(String text)
+    {
+        list.clear();
+        text = text.trim().toLowerCase();
+
+        if (text.length() == 0)
+            list.addAll(listSearch);
+        else {
+            for (ChuongTrinh ct : listSearch) {
+                if (ct.getTenCT().toLowerCase().contains(text)) {
+                    list.add(ct);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    public void updateListSearch() {
+        listSearch.clear();
+        listSearch.addAll(list);
+    }
 
 }
 

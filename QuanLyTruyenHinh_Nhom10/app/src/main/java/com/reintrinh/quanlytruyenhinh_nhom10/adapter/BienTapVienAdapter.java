@@ -77,7 +77,6 @@ public class BienTapVienAdapter extends ArrayAdapter<BienTapVien> {
             for (BienTapVien btv : dataSearch) {
                 if (btv.getHoTen().toLowerCase().contains(text)) {
                     data.add(btv);
-                    Toast.makeText(context, btv.getHoTen(), Toast.LENGTH_LONG).show();
                 }
             }
         }
