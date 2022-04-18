@@ -101,7 +101,7 @@
         <entry key="..\:/dataForMobile/mobieGiuaKi/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/activity_new_password.xml" value="0.1" />
         <entry key="..\:/dataForMobile/mobieGiuaKi/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/activity_otp.xml" value="0.25" />
         <entry key="..\:/dataForMobile/mobieGiuaKi/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/activity_register.xml" value="0.33" />
-        <entry key="..\:/dataForMobile/mobieGiuaKi/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/dialog_chinhsua_chuongtrinh.xml" value="0.36666666666666664" />
+        <entry key="..\:/dataForMobile/mobieGiuaKi/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/dialog_chinhsua_chuongtrinh.xml" value="0.2131578947368421" />
         <entry key="..\:/dataForMobile/mobieGiuaKi/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/dialog_chinhsua_theloai.xml" value="0.36666666666666664" />
         <entry key="..\:/dataForMobile/mobieGiuaKi/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/dialog_themchuongtrinh.xml" value="0.18489583333333334" />
         <entry key="..\:/dataForMobile/mobieGiuaKi/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/fragment_bien_tap_vien.xml" value="0.36666666666666664" />
@@ -109,6 +109,7 @@
         <entry key="..\:/dataForMobile/mobieGiuaKi/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/item_thong_tin_phat_song.xml" value="0.36666666666666664" />
         <entry key="..\:/dataForMobile/mobieGiuaKi/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/list_layout_chuongtrinh.xml" value="0.36666666666666664" />
         <entry key="..\:/dataForMobile/mobieGiuaKi/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/list_layout_theloai.xml" value="0.36666666666666664" />
+        <entry key="..\:/dataForMobile/mobieGiuaKi/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/list_layout_theloaiSelect.xml" value="0.13858695652173914" />
       </map>
     </option>
   </component>

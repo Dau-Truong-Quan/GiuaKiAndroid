@@ -6,13 +6,16 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
@@ -46,6 +49,7 @@ import com.reintrinh.quanlytruyenhinh_nhom10.MainActivity;
 import com.reintrinh.quanlytruyenhinh_nhom10.PreferenceManager;
 import com.reintrinh.quanlytruyenhinh_nhom10.R;
 import com.reintrinh.quanlytruyenhinh_nhom10.adapter.ChuongTrinhAdapter;
+import com.reintrinh.quanlytruyenhinh_nhom10.adapter.TheLoaiArrayAdapter;
 import com.reintrinh.quanlytruyenhinh_nhom10.helper.QuanLyTruyenHinhHelper;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.BienTapVien;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.ChuongTrinh;
@@ -92,9 +96,9 @@ public class ChuongTrinhFragment extends Fragment {
 
         ArrayList<TheLoai> arrayTheLoai= new ArrayList<TheLoai>();
         ArrayList<String> arrayTenTheLoai = new ArrayList<String>();
-
-        arrayTenTheLoai.add("Tất cả");
-
+        TheLoai theLoai1 = new TheLoai("All", "Tất cả", getByteArrayFromImageResource(R.drawable.theloai));
+//        arrayTenTheLoai.add("");
+        arrayTheLoai.add(theLoai1);
         //Load data
         dbHelper = new QuanLyTruyenHinhHelper(getContext());
 
@@ -107,7 +111,7 @@ public class ChuongTrinhFragment extends Fragment {
             arrayTenTheLoai.add(theLoai.getTenTL());
         }
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, arrayTenTheLoai);
+        TheLoaiArrayAdapter arrayAdapter = new TheLoaiArrayAdapter(getContext(),R.layout.list_layout_theloai_select, arrayTheLoai);
         spinnerTheLoai.setAdapter(arrayAdapter);
 
         /*Bundle bundle = getActivity().getIntent().getExtras();
@@ -205,10 +209,10 @@ public class ChuongTrinhFragment extends Fragment {
 
         ivChonHinhAnh = dialog.findViewById(R.id.addHinhAnhCT);
 
-        // thêm dữ liệu vào spin
-        Spinner spinnerTheLoaiTam = dialog.findViewById(R.id.spinnerMaTheLoai);
         Cursor dataTheLoai = dbHelper.getData("SELECT * FROM TheLoai");
         ArrayList<TheLoai> arrayTheLoaiTam = new ArrayList<TheLoai>();
+        // thêm dữ liệu vào spin
+        Spinner spinnerTheLoaiTam = dialog.findViewById(R.id.spinnerMaTheLoai);
         ArrayList<String> arrayTenTheLoaiTam = new ArrayList<String>();
         TheLoai theLoaiEdit;
         while (dataTheLoai.moveToNext()) {
@@ -216,7 +220,7 @@ public class ChuongTrinhFragment extends Fragment {
             arrayTheLoaiTam.add(theLoaiEdit);
             arrayTenTheLoaiTam.add(theLoaiEdit.getTenTL());
         }
-        ArrayAdapter arrayAdapterTam = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, arrayTenTheLoaiTam);
+        TheLoaiArrayAdapter arrayAdapterTam = new TheLoaiArrayAdapter(getContext(), R.layout.list_layout_theloai_select, arrayTheLoaiTam) {};
         spinnerTheLoaiTam.setAdapter(arrayAdapterTam);
 
         btnChonHinhAnh.setOnClickListener(new View.OnClickListener() {
@@ -272,11 +276,11 @@ public class ChuongTrinhFragment extends Fragment {
 
     public void actionGetData() {
         arrayChuongTrinh.clear();
-        String tl = spinnerTheLoai.getSelectedItem().toString();
-        if (tl.equals("Tất cả")) {
+        TheLoai tl = (TheLoai) spinnerTheLoai.getSelectedItem();
+        if (tl.getMaTL().equals("All")) {
 
             Cursor dataChuongTrinh = dbHelper.getData("SELECT * FROM ChuongTrinh ORDER BY MaCT");
-            theLoai = new TheLoai("Tất cả", "Tất cả", null);
+
 
             ChuongTrinh chuongTrinh;
             while (dataChuongTrinh.moveToNext()) {
@@ -286,14 +290,14 @@ public class ChuongTrinhFragment extends Fragment {
 
             txtTongChuongTrinh.setText("Tổng số chương trình: " + arrayChuongTrinh.size());
         } else {
-            Cursor dataTheLoai = dbHelper.getData("SELECT * FROM TheLoai WHERE TenTL='" + tl + "'");
-            String ma = "";
-
-            while (dataTheLoai.moveToNext()) {
-                ma = dataTheLoai.getString(0);
-                theLoai = new TheLoai(ma, dataTheLoai.getString(1), dataTheLoai.getBlob(2));
-            }
-            Cursor dataChuongTrinh = dbHelper.getData("SELECT * FROM ChuongTrinh WHERE MaTL = '" + ma + "'");
+//            Cursor dataTheLoai = dbHelper.getData("SELECT * FROM TheLoai WHERE MaTL='" + tl.getMaTL() + "'");
+//            String ma = "";
+//
+//            while (dataTheLoai.moveToNext()) {
+//                ma = dataTheLoai.getString(0);
+//                theLoai = new TheLoai(ma, dataTheLoai.getString(1), dataTheLoai.getBlob(2));
+//            }
+            Cursor dataChuongTrinh = dbHelper.getData("SELECT * FROM ChuongTrinh WHERE MaTL = '" + tl.getMaTL() + "'");
 
             ChuongTrinh chuongTrinh;
             while (dataChuongTrinh.moveToNext()) {
@@ -335,7 +339,7 @@ public class ChuongTrinhFragment extends Fragment {
             arrayTheLoaiTam.add(theLoaiEdit);
             arrayTenTheLoaiTam.add(theLoaiEdit.getTenTL());
         }
-        ArrayAdapter arrayAdapterTam = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, arrayTenTheLoaiTam);
+        TheLoaiArrayAdapter arrayAdapterTam = new TheLoaiArrayAdapter(getContext(), R.layout.list_layout_theloai_select, arrayTheLoaiTam);
         spinnerTheLoaiTam.setAdapter(arrayAdapterTam);
 
         int tlPosition = 0;
@@ -455,6 +459,12 @@ public class ChuongTrinhFragment extends Fragment {
                 .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
                 .setPermissions(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)
                 .check();
+    }
+    private byte[] getByteArrayFromImageResource(int resourceId) {
+        Resources res = getResources();
+        Drawable drawable = res.getDrawable(resourceId);
+        Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
+        return ImageUtil.getByteArrayFromBitmap(bitmap);
     }
 
 
