@@ -42,13 +42,6 @@ public class BienTapVienAdapter extends ArrayAdapter<BienTapVien> {
         return data.size();
     }
 
-    public int random() {
-        int min = 0;
-        int max = 255;
-        Random generator = new Random();
-        return generator.nextInt((max - min) + 1) + min;
-    }
-
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

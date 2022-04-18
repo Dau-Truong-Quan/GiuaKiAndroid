@@ -96,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
-                android:backgroundTint="@color/color_button"
+                android:backgroundTint="@color/custom_color_button"
                 android:text="Thêm" />
 
             <Button
@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
-                android:backgroundTint="@color/color_button"
+                android:backgroundTint="@color/custom_color_button_cancel"
                 android:text="Hủy" />
         </LinearLayout>
     </LinearLayout>

@@ -134,6 +134,31 @@ public class ChuongTrinhFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        ArrayList<TheLoai> arrayTheLoai= new ArrayList<TheLoai>();
+        ArrayList<String> arrayTenTheLoai = new ArrayList<String>();
+        TheLoai theLoai1 = new TheLoai("All", "Tất cả", getByteArrayFromImageResource(R.drawable.theloai));
+//        arrayTenTheLoai.add("");
+        arrayTheLoai.add(theLoai1);
+        //Load data
+        dbHelper = new QuanLyTruyenHinhHelper(getContext());
+
+        Cursor dataTheLoai = dbHelper.getData("SELECT * FROM TheLoai");
+
+        TheLoai theLoai;
+        while (dataTheLoai.moveToNext()) {
+            theLoai = new TheLoai(dataTheLoai.getString(0), dataTheLoai.getString(1), dataTheLoai.getBlob(2));
+            arrayTheLoai.add(theLoai);
+            arrayTenTheLoai.add(theLoai.getTenTL());
+        }
+
+        TheLoaiArrayAdapter arrayAdapter = new TheLoaiArrayAdapter(getContext(),R.layout.list_layout_theloai_select, arrayTheLoai);
+        spinnerTheLoai.setAdapter(arrayAdapter);
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_SELECT_IMAGE && resultCode == Activity.RESULT_OK && data != null) {
