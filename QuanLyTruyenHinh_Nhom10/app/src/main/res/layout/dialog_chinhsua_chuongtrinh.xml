@@ -67,7 +67,7 @@
     <Spinner
         android:id="@+id/spinnerMaTheLoaiChinhSua"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:background="@drawable/img"
 

@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Patterns;
@@ -26,6 +27,15 @@ import com.reintrinh.quanlytruyenhinh_nhom10.model.User;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText inputFirstName, inputLastName, inputEmail, inputPassword, inputConfirmPassword;
@@ -38,7 +48,11 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         setControl();
-
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
 
         quanLyTruyenHinhHelper = QuanLyTruyenHinhHelper.getInstance(this);
         setEvent();
@@ -64,7 +78,9 @@ public class RegisterActivity extends AppCompatActivity {
                     if (i == 1) {
                         showToast("Email đã tồn tại!");
                     } else if (i == 0) {
-                        showToast("Đăng ký thành công!");
+
+                        sendMail(inputEmail.getText().toString().trim());
+                        showToast("Đăng ký thành công! Đã gửi thông báo tới gmail của bạn");
                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                         startActivity(intent);
                         finish();
@@ -73,7 +89,35 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+    private void sendMail(String email) {
+        final String username="quansonvu2408@gmail.com";
+        final String password="mkzufdlqrsegxzpt";
+        String messageToSend=" Chào mừng bạn đến với Quản lý truyền hình nhóm 10";
+        Properties properties=new Properties();
+        properties.put("mail.smtp.auth","true");
+        properties.put("mail.smtp.starttls.enable","true");
+        properties.put("mail.smtp.host","smtp.gmail.com");
+        properties.put("mail.smtp.port","587");
+        Session session=Session.getInstance(properties,
+                new javax.mail.Authenticator(){
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication(){
+                        return new PasswordAuthentication(username,password);
+                    }
+                });
+        try {
+            Message message=new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(email));
+            message.setSubject("Đăng ký thành công!");
+            message.setText(messageToSend);
+            Transport.send(message);
 
+        }catch (MessagingException e){
+            throw  new RuntimeException(e);
+        }
+
+    }
     private void setControl() {
         inputFirstName = findViewById(R.id.inputFirstName);
         inputLastName = findViewById(R.id.inputLastName);
