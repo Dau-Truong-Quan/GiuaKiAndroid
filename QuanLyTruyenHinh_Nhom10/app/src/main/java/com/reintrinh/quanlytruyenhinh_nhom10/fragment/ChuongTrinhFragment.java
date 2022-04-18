@@ -64,7 +64,7 @@ public class ChuongTrinhFragment extends Fragment {
     QuanLyTruyenHinhHelper dbHelper;
 
 
-    Button buttonThem,buttonExit;
+    Button buttonThem;
     ChuongTrinhAdapter chuongTrinhAdapter;
     TextView txtTongChuongTrinh;
 
@@ -179,7 +179,7 @@ public class ChuongTrinhFragment extends Fragment {
             }
 
         });
-        buttonExit.setOnClickListener(v -> signOut());
+
     }
 
     private void setControl() {
@@ -189,7 +189,7 @@ public class ChuongTrinhFragment extends Fragment {
         recycleView = view.findViewById(R.id.recycleView);
         searchView = view.findViewById(R.id.svChuongTrinh);
         mainContent = view.findViewById(R.id.main_chuongtrinh);
-        buttonExit = view.findViewById(R.id.buttonExit);
+
     }
 
     private void dialogInsert() {
@@ -457,11 +457,5 @@ public class ChuongTrinhFragment extends Fragment {
                 .check();
     }
 
-    private void signOut() {
-        Toast.makeText(getContext(), "Đăng xuất...", Toast.LENGTH_LONG).show();
-        preferenceManager.clear();
-        Intent intent = new Intent(getContext(), LoginActivity.class);
-        startActivity(intent);
-        getActivity().finish();
-    }
+
 }
