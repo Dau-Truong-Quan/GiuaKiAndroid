@@ -30,18 +30,18 @@ public class QuanLyTruyenHinhHelper extends SQLiteOpenHelper {
     }
 
 
-        public static synchronized QuanLyTruyenHinhHelper getInstance(Context context) {
-            // Use the application context, which will ensure that you
-            // don't accidentally leak an Activity's context.
-            // See this article for more information: http://bit.ly/6LRzfx
-            if (sInstance == null) {
-                sInstance = new QuanLyTruyenHinhHelper(context.getApplicationContext());
-            }
-            return sInstance;
+    public static synchronized QuanLyTruyenHinhHelper getInstance(Context context) {
+        // Use the application context, which will ensure that you
+        // don't accidentally leak an Activity's context.
+        // See this article for more information: http://bit.ly/6LRzfx
+        if (sInstance == null) {
+            sInstance = new QuanLyTruyenHinhHelper(context.getApplicationContext());
         }
+        return sInstance;
+    }
 
     //Truy van khong tra ket qua
-    public void queryData(String sql){
+    public void queryData(String sql) {
         SQLiteDatabase database = getWritableDatabase();
         database.execSQL(sql);
     }
@@ -49,7 +49,7 @@ public class QuanLyTruyenHinhHelper extends SQLiteOpenHelper {
     //Truy van tra ket qua
     public Cursor getData(String sql) {
         SQLiteDatabase database = getReadableDatabase();
-        return database.rawQuery(sql,null);
+        return database.rawQuery(sql, null);
     }
 
     @Override
@@ -317,6 +317,7 @@ public class QuanLyTruyenHinhHelper extends SQLiteOpenHelper {
         }
         return false;
     }
+
     public User checkUserExist(String username, String password) {
         User user = null;
         SQLiteDatabase db = getReadableDatabase();
@@ -346,7 +347,7 @@ public class QuanLyTruyenHinhHelper extends SQLiteOpenHelper {
     }
 
     // user
-    public void capNhatMatKhauUser(String editTextNewPassword,String gmail) {
+    public void capNhatMatKhauUser(String editTextNewPassword, String gmail) {
         queryData(String.format("UPDATE User SET PASSWORD='" + editTextNewPassword + "' WHERE EMAIL='" + gmail + "'"));
     }
 
@@ -357,7 +358,7 @@ public class QuanLyTruyenHinhHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("SELECT * FROM User " + "WHERE EMAIL='" + user.getEmail() + "'", null);
         int count = cursor.getCount();
 
-        if (count>1) {
+        if (count > 1) {
             return 1;
         }
 
@@ -376,7 +377,6 @@ public class QuanLyTruyenHinhHelper extends SQLiteOpenHelper {
 
         return 0;
     }
-
 
 
 }

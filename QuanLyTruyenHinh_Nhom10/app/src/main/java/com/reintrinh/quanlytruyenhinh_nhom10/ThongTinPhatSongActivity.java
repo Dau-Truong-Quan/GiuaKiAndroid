@@ -11,11 +11,11 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -52,6 +52,7 @@ import com.reintrinh.quanlytruyenhinh_nhom10.model.TheLoai;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.ThongTinPhatSong;
 import com.reintrinh.quanlytruyenhinh_nhom10.util.ImageUtil;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -86,8 +87,8 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
 
         quanLyTruyenHinhHelper = new QuanLyTruyenHinhHelper(this);
         Bundle bundle = getIntent().getExtras();
-        chuongTrinh = (ChuongTrinh) bundle.getSerializable(getString(R.string.key_program));
-
+        String maCT = bundle.getString(getString(R.string.key_program));
+        chuongTrinh = quanLyTruyenHinhHelper.getChuongTrinhByMaCT(maCT);
         setControl();
         initToolbar();
         initToolbarAnimation();
@@ -101,7 +102,14 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_SELECT_IMAGE && resultCode == RESULT_OK && data != null) {
             Uri uri = data.getData();
-            imgChonHinhAnhPS.setImageURI(uri);
+            Bitmap bitmap;
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+                imgChonHinhAnhPS.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
     }
 
@@ -128,7 +136,7 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-            case R.id.action_go_back:
+            case R.id.action_quay_lai:
                 finish();
                 return true;
         }
