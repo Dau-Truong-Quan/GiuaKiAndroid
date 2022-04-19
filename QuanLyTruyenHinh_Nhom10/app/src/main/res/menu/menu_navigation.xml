@@ -13,10 +13,16 @@
         <item android:id="@+id/nav_bien_tap_vien"
             android:title="@string/nav_bien_tap_vien"
             android:icon="@drawable/people"/>
+        <item android:id="@+id/nav_tai_khoan"
+            android:title="@string/nav_tai_khoan"
+            android:icon="@drawable/ic_account_circle"/>
     </group>
 
-    <item android:title="@string/nav_tai_khoan">
+    <item android:title="@string/nav_khac">
         <menu>
+            <item android:id="@+id/nav_doi_mat_khau"
+                android:title="@string/nav_doi_mat_khau"
+                android:icon="@drawable/ic_lock"/>
             <item android:id="@+id/nav_dang_xuat"
                 android:title="@string/nav_dang_xuat"
                 android:icon="@drawable/ic_logout"/>

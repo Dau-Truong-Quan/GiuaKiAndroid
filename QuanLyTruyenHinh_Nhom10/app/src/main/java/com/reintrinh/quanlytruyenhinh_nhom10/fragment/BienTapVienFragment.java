@@ -37,11 +37,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 import com.reintrinh.quanlytruyenhinh_nhom10.R;
-import com.reintrinh.quanlytruyenhinh_nhom10.ThongTinPhatSongActivity;
 import com.reintrinh.quanlytruyenhinh_nhom10.adapter.BienTapVienAdapter;
 import com.reintrinh.quanlytruyenhinh_nhom10.helper.QuanLyTruyenHinhHelper;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.BienTapVien;
-import com.reintrinh.quanlytruyenhinh_nhom10.model.ChuongTrinh;
 import com.reintrinh.quanlytruyenhinh_nhom10.util.ImageUtil;
 
 import java.text.SimpleDateFormat;

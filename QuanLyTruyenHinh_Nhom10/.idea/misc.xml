@@ -14,17 +14,27 @@
         <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/drawable/border_img_color.xml" value="0.14" />
         <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/drawable/bottom_border.xml" value="0.14" />
         <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/drawable/custom_search_view.xml" value="0.14" />
+        <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/drawable/ic_account_circle.xml" value="0.175" />
         <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/drawable/ic_add.xml" value="0.155" />
         <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/drawable/ic_delete.xml" value="0.155" />
         <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/drawable/ic_round_add.xml" value="0.155" />
         <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/drawable/scrim.xml" value="0.155" />
+        <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/activity_change_password.xml" value="0.21693840579710144" />
+        <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/activity_main.xml" value="0.1388888888888889" />
+        <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/activity_new_password.xml" value="0.21693840579710144" />
+        <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/activity_otp.xml" value="0.21693840579710144" />
+        <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/activity_register.xml" value="0.21693840579710144" />
         <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/activity_thong_tin_phat_song.xml" value="0.264" />
         <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/dialog_chinhsua_chuongtrinh.xml" value="0.12158054711246201" />
         <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/dialog_sua_thongtinphatsong.xml" value="0.264" />
         <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/dialog_them_thongtinphatsong.xml" value="0.264" />
         <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/dialog_themchuongtrinh.xml" value="0.2028985507246377" />
         <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/fragment_bien_tap_vien.xml" value="0.2" />
+        <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/fragment_tai_khoan.xml" value="0.21693840579710144" />
         <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/item_thong_tin_phat_song.xml" value="0.12158054711246201" />
+        <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/layout/layout_header_navigation.xml" value="0.13768115942028986" />
+        <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.25" />
+        <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/menu/menu_navigation.xml" value="0.25" />
         <entry key="..\:/PTIT/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/menu/menu_thong_tin_phat_song.xml" value="0.24166666666666667" />
         <entry key="..\:/PhatTrienUngDungChoCacThietBiDiDong/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/drawable/ic_baseline_date_range_24.xml" value="0.1" />
         <entry key="..\:/PhatTrienUngDungChoCacThietBiDiDong/GiuaKiAndroid/QuanLyTruyenHinh_Nhom10/app/src/main/res/drawable/ic_baseline_featured_video_24.xml" value="0.1" />

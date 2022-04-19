@@ -9,7 +9,7 @@
     android:background="@drawable/background_login"
     android:padding="24dp"
     android:scrollbars="none"
-    tools:context=".LoginActivity">
+    tools:context=".activity.LoginActivity">
 
 
 

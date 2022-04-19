@@ -1,4 +1,4 @@
-package com.reintrinh.quanlytruyenhinh_nhom10;
+package com.reintrinh.quanlytruyenhinh_nhom10.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -27,9 +27,6 @@ public class PreferenceManager {
         editor.putString(key, value);
         editor.apply();
     }
-
-
-
 
     public String getString(String key) {
         return sharedPreferences.getString(key, null);

@@ -4,6 +4,7 @@
     <string name="title_tl">Thể loại</string>
     <string name="title_ct">Chương trình</string>
     <string name="title_btv">Biên tập viên</string>
+    <string name="title_taikhoan">Tài khoản</string>
     <string name="select_branch">Chọn thể loại:</string>
     <string name="key_program">chuong_trinh</string>
     <string name="action_quay_lai">Quay lại</string>
@@ -16,8 +17,12 @@
     <string name="nav_the_loai">Thể loại</string>
     <string name="nav_bien_tap_vien">Biên tập viên</string>
     <string name="nav_tai_khoan">Tài khoản</string>
+    <string name="nav_khac">Khác</string>
+    <string name="nav_doi_mat_khau">Đổi mật khẩu</string>
     <string name="nav_dang_xuat">Đăng xuất</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
