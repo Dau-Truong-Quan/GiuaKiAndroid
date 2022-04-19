@@ -1,15 +1,15 @@
-package com.reintrinh.quanlytruyenhinh_nhom10;
+package com.reintrinh.quanlytruyenhinh_nhom10.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.reintrinh.quanlytruyenhinh_nhom10.R;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
     TextView txtEmailtoRecoverPassword;

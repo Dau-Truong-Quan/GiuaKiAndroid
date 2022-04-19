@@ -1,4 +1,4 @@
-package com.reintrinh.quanlytruyenhinh_nhom10;
+package com.reintrinh.quanlytruyenhinh_nhom10.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -7,7 +7,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
@@ -23,7 +22,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 import com.reintrinh.quanlytruyenhinh_nhom10.Constant.Constants;
+import com.reintrinh.quanlytruyenhinh_nhom10.R;
 import com.reintrinh.quanlytruyenhinh_nhom10.fragment.ViewPagerAdapter;
+import com.reintrinh.quanlytruyenhinh_nhom10.helper.QuanLyTruyenHinhHelper;
+import com.reintrinh.quanlytruyenhinh_nhom10.listener.OnSaveClickListener;
+import com.reintrinh.quanlytruyenhinh_nhom10.model.User;
+import com.reintrinh.quanlytruyenhinh_nhom10.util.ImageUtil;
+import com.reintrinh.quanlytruyenhinh_nhom10.util.PreferenceManager;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -31,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final int FRAGMENT_CHUONG_TRINH = 2;
     private static final int FRAGMENT_THE_LOAI = 3;
     private static final int FRAGMENT_BIEN_TAP_VIEN = 4;
+    private static final int FRAGMENT_TAI_KHOAN = 5;
     private int currentFragment = FRAGMENT_THONG_KE;
 
     private Toolbar toolbar;
@@ -42,9 +48,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ViewPagerAdapter viewPagerAdapter;
 
     private ImageView imgUser;
-    private TextView txtUsername, txtEmail;
+    private TextView txtName, txtEmail;
 
     private PreferenceManager preferenceManager;
+    private QuanLyTruyenHinhHelper quanLyTruyenHinhHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,9 +80,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void loadUserInfo() {
-//        imgUser
-        txtUsername.setText(preferenceManager.getString(Constants.KEY_NAME));
-        txtEmail.setText(preferenceManager.getString(Constants.KEY_EMAIL));
+        String email = preferenceManager.getString(Constants.KEY_EMAIL);
+        User user = quanLyTruyenHinhHelper.getUserByEmail(email);
+        if (user == null) return;
+        imgUser.setImageBitmap(ImageUtil.getBitmapFromByteArray(user.getImg()));
+        txtName.setText(user.getFirstname() + " " + user.getLastname());
+        txtEmail.setText(user.getEmail());
     }
 
     private void signOut() {
@@ -94,13 +104,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         viewPager = findViewById(R.id.view_pager);
 
         viewPagerAdapter = new ViewPagerAdapter(this);
+        viewPagerAdapter.setOnSaveClickListener(new OnSaveClickListener() {
+            @Override
+            public void onClick() {
+                loadUserInfo();
+            }
+        });
         viewPager.setAdapter(viewPagerAdapter);
 
         imgUser = navigationView.getHeaderView(0).findViewById(R.id.img_user_avatar);
-        txtUsername = navigationView.getHeaderView(0).findViewById(R.id.tv_username);
+        txtName = navigationView.getHeaderView(0).findViewById(R.id.tv_username);
         txtEmail = navigationView.getHeaderView(0).findViewById(R.id.tv_email);
 
         preferenceManager = new PreferenceManager(this);
+        quanLyTruyenHinhHelper = QuanLyTruyenHinhHelper.getInstance(this);
     }
 
     private void setEvent() {
@@ -132,6 +149,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     case R.id.menu_bientapvien:
                         openBienTapVienFragment();
                         break;
+                    case R.id.menu_taikhoan:
+                        openTaiKhoanFragment();
+                        break;
                 }
                 return true;
             }
@@ -162,6 +182,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         navigationView.getMenu().findItem(R.id.nav_bien_tap_vien).setChecked(true);
                         bottomNavigationView.getMenu().findItem(R.id.menu_bientapvien).setChecked(true);
                         break;
+                    case 4:
+                        currentFragment = FRAGMENT_TAI_KHOAN;
+                        navigationView.getMenu().findItem(R.id.nav_tai_khoan).setChecked(true);
+                        bottomNavigationView.getMenu().findItem(R.id.menu_taikhoan).setChecked(true);
+                        break;
                 }
             }
         });
@@ -183,12 +208,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_bien_tap_vien:
                 openBienTapVienFragment();
                 break;
+            case R.id.nav_tai_khoan:
+                openTaiKhoanFragment();
+                break;
+            case R.id.nav_doi_mat_khau:
+                changeUserPassword();
+                break;
             case R.id.nav_dang_xuat:
                 signOut();
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void changeUserPassword() {
+        Intent intent = new Intent(MainActivity.this, ChangePasswordActivity.class);
+        startActivity(intent);
     }
 
     public void openThongKeFragment() {
@@ -214,8 +250,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void openBienTapVienFragment() {
         if (currentFragment != FRAGMENT_BIEN_TAP_VIEN) {
-            viewPager.setCurrentItem(4);
+            viewPager.setCurrentItem(3);
             currentFragment = FRAGMENT_BIEN_TAP_VIEN;
+        }
+    }
+
+    public void openTaiKhoanFragment() {
+        if (currentFragment != FRAGMENT_TAI_KHOAN) {
+            viewPager.setCurrentItem(4);
+            currentFragment = FRAGMENT_TAI_KHOAN;
         }
     }
 

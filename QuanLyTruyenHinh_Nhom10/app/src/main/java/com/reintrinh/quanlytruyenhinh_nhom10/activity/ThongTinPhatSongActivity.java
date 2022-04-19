@@ -1,4 +1,4 @@
-package com.reintrinh.quanlytruyenhinh_nhom10;
+package com.reintrinh.quanlytruyenhinh_nhom10.activity;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
@@ -43,6 +43,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
+import com.reintrinh.quanlytruyenhinh_nhom10.R;
 import com.reintrinh.quanlytruyenhinh_nhom10.adapter.BienTapVienAdapter;
 import com.reintrinh.quanlytruyenhinh_nhom10.adapter.ThongTinPhatSongAdapter;
 import com.reintrinh.quanlytruyenhinh_nhom10.helper.QuanLyTruyenHinhHelper;
@@ -280,14 +281,6 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
 
         tvTenChuongTrinh.setText(chuongTrinh.getTenCT());
         List<BienTapVien> bienTapVienList = quanLyTruyenHinhHelper.getAllBienTapVien();
-//        ArrayAdapter<BienTapVien> bienTapVienArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, bienTapVienList)
-//        {
-//            @Nullable
-//            @Override
-//            public Object getItem(int position) {
-//                return bienTapVienList.get(position).getHoTen();
-//            }
-//        };
         BienTapVienAdapter bienTapVienAdapter =
                 new BienTapVienAdapter(getApplicationContext(), R.layout.list_layout_bientapvien, bienTapVienList);
         spinnerBienTapVien.setAdapter(bienTapVienAdapter);

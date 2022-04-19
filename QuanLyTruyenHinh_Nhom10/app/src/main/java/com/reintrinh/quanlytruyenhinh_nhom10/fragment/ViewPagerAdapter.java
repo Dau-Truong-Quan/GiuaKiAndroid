@@ -3,11 +3,13 @@ package com.reintrinh.quanlytruyenhinh_nhom10.fragment;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.reintrinh.quanlytruyenhinh_nhom10.listener.OnSaveClickListener;
+
 public class ViewPagerAdapter extends FragmentStateAdapter {
+
+    private OnSaveClickListener onSaveClickListener;
 
     public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
@@ -25,6 +27,10 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
                 return new TheLoaiFragment();
             case 3:
                 return new BienTapVienFragment();
+            case 4:
+                TaiKhoanFragment taiKhoanFragment = new TaiKhoanFragment();
+                taiKhoanFragment.setOnSaveClickListener(onSaveClickListener);
+                return taiKhoanFragment;
             default:
                 return new ThongKeFragment();
         }
@@ -32,6 +38,10 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 4;
+        return 5;
+    }
+
+    public void setOnSaveClickListener(OnSaveClickListener onSaveClickListener) {
+        this.onSaveClickListener = onSaveClickListener;
     }
 }

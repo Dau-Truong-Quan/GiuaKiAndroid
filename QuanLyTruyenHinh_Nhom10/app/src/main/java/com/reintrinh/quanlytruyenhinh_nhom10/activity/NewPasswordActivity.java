@@ -1,4 +1,4 @@
-package com.reintrinh.quanlytruyenhinh_nhom10;
+package com.reintrinh.quanlytruyenhinh_nhom10.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.reintrinh.quanlytruyenhinh_nhom10.R;
 import com.reintrinh.quanlytruyenhinh_nhom10.helper.QuanLyTruyenHinhHelper;
 
 public class NewPasswordActivity extends Activity {

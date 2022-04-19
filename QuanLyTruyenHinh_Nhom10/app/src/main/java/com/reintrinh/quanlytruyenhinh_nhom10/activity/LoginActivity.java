@@ -1,4 +1,4 @@
-package com.reintrinh.quanlytruyenhinh_nhom10;
+package com.reintrinh.quanlytruyenhinh_nhom10.activity;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 import com.reintrinh.quanlytruyenhinh_nhom10.Constant.Constants;
+import com.reintrinh.quanlytruyenhinh_nhom10.R;
 import com.reintrinh.quanlytruyenhinh_nhom10.helper.QuanLyTruyenHinhHelper;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.BienTapVien;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.ChuongTrinh;
@@ -28,6 +29,7 @@ import com.reintrinh.quanlytruyenhinh_nhom10.model.TheLoai;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.ThongTinPhatSong;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.User;
 import com.reintrinh.quanlytruyenhinh_nhom10.util.ImageUtil;
+import com.reintrinh.quanlytruyenhinh_nhom10.util.PreferenceManager;
 
 public class LoginActivity extends AppCompatActivity {
     TextView txtForgotPass;
@@ -130,18 +132,23 @@ public class LoginActivity extends AppCompatActivity {
 
     private void khoiTaoDatabase() {
         //Tạo bảng
-        dbHelper.queryData("CREATE TABLE IF NOT EXISTS User (FirstName VARCHAR(100),LastName VARCHAR(100),Email VARCHAR(100),Password VARCHAR(100) )");
+        dbHelper.queryData("CREATE TABLE IF NOT EXISTS User (FirstName VARCHAR(100),LastName VARCHAR(100),Email VARCHAR(100),Password VARCHAR(100), HinhAnh BLOB)");
         dbHelper.queryData("CREATE TABLE IF NOT EXISTS TheLoai (MaTL VARCHAR(5), TenTL VARCHAR(100), HinhAnh BLOB)");
         dbHelper.queryData("CREATE TABLE IF NOT EXISTS ChuongTrinh (MaCT VARCHAR(5),TenCT VARCHAR,MaTL VARCHAR(5), HinhAnh BLOB)");
         dbHelper.queryData("CREATE TABLE IF NOT EXISTS BienTapVien(MaBTV VARCHAR(5), HoTen VARCHAR,NgaySinh VARCHAR,SDT VARCHAR, HinhAnh BLOB)");
         dbHelper.queryData("CREATE TABLE IF NOT EXISTS ThongTinPhatSong(MaPS VARCHAR(5),MaCT VARCHAR(5),MaBTV VARCHAR(5),NgayPS VARCHAR, ThoiLuong INTEGER, HinhAnh BLOB)");
 
-
         //user
-        User user = new User( "Quan", "Truong" ,"quansonvu2408@gmail.com","123456" );
+        User user1 = new User( "Quan", "Truong" ,"quansonvu2408@gmail.com","123456", getByteArrayFromImageResource(R.drawable.btv) );
+        User user2 = new User( "Phuc", "Pham" ,"phuphuc123@gmail.com","123456", getByteArrayFromImageResource(R.drawable.btv) );
+        User user3 = new User( "Trinh", "Nguyen" ,"reintrinh123@gmail.com","123456", getByteArrayFromImageResource(R.drawable.btv) );
+        User user4 = new User( "Mo", "Ha" ,"moha123@gmail.com","123456", getByteArrayFromImageResource(R.drawable.btv) );
 
         if(!dbHelper.hasData("User")) {
-            dbHelper.themUser(user);
+            dbHelper.themUser(user1);
+            dbHelper.themUser(user2);
+            dbHelper.themUser(user3);
+            dbHelper.themUser(user4);
         }
 
         // Thể loại

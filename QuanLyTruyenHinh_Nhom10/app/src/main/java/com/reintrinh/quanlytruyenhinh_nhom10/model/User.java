@@ -8,20 +8,12 @@ public class User {
     private String password;
     private byte[] img;
 
-    public User(int id, String firstname, String lastname, String email, String password, byte[] img) {
-        this.id = id;
+    public User(String firstname, String lastname, String email, String password, byte[] img) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
         this.img = img;
-    }
-
-    public User(String firstname, String lastname, String email, String password) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.password = password;
     }
 
     public int getId() {

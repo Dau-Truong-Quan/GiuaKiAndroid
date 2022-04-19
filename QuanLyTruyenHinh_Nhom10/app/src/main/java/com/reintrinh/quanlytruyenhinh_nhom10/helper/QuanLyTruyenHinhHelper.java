@@ -62,6 +62,20 @@ public class QuanLyTruyenHinhHelper extends SQLiteOpenHelper {
 
     }
 
+    // ---------------------- Chung -------------------------
+    public boolean hasData(String tableName) {
+        String sql = "SELECT * from %s";
+        Cursor cursor = getData(String.format(sql, tableName));
+        if (cursor == null) {
+            return false;
+        }
+
+        if (cursor.moveToNext()) {
+            return true;
+        }
+        return false;
+    }
+
     // ---------------------- Thể loại -------------------------
 
     public TheLoai getTheLoaiByMaTheLoai(String maTL) {
@@ -304,19 +318,7 @@ public class QuanLyTruyenHinhHelper extends SQLiteOpenHelper {
         queryData(String.format("DELETE FROM ThongTinPhatSong WHERE MaPS = '%s'", maPS));
     }
 
-    // ---------------------- Khác -------------------------
-    public boolean hasData(String tableName) {
-        String sql = "SELECT * from %s";
-        Cursor cursor = getData(String.format(sql, tableName));
-        if (cursor == null) {
-            return false;
-        }
-
-        if (cursor.moveToNext()) {
-            return true;
-        }
-        return false;
-    }
+    // ---------------------- User -------------------------
 
     public User checkUserExist(String username, String password) {
         User user = null;
@@ -326,13 +328,13 @@ public class QuanLyTruyenHinhHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery("SELECT * FROM User " + selection, null);
         int count = cursor.getCount();
-        System.out.println(count + "");
         while (cursor.moveToNext()) {
             user = new User(
                     cursor.getString(0),
                     cursor.getString(1),
                     cursor.getString(2),
-                    cursor.getString(3)
+                    cursor.getString(3),
+                    cursor.getBlob(4)
             );
         }
 
@@ -351,8 +353,19 @@ public class QuanLyTruyenHinhHelper extends SQLiteOpenHelper {
         queryData(String.format("UPDATE User SET PASSWORD='" + editTextNewPassword + "' WHERE EMAIL='" + gmail + "'"));
     }
 
-    public int themUser(User user) {
+    public User getUserByEmail(String email) {
+        Cursor cursor = getData(String.format("SELECT * FROM User WHERE Email = '%s'", email));
+        if (cursor == null) {
+            return null;
+        }
 
+        if (cursor.moveToNext()) {
+            return new User(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getBlob(4));
+        }
+        return null;
+    }
+
+    public int themUser(User user) {
         SQLiteDatabase db = getWritableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT * FROM User " + "WHERE EMAIL='" + user.getEmail() + "'", null);
@@ -366,17 +379,31 @@ public class QuanLyTruyenHinhHelper extends SQLiteOpenHelper {
             return -1;
         }
         SQLiteDatabase database = getWritableDatabase();
-        String sql = "INSERT INTO User VALUES (?,?,?,?)";
+        String sql = "INSERT INTO User VALUES (?,?,?,?,?)";
         SQLiteStatement statement = database.compileStatement(sql);
         statement.clearBindings();
         statement.bindString(1, user.getFirstname());
         statement.bindString(2, user.getLastname());
         statement.bindString(3, user.getEmail());
         statement.bindString(4, user.getPassword());
+        statement.bindBlob(5, user.getImg());
         statement.executeInsert();
 
         return 0;
     }
 
-
+    public void suaThongTinUser(User user) {
+        if (user == null) {
+            return;
+        }
+        SQLiteDatabase database = getWritableDatabase();
+        String sql = "UPDATE User SET FirstName = ?, LastName = ?, HinhAnh = ? WHERE Email = ?";
+        SQLiteStatement statement = database.compileStatement(sql);
+        statement.clearBindings();
+        statement.bindString(1, user.getFirstname());
+        statement.bindString(2, user.getLastname());
+        statement.bindBlob(3, user.getImg());
+        statement.bindString(4, user.getEmail());
+        statement.execute();
+    }
 }

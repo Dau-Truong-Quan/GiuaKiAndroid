@@ -1,32 +1,33 @@
-package com.reintrinh.quanlytruyenhinh_nhom10;
+package com.reintrinh.quanlytruyenhinh_nhom10.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.github.dhaval2404.imagepicker.ImagePicker;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.normal.TedPermission;
+import com.reintrinh.quanlytruyenhinh_nhom10.R;
 import com.reintrinh.quanlytruyenhinh_nhom10.helper.QuanLyTruyenHinhHelper;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.User;
+import com.reintrinh.quanlytruyenhinh_nhom10.util.ImageUtil;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -39,8 +40,12 @@ import javax.mail.internet.MimeMessage;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText inputFirstName, inputLastName, inputEmail, inputPassword, inputConfirmPassword;
+    ImageView imgUserAvatar;
+    Button btnSelectImage;
     Button buttonSignUp;
     QuanLyTruyenHinhHelper quanLyTruyenHinhHelper;
+
+    public static final int REQUEST_CODE_SELECT_IMAGE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +61,50 @@ public class RegisterActivity extends AppCompatActivity {
 
         quanLyTruyenHinhHelper = QuanLyTruyenHinhHelper.getInstance(this);
         setEvent();
+    }
 
-
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_SELECT_IMAGE && resultCode == RESULT_OK && data != null) {
+            Uri uri = data.getData();
+            Bitmap bitmap;
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+                imgUserAvatar.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
     }
 
     private void setEvent() {
+        btnSelectImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PermissionListener permissionlistener = new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted() {
+                        ImagePicker.with(RegisterActivity.this)
+                                .crop()	    			//Crop image(Optional), Check Customization for more option
+                                .compress(1024)			//Final image size will be less than 1 MB(Optional)
+                                .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+                                .start(REQUEST_CODE_SELECT_IMAGE);
+                    }
 
+                    @Override
+                    public void onPermissionDenied(List<String> deniedPermissions) {
+                        Toast.makeText(RegisterActivity.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                };
+                TedPermission.create()
+                        .setPermissionListener(permissionlistener)
+                        .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                        .setPermissions(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)
+                        .check();
+            }
+        });
 
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,13 +114,13 @@ public class RegisterActivity extends AppCompatActivity {
                             inputFirstName.getText().toString().trim(),
                             inputLastName.getText().toString().trim(),
                             inputEmail.getText().toString().trim(),
-                            inputPassword.getText().toString().trim()
+                            inputPassword.getText().toString().trim(),
+                            ImageUtil.getByteArrayFromBitmap(((BitmapDrawable)imgUserAvatar.getDrawable()).getBitmap())
                     );
                     int i = quanLyTruyenHinhHelper.themUser(user);
                     if (i == 1) {
                         showToast("Email đã tồn tại!");
                     } else if (i == 0) {
-
                         sendMail(inputEmail.getText().toString().trim());
                         showToast("Đăng ký thành công! Đã gửi thông báo tới gmail của bạn");
                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
@@ -124,15 +166,15 @@ public class RegisterActivity extends AppCompatActivity {
         inputEmail = findViewById(R.id.inputEmail);
         inputPassword = findViewById(R.id.inputPassword);
         inputConfirmPassword = findViewById(R.id.inputConfirmPassword);
+        imgUserAvatar = findViewById(R.id.img_user_avatar);
+        btnSelectImage = findViewById(R.id.btn_select_image);
         buttonSignUp = findViewById(R.id.buttonSignUp);
-
     }
 
     public void signIn(View view) {
         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(intent);
     }
-
 
     private Boolean isValidSignUpDetails() {
         if (inputFirstName.getText().toString().trim().isEmpty()) {
