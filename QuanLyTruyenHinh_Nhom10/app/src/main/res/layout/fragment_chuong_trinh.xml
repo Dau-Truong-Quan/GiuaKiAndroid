@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:queryHint="Tìm theo tên chương trình"
+        android:background="@drawable/bg_searchview"
         android:id="@+id/svChuongTrinh" />
 
     <LinearLayout
@@ -35,12 +36,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <Button
-            android:id="@+id/buttonExit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="exit" />
     </LinearLayout>
 
     <LinearLayout

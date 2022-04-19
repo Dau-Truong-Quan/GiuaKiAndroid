@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:queryHint="Tìm theo tên thể loại"
+        android:background="@drawable/bg_searchview"
         android:id="@+id/searchView" />
 
     <LinearLayout
