@@ -41,6 +41,7 @@ import com.reintrinh.quanlytruyenhinh_nhom10.adapter.TheLoaiAdapter;
 import com.reintrinh.quanlytruyenhinh_nhom10.helper.QuanLyTruyenHinhHelper;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.TheLoai;
 import com.reintrinh.quanlytruyenhinh_nhom10.util.ImageUtil;
+import com.reintrinh.quanlytruyenhinh_nhom10.widget.CustomToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -144,7 +145,8 @@ public class TheLoaiFragment extends Fragment {
             public void onClickDeleteItem(TheLoai theLoai) {
                 Cursor cursor = quanLyTruyenHinhHelper.getData(String.format("SELECT * FROM ChuongTrinh WHERE MaTL = '%s'", theLoai.getMaTL()));
                 if (cursor != null && cursor.moveToNext()) {
-                    Toast.makeText(getContext(), "Thể loại này đã có chương trình", Toast.LENGTH_LONG).show();
+                    CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, "Thể loại này đã có chương trình").show();
+                    //Toast.makeText(getContext(), "Thể loại này đã có chương trình", Toast.LENGTH_LONG).show();
                     return;
                 }
                 dialogDelete(theLoai);
@@ -181,7 +183,8 @@ public class TheLoaiFragment extends Fragment {
 
                     @Override
                     public void onPermissionDenied(List<String> deniedPermissions) {
-                        Toast.makeText(getContext(), "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                        CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, "Permission Denied\n" + deniedPermissions.toString()).show();
+                        //Toast.makeText(getContext(), "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
                     }
                 };
                 TedPermission.create()
@@ -199,7 +202,8 @@ public class TheLoaiFragment extends Fragment {
                 String maTheLoaiMoi = String.valueOf(editmaTL.getText());
                 String tenTheLoaiMoi = String.valueOf(editTenTL.getText());
                 if (TextUtils.isEmpty(String.valueOf(editTenTL.getText())) || TextUtils.isEmpty(tenTheLoaiMoi)) {
-                    Toast.makeText(getContext(), "Nội dung cần thêm chưa được nhập", Toast.LENGTH_SHORT).show();
+                    CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, "Nội dung cần thêm chưa được nhập").show();
+                    //Toast.makeText(getContext(), "Nội dung cần thêm chưa được nhập", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -218,20 +222,23 @@ public class TheLoaiFragment extends Fragment {
 
                 for (int i = 0; i < arrayTheLoai.size(); i++) {
                     if(arrayTheLoai.get(i).getMaTL().equalsIgnoreCase(maTheLoaiMoi)){
-                        Toast.makeText(getContext(), "Mã thể loại đã tồn tại", Toast.LENGTH_SHORT).show();
+                        CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, "Mã thể loại đã tồn tại").show();
+                        //Toast.makeText(getContext(), "Mã thể loại đã tồn tại", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
 
                 for (int i = 0; i < arrayTheLoai.size(); i++) {
                     if(arrayTheLoai.get(i).getTenTL().equalsIgnoreCase(tenTheLoaiMoi)){
-                        Toast.makeText(getContext(), "Tên thể loại đã tồn tại", Toast.LENGTH_SHORT).show();
+                        CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, "Tên thể loại đã tồn tại").show();
+                        //Toast.makeText(getContext(), "Tên thể loại đã tồn tại", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
 
                 TheLoai theLoai = new TheLoai(maTheLoaiMoi, tenTheLoaiMoi, hinhAnh);
                 quanLyTruyenHinhHelper.themTheLoai(theLoai);
+                CustomToast.makeCustomToast(getActivity(), R.drawable.ic_check, "Thêm thể loại mới thành công").show();
                 dialog.dismiss();
                 actionGetData();
                 theLoaiAdapter.updateDataSearch();
@@ -296,7 +303,8 @@ public class TheLoaiFragment extends Fragment {
 
                     @Override
                     public void onPermissionDenied(List<String> deniedPermissions) {
-                        Toast.makeText(getContext(), "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                        CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, "Permission Denied\n" + deniedPermissions.toString()).show();
+                        //Toast.makeText(getContext(), "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
                     }
                 };
                 TedPermission.create()
@@ -312,7 +320,8 @@ public class TheLoaiFragment extends Fragment {
             public void onClick(View view) {
                 String tenTL = String.valueOf(editTenTL.getText());
                 if (TextUtils.isEmpty(tenTL)) {
-                    Toast.makeText(getContext(), "Nội dung cần sửa chưa được nhập", Toast.LENGTH_SHORT).show();
+                    CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, "Nội dung cần sửa chưa được nhập").show();
+                    //Toast.makeText(getContext(), "Nội dung cần sửa chưa được nhập", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                     return;
                 }
@@ -334,13 +343,15 @@ public class TheLoaiFragment extends Fragment {
                         break;
                     }
                     if (arrayTheLoai.get(i).getTenTL().equalsIgnoreCase(tenTL)){
-                        Toast.makeText(getContext(), "Tên thể loại đã tồn tại", Toast.LENGTH_SHORT).show();
+                        CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, "Tên thể loại đã tồn tại").show();
+                        //Toast.makeText(getContext(), "Tên thể loại đã tồn tại", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
 
                 TheLoai theLoai1 = new TheLoai(theLoai.getMaTL(), tenTL, hinhAnh);
                 quanLyTruyenHinhHelper.suaTheLoai(theLoai1);
+                CustomToast.makeCustomToast(getActivity(), R.drawable.ic_check, "Cập nhật thể loại thành công").show();
                 dialog.dismiss();
                 actionGetData();
                 theLoaiAdapter.updateDataSearch();
@@ -371,7 +382,8 @@ public class TheLoaiFragment extends Fragment {
                             Snackbar snackbar = Snackbar.make(mainContent, "Đã xóa thể loại!", Snackbar.LENGTH_LONG);
                             snackbar.setAction("Hoàn tác", view -> {
                                 quanLyTruyenHinhHelper.themTheLoai(theLoai);
-                                Toast.makeText(getContext(), "Đã hoàn tác!", Toast.LENGTH_SHORT).show();
+                                CustomToast.makeCustomToast(getActivity(), R.drawable.ic_check, "Đã hoàn tác!").show();
+                                //Toast.makeText(getContext(), "Đã hoàn tác!", Toast.LENGTH_SHORT).show();
                                 actionGetData();
                                 theLoaiAdapter.updateDataSearch();
                             });
@@ -379,8 +391,8 @@ public class TheLoaiFragment extends Fragment {
                             snackbar.show();
                         }
                         catch (Exception ex) {
-                            Toast.makeText(getContext(), "Xảy ra lỗi khi thêm cập nhật thể loại! Vui lòng thử lại\n" +
-                                    ex.getMessage(), Toast.LENGTH_LONG).show();
+                            CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, "Xảy ra lỗi khi thêm cập nhật thể loại! Vui lòng thử lại\n" + ex.getMessage()).show();
+                            //Toast.makeText(getContext(), "Xảy ra lỗi khi thêm cập nhật thể loại! Vui lòng thử lại\n" + ex.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 })

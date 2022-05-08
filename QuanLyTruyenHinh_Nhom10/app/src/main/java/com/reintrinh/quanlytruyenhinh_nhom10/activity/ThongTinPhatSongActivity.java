@@ -52,6 +52,7 @@ import com.reintrinh.quanlytruyenhinh_nhom10.model.ChuongTrinh;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.TheLoai;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.ThongTinPhatSong;
 import com.reintrinh.quanlytruyenhinh_nhom10.util.ImageUtil;
+import com.reintrinh.quanlytruyenhinh_nhom10.widget.CustomToast;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -108,7 +109,8 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
                 bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
                 imgChonHinhAnhPS.setImageBitmap(bitmap);
             } catch (IOException e) {
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                CustomToast.makeCustomToast(this, R.drawable.ic_error, e.getMessage()).show();
+                //Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 return;
             }
         }
@@ -319,7 +321,8 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
 
                     @Override
                     public void onPermissionDenied(List<String> deniedPermissions) {
-                        Toast.makeText(ThongTinPhatSongActivity.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                        CustomToast.makeCustomToast(ThongTinPhatSongActivity.this, R.drawable.ic_error, "Permission Denied\n" + deniedPermissions.toString()).show();
+                        //Toast.makeText(ThongTinPhatSongActivity.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
                     }
                 };
                 TedPermission.create()
@@ -334,23 +337,27 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String maPhatSong = edtMaPhatSong.getText().toString().trim().toUpperCase();
                 if (maPhatSong.isEmpty()) {
-                    Toast.makeText(ThongTinPhatSongActivity.this, "Bạn chưa nhập mã phát sóng!", Toast.LENGTH_SHORT).show();
+                    CustomToast.makeCustomToast(ThongTinPhatSongActivity.this, R.drawable.ic_error, "Bạn chưa nhập mã phát sóng!").show();
+                    //Toast.makeText(ThongTinPhatSongActivity.this, "Bạn chưa nhập mã phát sóng!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (quanLyTruyenHinhHelper.kiemTraMaPSTrung(maPhatSong)) {
-                    Toast.makeText(ThongTinPhatSongActivity.this, "Mã phát sóng này đã tồn tại! Vui lòng nhập mã khác!", Toast.LENGTH_SHORT).show();
+                    CustomToast.makeCustomToast(ThongTinPhatSongActivity.this, R.drawable.ic_error, "Mã phát sóng này đã tồn tại! Vui lòng nhập mã khác!").show();
+                    //Toast.makeText(ThongTinPhatSongActivity.this, "Mã phát sóng này đã tồn tại! Vui lòng nhập mã khác!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 BienTapVien bienTapVien = bienTapVienList.get(spinnerBienTapVien.getSelectedItemPosition());
                 if (bienTapVien == null) {
-                    Toast.makeText(ThongTinPhatSongActivity.this, "Bạn chưa chọn biên tập viên!", Toast.LENGTH_SHORT).show();
+                    CustomToast.makeCustomToast(ThongTinPhatSongActivity.this, R.drawable.ic_error, "Bạn chưa chọn biên tập viên!").show();
+                    //Toast.makeText(ThongTinPhatSongActivity.this, "Bạn chưa chọn biên tập viên!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 String ngayPhatSong = tvNgayPhatSong.getText().toString().trim();
                 if (ngayPhatSong.isEmpty()) {
-                    Toast.makeText(ThongTinPhatSongActivity.this, "Bạn chưa chọn ngày phát sóng!", Toast.LENGTH_SHORT).show();
+                    CustomToast.makeCustomToast(ThongTinPhatSongActivity.this, R.drawable.ic_error, "Bạn chưa chọn ngày phát sóng!").show();
+                    //Toast.makeText(ThongTinPhatSongActivity.this, "Bạn chưa chọn ngày phát sóng!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -358,11 +365,13 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
                 try {
                     thoiLuong = Integer.parseInt(edtThoiLuong.getText().toString().trim());
                     if (thoiLuong <= 0) {
-                        Toast.makeText(ThongTinPhatSongActivity.this, "Thời lượng phải là số nguyên dương!", Toast.LENGTH_SHORT).show();
+                        CustomToast.makeCustomToast(ThongTinPhatSongActivity.this, R.drawable.ic_error, "Thời lượng phải là số nguyên dương!").show();
+                        //Toast.makeText(ThongTinPhatSongActivity.this, "Thời lượng phải là số nguyên dương!", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 } catch (Exception ex) {
-                    Toast.makeText(ThongTinPhatSongActivity.this, "Thời lượng phải là số nguyên dương!", Toast.LENGTH_SHORT).show();
+                    CustomToast.makeCustomToast(ThongTinPhatSongActivity.this, R.drawable.ic_error, "Thời lượng phải là số nguyên dương!").show();
+                    //Toast.makeText(ThongTinPhatSongActivity.this, "Thời lượng phải là số nguyên dương!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -379,8 +388,8 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
                     snackbar.show();
                 }
                 catch (Exception ex) {
-                    Toast.makeText(ThongTinPhatSongActivity.this, "Xảy ra lỗi khi thêm thông tin phát sóng mới! Vui lòng thử lại\n" +
-                            ex.getMessage(), Toast.LENGTH_LONG).show();
+                    CustomToast.makeCustomToast(ThongTinPhatSongActivity.this, R.drawable.ic_error, "Xảy ra lỗi khi thêm thông tin phát sóng mới! Vui lòng thử lại\n" + ex.getMessage()).show();
+                    //Toast.makeText(ThongTinPhatSongActivity.this, "Xảy ra lỗi khi thêm thông tin phát sóng mới! Vui lòng thử lại\n" + ex.getMessage(), Toast.LENGTH_LONG).show();
                 }
                 dialog.dismiss();
                 loadData();
@@ -467,7 +476,8 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
 
                     @Override
                     public void onPermissionDenied(List<String> deniedPermissions) {
-                        Toast.makeText(ThongTinPhatSongActivity.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                        CustomToast.makeCustomToast(ThongTinPhatSongActivity.this, R.drawable.ic_error, "Permission Denied\n" + deniedPermissions.toString()).show();
+                        //Toast.makeText(ThongTinPhatSongActivity.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
                     }
                 };
                 TedPermission.create()
@@ -484,13 +494,15 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
 
                 BienTapVien bienTapVien = bienTapVienList.get(spinnerBienTapVien.getSelectedItemPosition());
                 if (bienTapVien == null) {
-                    Toast.makeText(ThongTinPhatSongActivity.this, "Bạn chưa chọn biên tập viên!", Toast.LENGTH_SHORT).show();
+                    CustomToast.makeCustomToast(ThongTinPhatSongActivity.this, R.drawable.ic_error, "Bạn chưa chọn biên tập viên!").show();
+                    //Toast.makeText(ThongTinPhatSongActivity.this, "Bạn chưa chọn biên tập viên!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 String ngayPhatSong = tvNgayPhatSong.getText().toString().trim();
                 if (ngayPhatSong.isEmpty()) {
-                    Toast.makeText(ThongTinPhatSongActivity.this, "Bạn chưa chọn ngày phát sóng!", Toast.LENGTH_SHORT).show();
+                    CustomToast.makeCustomToast(ThongTinPhatSongActivity.this, R.drawable.ic_error, "Bạn chưa chọn ngày phát sóng!").show();
+                    //Toast.makeText(ThongTinPhatSongActivity.this, "Bạn chưa chọn ngày phát sóng!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -498,11 +510,13 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
                 try {
                     thoiLuong = Integer.parseInt(edtThoiLuong.getText().toString().trim());
                     if (thoiLuong <= 0) {
-                        Toast.makeText(ThongTinPhatSongActivity.this, "Thời lượng phải là số nguyên dương!", Toast.LENGTH_SHORT).show();
+                        CustomToast.makeCustomToast(ThongTinPhatSongActivity.this, R.drawable.ic_error, "Thời lượng phải là số nguyên dương!").show();
+                        //Toast.makeText(ThongTinPhatSongActivity.this, "Thời lượng phải là số nguyên dương!", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 } catch (Exception ex) {
-                    Toast.makeText(ThongTinPhatSongActivity.this, "Thời lượng phải là số nguyên dương!", Toast.LENGTH_SHORT).show();
+                    CustomToast.makeCustomToast(ThongTinPhatSongActivity.this, R.drawable.ic_error, "Thời lượng phải là số nguyên dương!").show();
+                    //Toast.makeText(ThongTinPhatSongActivity.this, "Thời lượng phải là số nguyên dương!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -516,15 +530,16 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
                     Snackbar snackbar = Snackbar.make(rootView, "Đã cập nhật thông tin phát sóng!", Snackbar.LENGTH_LONG);
                     snackbar.setAction("Hoàn tác", view1 -> {
                         quanLyTruyenHinhHelper.suaThongTinPhatSong(thongTinPhatSong);
-                        Toast.makeText(ThongTinPhatSongActivity.this, "Đã hoàn tác!", Toast.LENGTH_SHORT).show();
+                        CustomToast.makeCustomToast(ThongTinPhatSongActivity.this, R.drawable.ic_check, "Đã hoàn tác!").show();
+                        //Toast.makeText(ThongTinPhatSongActivity.this, "Đã hoàn tác!", Toast.LENGTH_SHORT).show();
                         loadData();
                     });
                     snackbar.setActionTextColor(Color.CYAN);
                     snackbar.show();
                 }
                 catch (Exception ex) {
-                    Toast.makeText(ThongTinPhatSongActivity.this, "Xảy ra lỗi khi cập nhật thông tin phát sóng! Vui lòng thử lại\n" +
-                            ex.getMessage(), Toast.LENGTH_LONG).show();
+                    CustomToast.makeCustomToast(ThongTinPhatSongActivity.this, R.drawable.ic_error, "Xảy ra lỗi khi cập nhật thông tin phát sóng! Vui lòng thử lại\n" + ex.getMessage()).show();
+                    //Toast.makeText(ThongTinPhatSongActivity.this, "Xảy ra lỗi khi cập nhật thông tin phát sóng! Vui lòng thử lại\n" + ex.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
                 dialog.dismiss();
@@ -553,15 +568,16 @@ public class ThongTinPhatSongActivity extends AppCompatActivity {
                             Snackbar snackbar = Snackbar.make(rootView, "Đã xóa thông tin phát sóng!", Snackbar.LENGTH_LONG);
                             snackbar.setAction("Hoàn tác", view -> {
                                 quanLyTruyenHinhHelper.themThongTinPhatSong(thongTinPhatSong);
-                                Toast.makeText(ThongTinPhatSongActivity.this, "Đã hoàn tác!", Toast.LENGTH_SHORT).show();
+                                CustomToast.makeCustomToast(ThongTinPhatSongActivity.this, R.drawable.ic_check, "Đã hoàn tác!").show();
+                                //Toast.makeText(ThongTinPhatSongActivity.this, "Đã hoàn tác!", Toast.LENGTH_SHORT).show();
                                 loadData();
                             });
                             snackbar.setActionTextColor(Color.CYAN);
                             snackbar.show();
                         }
                         catch (Exception ex) {
-                            Toast.makeText(ThongTinPhatSongActivity.this, "Xảy ra lỗi khi thêm cập nhật tin phát sóng! Vui lòng thử lại\n" +
-                                    ex.getMessage(), Toast.LENGTH_LONG).show();
+                            CustomToast.makeCustomToast(ThongTinPhatSongActivity.this, R.drawable.ic_error, "Xảy ra lỗi khi thêm cập nhật tin phát sóng! Vui lòng thử lại\n" + ex.getMessage()).show();
+                            //Toast.makeText(ThongTinPhatSongActivity.this, "Xảy ra lỗi khi thêm cập nhật tin phát sóng! Vui lòng thử lại\n" + ex.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 })

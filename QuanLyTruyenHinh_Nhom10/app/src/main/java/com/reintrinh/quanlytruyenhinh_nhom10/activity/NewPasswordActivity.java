@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.reintrinh.quanlytruyenhinh_nhom10.R;
 import com.reintrinh.quanlytruyenhinh_nhom10.helper.QuanLyTruyenHinhHelper;
+import com.reintrinh.quanlytruyenhinh_nhom10.widget.CustomToast;
 
 public class NewPasswordActivity extends Activity {
     private EditText editTextNewPassword;
@@ -33,12 +34,14 @@ public class NewPasswordActivity extends Activity {
             @Override
             public void onClick(View view) {
                 if (TextUtils.isEmpty(editTextNewPassword.getText())||TextUtils.isEmpty(editTextNewPassword.getText())) {
-                    Toast.makeText(NewPasswordActivity.this, "Nhập mật khẩu", Toast.LENGTH_SHORT).show();
+                    CustomToast.makeCustomToast(NewPasswordActivity.this, R.drawable.ic_lock, "Nhập mật khẩu").show();
+                    //Toast.makeText(NewPasswordActivity.this, "Nhập mật khẩu", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 quanLyTruyenHinhHelper.capNhatMatKhauUser(String.valueOf(editTextNewPassword.getText().toString().trim()),gmail);
-                Toast.makeText(NewPasswordActivity.this,"thay đổi mật khẩu thành công",Toast.LENGTH_SHORT).show();
+                CustomToast.makeCustomToast(NewPasswordActivity.this, R.drawable.ic_check, "Thay đổi mật khẩu thành công").show();
+                //Toast.makeText(NewPasswordActivity.this,"thay đổi mật khẩu thành công",Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(NewPasswordActivity.this, LoginActivity.class);
                 startActivity(intent);

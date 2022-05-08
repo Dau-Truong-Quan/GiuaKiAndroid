@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.reintrinh.quanlytruyenhinh_nhom10.R;
+import com.reintrinh.quanlytruyenhinh_nhom10.widget.CustomToast;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
@@ -36,7 +37,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(txtEmailtoRecoverPassword.getText().toString().isEmpty()){
-                    Toast.makeText(ForgotPasswordActivity.this, "Enter email", Toast.LENGTH_LONG).show();
+                    CustomToast.makeCustomToast(ForgotPasswordActivity.this, R.drawable.ic_mail_outline, "Enter email").show();
+                    //Toast.makeText(ForgotPasswordActivity.this, "Enter email", Toast.LENGTH_LONG).show();
                     return;
                 }
                 Intent intent = new Intent(ForgotPasswordActivity.this, OTPActivity.class);

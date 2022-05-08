@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.reintrinh.quanlytruyenhinh_nhom10.R;
+import com.reintrinh.quanlytruyenhinh_nhom10.widget.CustomToast;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -72,7 +73,8 @@ public class OTPActivity extends AppCompatActivity {
             message.setSubject("Quản lý truyền hình nhóm 10");
             message.setText(messageToSend);
             Transport.send(message);
-            Toast.makeText(this,"Send Email successfully",Toast.LENGTH_LONG).show();
+            CustomToast.makeCustomToast(this, R.drawable.ic_mail_outline, "Send Email successfully").show();
+            //Toast.makeText(this,"Send Email successfully",Toast.LENGTH_LONG).show();
         }catch (MessagingException e){
             throw  new RuntimeException(e);
         }

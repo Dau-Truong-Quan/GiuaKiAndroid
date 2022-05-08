@@ -142,7 +142,7 @@ public class BienTapVienFragment extends Fragment {
                             Snackbar snackbar = Snackbar.make(mainContent, "Đã xóa biên tập viên!", Snackbar.LENGTH_LONG);
                             snackbar.setAction("Hoàn tác", view -> {
                                 db.themBienTapVien(btv);
-                                Toast.makeText(getContext(), "Đã hoàn tác!", Toast.LENGTH_SHORT).show();
+                                CustomToast.makeCustomToast(getActivity(), R.drawable.ic_check, "Đã hoàn tác!").show();
                                 hienThi();
                                 bienTapVienAdapter.notifyDataSetChanged();
                                 bienTapVienAdapter.updateDataSearch();
@@ -221,7 +221,7 @@ public class BienTapVienFragment extends Fragment {
                 String sdtBTVMoi = String.valueOf(editSdt.getText());
 
                 if (TextUtils.isEmpty(tenBTVMoi) || TextUtils.isEmpty(sdtBTVMoi) || TextUtils.isEmpty(ngaySinhBTVMoi)) {
-                    Toast.makeText(getContext(), "Nội dung cần thêm chưa được nhập", Toast.LENGTH_SHORT).show();
+                    CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, "Nội dung cần thêm chưa được nhập").show();
                     return;
                 }
 
@@ -232,7 +232,9 @@ public class BienTapVienFragment extends Fragment {
                 BienTapVien editBTV = new BienTapVien(maBTV, tenBTVMoi, ngaySinhBTVMoi, sdtBTVMoi, hinhAnh);
 
                 db.suaBienTapVien(editBTV);
-                Toast.makeText(getContext(), "Cập nhật biên tập viên thành công", Toast.LENGTH_SHORT).show();
+
+                CustomToast.makeCustomToast(getActivity(), R.drawable.ic_check, "Cập nhật biên tập viên thành công").show();
+                //Toast.makeText(getContext(), "Cập nhật biên tập viên thành công", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
                 hienThi();
                 bienTapVienAdapter.notifyDataSetChanged();
@@ -245,7 +247,8 @@ public class BienTapVienFragment extends Fragment {
             public void onClick(View view) {
                 Cursor cursor = db.getData(String.format("SELECT * FROM ThongTinPhatSong WHERE MaBTV = '%s'", btv.getMaBTV()));
                 if(cursor != null && cursor.moveToNext()) {
-                    Toast.makeText(getContext(), "Biên tập viên này đã có lịch phát sóng", Toast.LENGTH_LONG).show();
+                    CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, "Biên tập viên này đã có lịch phát sóng").show();
+                    //Toast.makeText(getContext(), "Biên tập viên này đã có lịch phát sóng", Toast.LENGTH_LONG).show();
                     return;
                 }
                 openDeleteDialog(btv, dialog);
@@ -310,13 +313,15 @@ public class BienTapVienFragment extends Fragment {
                 String sdtBTVMoi = String.valueOf(editSdt.getText());
 
                 if (TextUtils.isEmpty(maBTVMoi) || TextUtils.isEmpty(tenBTVMoi) || TextUtils.isEmpty(sdtBTVMoi) || TextUtils.isEmpty(ngaySinhBTVMoi)) {
-                    Toast.makeText(getContext(), "Nội dung cần thêm chưa được nhập", Toast.LENGTH_SHORT).show();
+                    CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, "Nội dung cần thêm chưa được nhập").show();
+                    //Toast.makeText(getContext(), "Nội dung cần thêm chưa được nhập", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 //kiem tra ma trung
                 if(db.getBienTapVienByMaBTV(maBTVMoi) != null) {
-                    Toast.makeText(getContext(), "Mã biên tập viên đã tồn tại", Toast.LENGTH_SHORT).show();
+                    CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, "Mã biên tập viên đã tồn tại").show();
+                    //Toast.makeText(getContext(), "Mã biên tập viên đã tồn tại", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -327,7 +332,8 @@ public class BienTapVienFragment extends Fragment {
                 BienTapVien newBTV = new BienTapVien(maBTVMoi, tenBTVMoi, ngaySinhBTVMoi, sdtBTVMoi, hinhAnh);
 
                 db.themBienTapVien(newBTV);
-                Toast.makeText(getContext(), "Thêm biên tập viên mới thành công", Toast.LENGTH_SHORT).show();
+                CustomToast.makeCustomToast(getActivity(), R.drawable.ic_check, "Thêm biên tập viên mới thành công").show();
+                //Toast.makeText(getContext(), "Thêm biên tập viên mới thành công", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
                 hienThi();
                 bienTapVienAdapter.notifyDataSetChanged();
@@ -358,7 +364,8 @@ public class BienTapVienFragment extends Fragment {
 
             @Override
             public void onPermissionDenied(List<String> deniedPermissions) {
-                Toast.makeText(getContext(), "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, "Permission Denied\n" + deniedPermissions.toString()).show();
+                //Toast.makeText(getContext(), "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
             }
         };
         TedPermission.create()

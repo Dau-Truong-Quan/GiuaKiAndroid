@@ -113,7 +113,8 @@ public class TaiKhoanFragment extends Fragment {
 
                     @Override
                     public void onPermissionDenied(List<String> deniedPermissions) {
-                        Toast.makeText(getContext(), "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                        CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, "Permission Denied\n" + deniedPermissions.toString()).show();
+                        //Toast.makeText(getContext(), "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
                     }
                 };
                 TedPermission.create()
@@ -128,12 +129,14 @@ public class TaiKhoanFragment extends Fragment {
             public void onClick(View view) {
                 String firstName = edtFirstName.getText().toString().trim();
                 if (firstName.isEmpty()) {
-                    Toast.makeText(getContext(), "Bạn chưa nhập tên!", Toast.LENGTH_LONG).show();
+                    CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, "Bạn chưa nhập tên!").show();
+                    //Toast.makeText(getContext(), "Bạn chưa nhập tên!", Toast.LENGTH_LONG).show();
                     return;
                 }
                 String lastName = edtLastName.getText().toString().trim();
                 if (lastName.isEmpty()) {
-                    Toast.makeText(getContext(), "Bạn chưa nhập họ!", Toast.LENGTH_LONG).show();
+                    CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, "Bạn chưa nhập họ!").show();
+                    //Toast.makeText(getContext(), "Bạn chưa nhập họ!", Toast.LENGTH_LONG).show();
                     return;
                 }
                 String email = edtEmail.getText().toString().trim();

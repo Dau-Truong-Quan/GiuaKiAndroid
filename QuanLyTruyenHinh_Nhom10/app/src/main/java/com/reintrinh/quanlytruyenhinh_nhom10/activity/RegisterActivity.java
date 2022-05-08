@@ -25,6 +25,7 @@ import com.reintrinh.quanlytruyenhinh_nhom10.R;
 import com.reintrinh.quanlytruyenhinh_nhom10.helper.QuanLyTruyenHinhHelper;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.User;
 import com.reintrinh.quanlytruyenhinh_nhom10.util.ImageUtil;
+import com.reintrinh.quanlytruyenhinh_nhom10.widget.CustomToast;
 
 import java.io.IOException;
 import java.util.List;
@@ -73,7 +74,8 @@ public class RegisterActivity extends AppCompatActivity {
                 bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
                 imgUserAvatar.setImageBitmap(bitmap);
             } catch (IOException e) {
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                CustomToast.makeCustomToast(this, R.drawable.ic_error, e.getMessage()).show();
+                //Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 return;
             }
         }
@@ -95,7 +97,8 @@ public class RegisterActivity extends AppCompatActivity {
 
                     @Override
                     public void onPermissionDenied(List<String> deniedPermissions) {
-                        Toast.makeText(RegisterActivity.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                        CustomToast.makeCustomToast(RegisterActivity.this, R.drawable.ic_error, "Permission Denied\n" + deniedPermissions.toString()).show();
+                        //Toast.makeText(RegisterActivity.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
                     }
                 };
                 TedPermission.create()
@@ -122,7 +125,8 @@ public class RegisterActivity extends AppCompatActivity {
                         showToast("Email đã tồn tại!");
                     } else if (i == 0) {
                         sendMail(inputEmail.getText().toString().trim());
-                        showToast("Đăng ký thành công! Đã gửi thông báo tới gmail của bạn");
+                        CustomToast.makeCustomToast(RegisterActivity.this, R.drawable.ic_check, "Đăng ký thành công! Đã gửi thông báo tới gmail của bạn").show();
+                        //showToast("Đăng ký thành công! Đã gửi thông báo tới gmail của bạn");
                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                         startActivity(intent);
                         finish();
@@ -201,7 +205,8 @@ public class RegisterActivity extends AppCompatActivity {
         } else return true;
     }
     private void showToast(String message) {
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+        CustomToast.makeCustomToast(RegisterActivity.this, R.drawable.ic_error, message).show();
+        //Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
 }

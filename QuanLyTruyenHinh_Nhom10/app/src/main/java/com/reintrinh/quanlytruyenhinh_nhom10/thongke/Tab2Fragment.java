@@ -47,6 +47,7 @@ import com.reintrinh.quanlytruyenhinh_nhom10.R;
 import com.reintrinh.quanlytruyenhinh_nhom10.adapter.ThongKeAdapter;
 import com.reintrinh.quanlytruyenhinh_nhom10.helper.QuanLyTruyenHinhHelper;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.ThongKe;
+import com.reintrinh.quanlytruyenhinh_nhom10.widget.CustomToast;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -276,7 +277,8 @@ public class Tab2Fragment extends Fragment {
 
                     document.close();
 
-                    Toast.makeText(getContext(), "Pdf is saved successfully", Toast.LENGTH_SHORT).show();
+                    CustomToast.makeCustomToast(getActivity(), R.drawable.ic_check, "PDF is saved successfully").show();
+                    //Toast.makeText(getContext(), "Pdf is saved successfully", Toast.LENGTH_SHORT).show();
                 }
                 catch (Exception ex) {
                     try {

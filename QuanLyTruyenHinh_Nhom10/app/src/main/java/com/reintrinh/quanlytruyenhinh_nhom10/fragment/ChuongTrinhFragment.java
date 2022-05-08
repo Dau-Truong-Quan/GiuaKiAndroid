@@ -48,6 +48,7 @@ import com.reintrinh.quanlytruyenhinh_nhom10.helper.QuanLyTruyenHinhHelper;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.ChuongTrinh;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.TheLoai;
 import com.reintrinh.quanlytruyenhinh_nhom10.util.ImageUtil;
+import com.reintrinh.quanlytruyenhinh_nhom10.widget.CustomToast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -161,7 +162,8 @@ public class ChuongTrinhFragment extends Fragment {
                 bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), uri);
                 ivChonHinhAnh.setImageBitmap(bitmap);
             } catch (IOException e) {
-                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, e.getMessage()).show();
+                //Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 return;
             }
         }
@@ -256,14 +258,16 @@ public class ChuongTrinhFragment extends Fragment {
                 String tenChuongTrinhMoi = String.valueOf(editTenCT.getText());
                 String maTheLoai = String.valueOf(arrayTheLoaiTam.get(spinnerTheLoaiTam.getSelectedItemPosition()).getMaTL());
                 if (TextUtils.isEmpty(String.valueOf(editTenCT.getText())) || TextUtils.isEmpty(tenChuongTrinhMoi) || TextUtils.isEmpty(maTheLoai)) {
-                    Toast.makeText(getContext(), "Nội dung cần thêm chưa được nhập", Toast.LENGTH_SHORT).show();
+                    CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, "Nội dung cần thêm chưa được nhập").show();
+                    //Toast.makeText(getContext(), "Nội dung cần thêm chưa được nhập", Toast.LENGTH_SHORT).show();
 
                     return;
                 }
 
                 //kiem tra trung
                 if(dbHelper.getChuongTrinhByMaCT(maChuongTrinhMoi) != null) {
-                    Toast.makeText(getContext(), "Mã chương trình đã tồn tại", Toast.LENGTH_SHORT).show();
+                    CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, "Mã chương trình đã tồn tại").show();
+                    //Toast.makeText(getContext(), "Mã chương trình đã tồn tại", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -274,7 +278,8 @@ public class ChuongTrinhFragment extends Fragment {
                 ChuongTrinh newCT = new ChuongTrinh(maChuongTrinhMoi, tenChuongTrinhMoi, maTheLoai, hinhAnh);
 
                 dbHelper.themChuongTrinh(newCT);
-                Toast.makeText(getContext(), "Thêm chương trình mới thành công", Toast.LENGTH_SHORT).show();
+                CustomToast.makeCustomToast(getActivity(), R.drawable.ic_check, "Thêm chương trình mới thành công").show();
+                //Toast.makeText(getContext(), "Thêm chương trình mới thành công", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
                 actionGetData();
                 chuongTrinhAdapter.updateListSearch();
@@ -390,7 +395,8 @@ public class ChuongTrinhFragment extends Fragment {
                 String tenTheLoai = String.valueOf(spinnerTheLoaiTam.getSelectedItem().toString());
                 String maTheLoai = String.valueOf(arrayTheLoaiTam.get(spinnerTheLoaiTam.getSelectedItemPosition()).getMaTL());
                 if (TextUtils.isEmpty(tenCT) || TextUtils.isEmpty(tenTheLoai)) {
-                    Toast.makeText(getContext(), "Nội dung cần sửa chưa được nhập", Toast.LENGTH_SHORT).show();
+                    CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, "Nội dung cần sửa chưa được nhập").show();
+                    //Toast.makeText(getContext(), "Nội dung cần sửa chưa được nhập", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                     return;
                 }
@@ -402,7 +408,8 @@ public class ChuongTrinhFragment extends Fragment {
                 ChuongTrinh editCT = new ChuongTrinh(ct.getMaCT(), tenCT, maTheLoai, hinhAnh);
 
                 dbHelper.suaChuongTrinh(editCT);
-                Toast.makeText(getContext(), "Cập nhật chương trình thành công", Toast.LENGTH_SHORT).show();
+                CustomToast.makeCustomToast(getActivity(), R.drawable.ic_check, "Cập nhật chương trình thành công").show();
+                //Toast.makeText(getContext(), "Cập nhật chương trình thành công", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
                 actionGetData();
                 chuongTrinhAdapter.updateListSearch();
@@ -414,7 +421,8 @@ public class ChuongTrinhFragment extends Fragment {
             public void onClick(View view) {
                 Cursor cursor = dbHelper.getData(String.format("SELECT * FROM ThongTinPhatSong WHERE MaCT = '%s'", ct.getMaCT()));
                 if(cursor != null && cursor.moveToNext()) {
-                    Toast.makeText(getContext(), "Chương trình này đã có lịch phát sóng", Toast.LENGTH_LONG).show();
+                    CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, "Chương trình này đã có lịch phát sóng").show();
+                    //Toast.makeText(getContext(), "Chương trình này đã có lịch phát sóng", Toast.LENGTH_LONG).show();
                     return;
                 }
                 openDeleteDialog(ct, dialog);
@@ -439,7 +447,8 @@ public class ChuongTrinhFragment extends Fragment {
                             Snackbar snackbar = Snackbar.make(mainContent, "Đã xóa chương trình!", Snackbar.LENGTH_LONG);
                             snackbar.setAction("Hoàn tác", view -> {
                                 dbHelper.themChuongTrinh(ct);
-                                Toast.makeText(getContext(), "Đã hoàn tác!", Toast.LENGTH_SHORT).show();
+                                CustomToast.makeCustomToast(getActivity(), R.drawable.ic_check, "Đã hoàn tác!").show();
+                                //Toast.makeText(getContext(), "Đã hoàn tác!", Toast.LENGTH_SHORT).show();
                                 actionGetData();
                                 chuongTrinhAdapter.updateListSearch();
                             });
@@ -447,8 +456,8 @@ public class ChuongTrinhFragment extends Fragment {
                             snackbar.show();
                         }
                         catch (Exception ex) {
-                            Toast.makeText(getContext(), "Xảy ra lỗi khi thêm chương trình! Vui lòng thử lại\n" +
-                                    ex.getMessage(), Toast.LENGTH_LONG).show();
+                            CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, "Xảy ra lỗi khi thêm chương trình! Vui lòng thử lại\n" + ex.getMessage()).show();
+                            //Toast.makeText(getContext(), "Xảy ra lỗi khi thêm chương trình! Vui lòng thử lại\n" + ex.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 })
@@ -469,7 +478,8 @@ public class ChuongTrinhFragment extends Fragment {
 
             @Override
             public void onPermissionDenied(List<String> deniedPermissions) {
-                Toast.makeText(getContext(), "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, "Permission Denied\n" + deniedPermissions.toString()).show();
+                //Toast.makeText(getContext(), "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
             }
         };
         TedPermission.create()
