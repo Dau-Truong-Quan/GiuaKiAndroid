@@ -28,10 +28,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class OTPActivity extends AppCompatActivity {
-    EditText editTextConfirmOTP;
-    Button buttonConfirm,btnThoat;
+    private EditText editTextConfirmOTP;
+    private Button buttonConfirm,btnThoat;
     public String randomOTP="";
-    String gmail="";
+    private String gmail="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

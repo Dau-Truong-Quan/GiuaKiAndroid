@@ -81,10 +81,9 @@
                 android:id="@+id/buttonSignIn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-
                 android:text="Login"
                 android:textAllCaps="false"
-                android:backgroundTint="@color/blue"
+                android:backgroundTint="@color/custom_color_button"
                 android:textColor="@color/white"
                 android:textSize="16dp"
                 android:textStyle="bold"

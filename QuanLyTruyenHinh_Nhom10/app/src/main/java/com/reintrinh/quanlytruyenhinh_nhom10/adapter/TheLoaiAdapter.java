@@ -51,8 +51,6 @@ public class TheLoaiAdapter extends RecyclerView.Adapter<TheLoaiAdapter.TheLoaiV
         return new TheLoaiViewHolder(LayoutInflater.from(context.getContext()).inflate(R.layout.list_layout_theloai, parent, false));
     }
 
-
-
     @Override
     public void onBindViewHolder(@NonNull TheLoaiViewHolder holder, int position) {
         TheLoai theLoai = list.get(position);

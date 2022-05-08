@@ -55,5 +55,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="In report"
-        android:backgroundTint="@color/color_button"/>
+        android:backgroundTint="@color/custom_color_button"/>
 </LinearLayout>
