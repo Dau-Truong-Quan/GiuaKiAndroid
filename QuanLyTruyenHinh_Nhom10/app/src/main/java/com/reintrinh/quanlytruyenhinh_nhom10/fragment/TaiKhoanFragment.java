@@ -30,6 +30,7 @@ import com.reintrinh.quanlytruyenhinh_nhom10.listener.OnSaveClickListener;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.User;
 import com.reintrinh.quanlytruyenhinh_nhom10.util.ImageUtil;
 import com.reintrinh.quanlytruyenhinh_nhom10.util.PreferenceManager;
+import com.reintrinh.quanlytruyenhinh_nhom10.widget.CustomToast;
 
 import java.io.IOException;
 import java.util.List;
@@ -67,7 +68,7 @@ public class TaiKhoanFragment extends Fragment {
                 bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), uri);
                 imgUserAvatar.setImageBitmap(bitmap);
             } catch (IOException e) {
-                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, e.getMessage()).show();
                 return;
             }
         }
@@ -143,10 +144,10 @@ public class TaiKhoanFragment extends Fragment {
                 try {
                     quanLyTruyenHinhHelper.suaThongTinUser(user);
                     onSaveClickListener.onClick();
-                    Toast.makeText(getContext(), "Đã cập nhật thông tin của bạn!", Toast.LENGTH_LONG).show();
+                    CustomToast.makeCustomToast(getActivity(), R.drawable.ic_check, "Đã cập nhật thông tin của bạn!").show();
                 }
                 catch (Exception ex) {
-                    Toast.makeText(getContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
+                    CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error, ex.getMessage()).show();
                 }
             }
         });

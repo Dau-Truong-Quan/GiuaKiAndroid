@@ -22,10 +22,11 @@ import com.reintrinh.quanlytruyenhinh_nhom10.util.ImageUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChuongTrinhAdapter extends RecyclerView.Adapter<ChuongTrinhViewHolder>{
+public class ChuongTrinhAdapter extends RecyclerView.Adapter<ChuongTrinhViewHolder> {
     ChuongTrinhFragment context;
     List<ChuongTrinh> list;
-    List<ChuongTrinh> listSearch = new ArrayList<>();;
+    List<ChuongTrinh> listSearch = new ArrayList<>();
+    ;
     ChuongTrinhListener listener;
 
     public ChuongTrinhAdapter(ChuongTrinhFragment context, List<ChuongTrinh> list) {
@@ -78,8 +79,7 @@ public class ChuongTrinhAdapter extends RecyclerView.Adapter<ChuongTrinhViewHold
         return list.size();
     }
 
-    public void filter(String text)
-    {
+    public void filter(String text) {
         list.clear();
         text = text.trim().toLowerCase();
 

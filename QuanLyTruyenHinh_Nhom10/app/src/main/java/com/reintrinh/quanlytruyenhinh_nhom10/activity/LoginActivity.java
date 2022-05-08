@@ -30,14 +30,14 @@ import com.reintrinh.quanlytruyenhinh_nhom10.model.ThongTinPhatSong;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.User;
 import com.reintrinh.quanlytruyenhinh_nhom10.util.ImageUtil;
 import com.reintrinh.quanlytruyenhinh_nhom10.util.PreferenceManager;
+import com.reintrinh.quanlytruyenhinh_nhom10.widget.CustomToast;
 
 public class LoginActivity extends AppCompatActivity {
-    TextView txtForgotPass;
-
-    MaterialButton buttonSignIn;
-    EditText inputEmail, inputPassword;
+    private TextView txtForgotPass;
+    private MaterialButton buttonSignIn;
+    private EditText inputEmail, inputPassword;
     private PreferenceManager preferenceManager;
-    QuanLyTruyenHinhHelper dbHelper;
+    private QuanLyTruyenHinhHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,16 +48,11 @@ public class LoginActivity extends AppCompatActivity {
         setControl();
         setEvent();
 
-
         if (preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         }
-
-
-
-
     }
 
     private void setEvent() {
@@ -72,13 +67,12 @@ public class LoginActivity extends AppCompatActivity {
                         preferenceManager.putString(Constants.KEY_NAME, user.getFirstname() + " " + user.getLastname());
                         preferenceManager.putString(Constants.KEY_EMAIL, user.getEmail());
 
-
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
-                        Toast.makeText(LoginActivity.this, "Đăng nhập thất bại!", Toast.LENGTH_LONG).show();
-
+                        CustomToast.makeCustomToast(LoginActivity.this,
+                                R.drawable.ic_person, "Đăng nhập thất bại!").show();
                     }
                 }
             }
@@ -103,10 +97,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean check() {
         if (inputEmail.getText().toString().trim().isEmpty()) {
-            Toast.makeText(LoginActivity.this, "Enter email", Toast.LENGTH_LONG).show();
+            CustomToast.makeCustomToast(this, R.drawable.ic_mail_outline, "Enter email").show();
             return false;
         } else if (inputPassword.getText().toString().trim().isEmpty()) {
-            Toast.makeText(LoginActivity.this, "Enter password", Toast.LENGTH_LONG).show();
+            CustomToast.makeCustomToast(this, R.drawable.ic_lock, "Enter password").show();
             return false;
         } else {
             return true;
@@ -118,17 +112,16 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-    public void forgotPassword(View view) {
-        if(inputEmail.getText().toString().isEmpty()){
-            Toast.makeText(LoginActivity.this, "Enter email", Toast.LENGTH_LONG).show();
-            return;
-        }
-        Intent intent = new Intent(LoginActivity.this, OTPActivity.class);
-        intent.putExtra("gmail",inputEmail.getText().toString());
-        Log.d("gmail",inputEmail.getText().toString());
-        startActivity(intent);
-    }
+//    public void forgotPassword(View view) {
+//        if(inputEmail.getText().toString().isEmpty()){
+//            Toast.makeText(LoginActivity.this, "Enter email", Toast.LENGTH_LONG).show();
+//            return;
+//        }
+//        Intent intent = new Intent(LoginActivity.this, OTPActivity.class);
+//        intent.putExtra("gmail",inputEmail.getText().toString());
+//        Log.d("gmail",inputEmail.getText().toString());
+//        startActivity(intent);
+//    }
 
     private void khoiTaoDatabase() {
         //Tạo bảng
@@ -167,11 +160,11 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         // Chương trình
-        ChuongTrinh chuongTrinh1 = new ChuongTrinh("CT1", "Bí mật đêm khuya", "TL1", getByteArrayFromImageResource(R.drawable.avata_chuongtrinh));
-        ChuongTrinh chuongTrinh2 = new ChuongTrinh("CT2", "Thách thức danh hài", "TL1", getByteArrayFromImageResource(R.drawable.avata_chuongtrinh));
-        ChuongTrinh chuongTrinh3 = new ChuongTrinh("CT3", "Gặp nhau để cười", "TL2", getByteArrayFromImageResource(R.drawable.avata_chuongtrinh));
-        ChuongTrinh chuongTrinh4 = new ChuongTrinh("CT4", "Ai là triệu phú", "TL2", getByteArrayFromImageResource(R.drawable.avata_chuongtrinh));
-        ChuongTrinh chuongTrinh5 = new ChuongTrinh("CT5", "Khúc vọng xưa", "TL3", getByteArrayFromImageResource(R.drawable.avata_chuongtrinh));
+        ChuongTrinh chuongTrinh1 = new ChuongTrinh("CT1", "Bí mật đêm khuya", "TL1", getByteArrayFromImageResource(R.drawable.avatar_chuongtrinh));
+        ChuongTrinh chuongTrinh2 = new ChuongTrinh("CT2", "Thách thức danh hài", "TL1", getByteArrayFromImageResource(R.drawable.avatar_chuongtrinh));
+        ChuongTrinh chuongTrinh3 = new ChuongTrinh("CT3", "Gặp nhau để cười", "TL2", getByteArrayFromImageResource(R.drawable.avatar_chuongtrinh));
+        ChuongTrinh chuongTrinh4 = new ChuongTrinh("CT4", "Ai là triệu phú", "TL2", getByteArrayFromImageResource(R.drawable.avatar_chuongtrinh));
+        ChuongTrinh chuongTrinh5 = new ChuongTrinh("CT5", "Khúc vọng xưa", "TL3", getByteArrayFromImageResource(R.drawable.avatar_chuongtrinh));
 
         if(!dbHelper.hasData("ChuongTrinh")) {
             dbHelper.themChuongTrinh(chuongTrinh1);
@@ -205,34 +198,34 @@ public class LoginActivity extends AppCompatActivity {
         if (!dbHelper.hasData("ThongTinPhatSong")) {
             ThongTinPhatSong thongTinPhatSong1 =
                     new ThongTinPhatSong("01", chuongTrinh1, bienTapVien1, "14/02/2022", 20,
-                            getByteArrayFromImageResource(R.drawable.avata_chuongtrinh));
+                            getByteArrayFromImageResource(R.drawable.avatar_chuongtrinh));
             ThongTinPhatSong thongTinPhatSong2 =
                     new ThongTinPhatSong("02", chuongTrinh1, bienTapVien2, "15/02/2022", 20,
-                            getByteArrayFromImageResource(R.drawable.avata_chuongtrinh));
+                            getByteArrayFromImageResource(R.drawable.avatar_chuongtrinh));
             ThongTinPhatSong thongTinPhatSong3 =
                     new ThongTinPhatSong("03", chuongTrinh1, bienTapVien3, "21/02/2022", 20,
-                            getByteArrayFromImageResource(R.drawable.avata_chuongtrinh));
+                            getByteArrayFromImageResource(R.drawable.avatar_chuongtrinh));
             ThongTinPhatSong thongTinPhatSong4 =
                     new ThongTinPhatSong("04", chuongTrinh1, bienTapVien4, "22/02/2022", 20,
-                            getByteArrayFromImageResource(R.drawable.avata_chuongtrinh));
+                            getByteArrayFromImageResource(R.drawable.avatar_chuongtrinh));
             ThongTinPhatSong thongTinPhatSong5 =
                     new ThongTinPhatSong("05", chuongTrinh2, bienTapVien1, "14/02/2022", 45,
-                            getByteArrayFromImageResource(R.drawable.avata_chuongtrinh));
+                            getByteArrayFromImageResource(R.drawable.avatar_chuongtrinh));
             ThongTinPhatSong thongTinPhatSong6 =
                     new ThongTinPhatSong("06", chuongTrinh2, bienTapVien3, "21/02/2022", 45,
-                            getByteArrayFromImageResource(R.drawable.avata_chuongtrinh));
+                            getByteArrayFromImageResource(R.drawable.avatar_chuongtrinh));
             ThongTinPhatSong thongTinPhatSong7 =
                     new ThongTinPhatSong("07", chuongTrinh2, bienTapVien2, "28/02/2022", 45,
-                            getByteArrayFromImageResource(R.drawable.avata_chuongtrinh));
+                            getByteArrayFromImageResource(R.drawable.avatar_chuongtrinh));
             ThongTinPhatSong thongTinPhatSong8 =
                     new ThongTinPhatSong("08", chuongTrinh3, bienTapVien5, "01/03/2022", 30,
-                            getByteArrayFromImageResource(R.drawable.avata_chuongtrinh));
+                            getByteArrayFromImageResource(R.drawable.avatar_chuongtrinh));
             ThongTinPhatSong thongTinPhatSong9 =
                     new ThongTinPhatSong("09", chuongTrinh3, bienTapVien6, "08/03/2022", 30,
-                            getByteArrayFromImageResource(R.drawable.avata_chuongtrinh));
+                            getByteArrayFromImageResource(R.drawable.avatar_chuongtrinh));
             ThongTinPhatSong thongTinPhatSong10 =
                     new ThongTinPhatSong("10", chuongTrinh5, bienTapVien7, "10/03/2022", 25,
-                            getByteArrayFromImageResource(R.drawable.avata_chuongtrinh));
+                            getByteArrayFromImageResource(R.drawable.avatar_chuongtrinh));
             dbHelper.themThongTinPhatSong(thongTinPhatSong1);
             dbHelper.themThongTinPhatSong(thongTinPhatSong2);
             dbHelper.themThongTinPhatSong(thongTinPhatSong3);

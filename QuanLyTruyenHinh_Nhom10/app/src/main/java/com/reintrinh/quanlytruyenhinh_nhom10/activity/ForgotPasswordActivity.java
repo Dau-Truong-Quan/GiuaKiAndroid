@@ -12,9 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.reintrinh.quanlytruyenhinh_nhom10.R;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
-    TextView txtEmailtoRecoverPassword;
-    Button btnTiepTuc,btnThoat;
-    String gmail="";
+
+    private TextView txtEmailtoRecoverPassword;
+    private Button btnTiepTuc,btnThoat;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +50,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
                 startActivity(intent);
-
             }
         });
     }

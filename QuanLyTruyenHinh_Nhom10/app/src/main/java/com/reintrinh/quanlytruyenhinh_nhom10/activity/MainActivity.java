@@ -29,6 +29,7 @@ import com.reintrinh.quanlytruyenhinh_nhom10.listener.OnSaveClickListener;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.User;
 import com.reintrinh.quanlytruyenhinh_nhom10.util.ImageUtil;
 import com.reintrinh.quanlytruyenhinh_nhom10.util.PreferenceManager;
+import com.reintrinh.quanlytruyenhinh_nhom10.widget.CustomToast;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -72,6 +73,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_doi_mat_khau:
+                changeUserPassword();
+                return true;
             case R.id.action_dang_xuat:
                 signOut();
                 return true;

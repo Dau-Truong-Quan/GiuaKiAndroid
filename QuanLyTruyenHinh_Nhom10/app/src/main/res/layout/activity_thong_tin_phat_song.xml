@@ -21,7 +21,7 @@
 
             <ImageView
                 android:id="@+id/img_hinh_anh_chuong_trinh"
-                android:src="@drawable/avata_chuongtrinh"
+                android:src="@drawable/avatar_chuongtrinh"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -120,7 +120,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:backgroundTint="@color/blue"
+        android:backgroundTint="@color/custom_color_button"
         android:src="@drawable/ic_add"
         app:fabSize="normal"
         app:layout_anchor="@+id/appbar_layout"

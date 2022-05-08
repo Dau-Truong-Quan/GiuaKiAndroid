@@ -13,6 +13,7 @@ import com.reintrinh.quanlytruyenhinh_nhom10.R;
 import com.reintrinh.quanlytruyenhinh_nhom10.helper.QuanLyTruyenHinhHelper;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.User;
 import com.reintrinh.quanlytruyenhinh_nhom10.util.PreferenceManager;
+import com.reintrinh.quanlytruyenhinh_nhom10.widget.CustomToast;
 
 public class ChangePasswordActivity extends AppCompatActivity {
 
@@ -21,7 +22,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
     private PreferenceManager preferenceManager;
     private QuanLyTruyenHinhHelper quanLyTruyenHinhHelper;
-    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,32 +61,32 @@ public class ChangePasswordActivity extends AppCompatActivity {
     private void changeUserPassword() {
         String oldPass = edtOldPass.getText().toString().trim();
         if (oldPass.isEmpty()) {
-            Toast.makeText(this, "Bạn chưa nhập mật khẩu cũ!", Toast.LENGTH_LONG).show();
+            CustomToast.makeCustomToast(this, R.drawable.ic_key, "Bạn chưa nhập mật khẩu cũ!").show();
             return;
         }
         String email = preferenceManager.getString(Constants.KEY_EMAIL);
         User user = quanLyTruyenHinhHelper.checkUserExist(email, oldPass);
         if (user == null) {
-            Toast.makeText(this, "Mật khẩu cũ không chính xác!", Toast.LENGTH_LONG).show();
+            CustomToast.makeCustomToast(this, R.drawable.ic_key_off, "Mật khẩu cũ không chính xác!").show();
             return;
         }
         String newPass = edtNewPass.getText().toString().trim();
         if (newPass.isEmpty()) {
-            Toast.makeText(this, "Bạn chưa nhập mật khẩu mới!", Toast.LENGTH_LONG).show();
+            CustomToast.makeCustomToast(this, R.drawable.ic_lock, "Bạn chưa nhập mật khẩu mới!").show();
             return;
         }
         String confirmPass = edtConfirmPass.getText().toString().trim();
         if (!confirmPass.equals(newPass)) {
-            Toast.makeText(this, "Mật khẩu mới và xác nhận mật khẩu mới phải giống nhau!", Toast.LENGTH_LONG).show();
+            CustomToast.makeCustomToast(this, R.drawable.ic_lock_reset, "Mật khẩu mới và xác nhận mật khẩu mới phải giống nhau").show();
             return;
         }
         try {
             quanLyTruyenHinhHelper.capNhatMatKhauUser(newPass, email);
-            Toast.makeText(this, "Đã thay đổi mật khẩu của bạn!", Toast.LENGTH_LONG).show();
+            CustomToast.makeCustomToast(this, R.drawable.ic_check, "Đã thay đổi mật khẩu của bạn!").show();
             finish();
         }
         catch (Exception ex) {
-            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
+            CustomToast.makeCustomToast(this, R.drawable.ic_error, ex.getMessage()).show();
             return;
         }
     }

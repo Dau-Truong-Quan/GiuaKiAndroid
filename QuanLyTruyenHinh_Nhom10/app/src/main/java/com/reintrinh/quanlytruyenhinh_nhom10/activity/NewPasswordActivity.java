@@ -13,10 +13,11 @@ import com.reintrinh.quanlytruyenhinh_nhom10.R;
 import com.reintrinh.quanlytruyenhinh_nhom10.helper.QuanLyTruyenHinhHelper;
 
 public class NewPasswordActivity extends Activity {
-    EditText editTextNewPassword;
-    Button buttonConfirmNewPassword,btnThoat;
-    String gmail="";
-    QuanLyTruyenHinhHelper quanLyTruyenHinhHelper;
+    private EditText editTextNewPassword;
+    private Button buttonConfirmNewPassword, btnThoat;
+    private String gmail="";
+    private QuanLyTruyenHinhHelper quanLyTruyenHinhHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +32,6 @@ public class NewPasswordActivity extends Activity {
         buttonConfirmNewPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (TextUtils.isEmpty(editTextNewPassword.getText())||TextUtils.isEmpty(editTextNewPassword.getText())) {
                     Toast.makeText(NewPasswordActivity.this, "Nhập mật khẩu", Toast.LENGTH_SHORT).show();
                     return;

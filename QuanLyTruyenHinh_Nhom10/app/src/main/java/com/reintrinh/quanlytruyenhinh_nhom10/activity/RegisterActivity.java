@@ -39,11 +39,11 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class RegisterActivity extends AppCompatActivity {
-    EditText inputFirstName, inputLastName, inputEmail, inputPassword, inputConfirmPassword;
-    ImageView imgUserAvatar;
-    Button btnSelectImage;
-    Button buttonSignUp;
-    QuanLyTruyenHinhHelper quanLyTruyenHinhHelper;
+    private EditText inputFirstName, inputLastName, inputEmail, inputPassword, inputConfirmPassword;
+    private ImageView imgUserAvatar;
+    private Button btnSelectImage;
+    private Button buttonSignUp;
+    private QuanLyTruyenHinhHelper quanLyTruyenHinhHelper;
 
     public static final int REQUEST_CODE_SELECT_IMAGE = 1;
 

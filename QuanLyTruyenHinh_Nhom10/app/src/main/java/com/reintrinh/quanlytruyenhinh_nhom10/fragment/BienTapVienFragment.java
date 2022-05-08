@@ -41,6 +41,7 @@ import com.reintrinh.quanlytruyenhinh_nhom10.adapter.BienTapVienAdapter;
 import com.reintrinh.quanlytruyenhinh_nhom10.helper.QuanLyTruyenHinhHelper;
 import com.reintrinh.quanlytruyenhinh_nhom10.model.BienTapVien;
 import com.reintrinh.quanlytruyenhinh_nhom10.util.ImageUtil;
+import com.reintrinh.quanlytruyenhinh_nhom10.widget.CustomToast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -150,8 +151,8 @@ public class BienTapVienFragment extends Fragment {
                             snackbar.show();
                         }
                         catch (Exception ex) {
-                            Toast.makeText(getContext(), "Xảy ra lỗi khi thêm biên tập viên! Vui lòng thử lại\n" +
-                                    ex.getMessage(), Toast.LENGTH_LONG).show();
+                            CustomToast.makeCustomToast(getActivity(), R.drawable.ic_error,
+                                    "Xảy ra lỗi khi thêm biên tập viên! Vui lòng thử lại\n" + ex.getMessage()).show();
                         }
                     }
                 })
@@ -370,9 +371,7 @@ public class BienTapVienFragment extends Fragment {
     private void hienThi() {
         data.clear();
         data.addAll(db.getAllBienTapVien());
-
         tvSoLuongBTV.setText(String.valueOf(data.size()));
-
         //bienTapVienAdapter.notifyDataSetChanged();
     }
 
